@@ -22,6 +22,7 @@
 		842F41BA2C60F22C0042FCF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		842F41BD2C60F22C0042FCF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842F41BF2C60F22C0042FCF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842F41C72C610B150042FCF7 /* Rubik-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Black.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +59,19 @@
 				842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */,
 				842F41B52C60F22A0042FCF7 /* MainViewController.swift */,
 				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
+				842F41C52C61091B0042FCF7 /* Fonts */,
 				842F41BC2C60F22C0042FCF7 /* LaunchScreen.storyboard */,
 				842F41BF2C60F22C0042FCF7 /* Info.plist */,
 			);
 			path = TextFields;
+			sourceTree = "<group>";
+		};
+		842F41C52C61091B0042FCF7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				842F41C72C610B150042FCF7 /* Rubik-Black.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
