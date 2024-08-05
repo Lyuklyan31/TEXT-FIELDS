@@ -12,6 +12,7 @@
 		842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41B52C60F22A0042FCF7 /* MainViewController.swift */; };
 		842F41BB2C60F22C0042FCF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BA2C60F22C0042FCF7 /* Assets.xcassets */; };
 		842F41BE2C60F22C0042FCF7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BD2C60F22C0042FCF7 /* Base */; };
+		842F41CA2C610CC60042FCF7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 842F41C92C610CC60042FCF7 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842F41CA2C610CC60042FCF7 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +92,9 @@
 			dependencies = (
 			);
 			name = TextFields;
+			packageProductDependencies = (
+				842F41C92C610CC60042FCF7 /* SnapKit */,
+			);
 			productName = TextFields;
 			productReference = 842F41AE2C60F22A0042FCF7 /* TextFields.app */;
 			productType = "com.apple.product-type.application";
@@ -118,6 +123,9 @@
 				Base,
 			);
 			mainGroup = 842F41A52C60F22A0042FCF7;
+			packageReferences = (
+				842F41C82C610CC60042FCF7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 842F41AF2C60F22A0042FCF7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -359,6 +367,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		842F41C82C610CC60042FCF7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		842F41C92C610CC60042FCF7 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 842F41C82C610CC60042FCF7 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 842F41A62C60F22A0042FCF7 /* Project object */;
 }
