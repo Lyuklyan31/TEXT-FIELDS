@@ -13,7 +13,9 @@ class MainViewController: UIViewController {
     // UI Elements
     private let titleLabel = UILabel()
     
-    private let noDigitsTextField = CustomTextField()
+    private let noDigitsTextField = CustomeNoDigitsTextField()
+    private let maxSize10TextField = CustomMaxSize10TextField()
+    private let onlyCharactersTextField = CustomeOnlyCharactersTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,8 @@ class MainViewController: UIViewController {
     private func setupUI() {
         setupTitleLabel()
         setupNoDigitsTextField()
+        setupMaxSize10TextField()
+        setupOnlyCharactersTextField()
         setupGestures()
     }
     
@@ -38,7 +42,7 @@ class MainViewController: UIViewController {
         
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(92)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(48)
             make.leading.trailing.equalTo(view).inset(16)
         }
     }
@@ -52,8 +56,25 @@ class MainViewController: UIViewController {
             make.height.equalTo(44)
         }
     }
-    private func setupDelegates() {
-        noDigitsTextField.textField.delegate = self 
+    
+    private func setupMaxSize10TextField() {
+        view.addSubview(maxSize10TextField)
+        maxSize10TextField.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(noDigitsTextField.snp.bottom).offset(54)
+            make.leading.trailing.equalTo(view).inset(16)
+            make.height.equalTo(44)
+        }
+    }
+    
+    private func setupOnlyCharactersTextField() {
+        view.addSubview(onlyCharactersTextField)
+        onlyCharactersTextField.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(maxSize10TextField.snp.bottom).offset(54)
+            make.leading.trailing.equalTo(view).inset(16)
+            make.height.equalTo(44)
+        }
     }
     
     private func setupGestures() {
@@ -66,14 +87,3 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let invalidCharacters = CharacterSet(charactersIn: "0123456789")
-        return string.rangeOfCharacter(from: invalidCharacters) == nil
-    }
-}
