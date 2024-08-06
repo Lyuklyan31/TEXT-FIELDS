@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     // UI Elements
     private let titleLabel = UILabel()
     
-    private let noDigitsTextField = CustomTextField(placeholderText: "Type here", titleText: "NO digits field")
+    private let noDigitsTextField = CustomTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,23 +9,12 @@ import UIKit
 import SnapKit
 
 class CustomTextField: UIView {
-    private var placeholderText: String
-    private var titleText: String
+    private var placeholderText: String = "Type here"
+    private var titleText: String = "NO digits field"
     
     private let backraund = UIView()
     let textField = UITextField()
     private let titleLabel = UILabel()
-    
-    init(placeholderText: String, titleText: String) {
-        self.placeholderText = placeholderText
-        self.titleText = titleText
-        super.init(frame: .zero)
-        setupCustomTextField()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     private func setupCustomTextField() {
         titleLabel.text = titleText
