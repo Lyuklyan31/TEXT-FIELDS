@@ -14,6 +14,7 @@
 		842F41BE2C60F22C0042FCF7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BD2C60F22C0042FCF7 /* Base */; };
 		842F41CA2C610CC60042FCF7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 842F41C92C610CC60042FCF7 /* SnapKit */; };
 		842F41D62C616C7E0042FCF7 /* Rubik.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842F41D52C616C7E0042FCF7 /* Rubik.ttf */; };
+		842F41D82C6176D80042FCF7 /* CustomeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D72C6176D80042FCF7 /* CustomeTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		842F41BD2C60F22C0042FCF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842F41BF2C60F22C0042FCF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842F41D52C616C7E0042FCF7 /* Rubik.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rubik.ttf; sourceTree = "<group>"; };
+		842F41D72C6176D80042FCF7 /* CustomeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				842F41B12C60F22A0042FCF7 /* AppDelegate.swift */,
 				842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */,
 				842F41B52C60F22A0042FCF7 /* MainViewController.swift */,
+				842F41D72C6176D80042FCF7 /* CustomeTextField.swift */,
 				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
 				842F41BC2C60F22C0042FCF7 /* LaunchScreen.storyboard */,
@@ -154,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842F41D82C6176D80042FCF7 /* CustomeTextField.swift in Sources */,
 				842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */,
 				842F41B22C60F22A0042FCF7 /* AppDelegate.swift in Sources */,
 				842F41B42C60F22A0042FCF7 /* SceneDelegate.swift in Sources */,
