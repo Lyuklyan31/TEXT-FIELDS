@@ -17,6 +17,9 @@
 		842F41D82C6176D80042FCF7 /* CustomeNoDigitsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */; };
 		842F41DA2C621B1A0042FCF7 /* CustomMaxSize10TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */; };
 		842F41DC2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */; };
+		842F41DE2C6240360042FCF7 /* CustomeLinkTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */; };
+		842F41E02C625D0D0042FCF7 /* CustomePasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */; };
+		8441B06F2C62C0DD000CDBD0 /* RubikRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8441B06E2C62C0DD000CDBD0 /* RubikRegular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeNoDigitsTextField.swift; sourceTree = "<group>"; };
 		842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMaxSize10TextField.swift; sourceTree = "<group>"; };
 		842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeOnlyCharactersTextField.swift; sourceTree = "<group>"; };
+		842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeLinkTextFeild.swift; sourceTree = "<group>"; };
+		842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomePasswordTextField.swift; sourceTree = "<group>"; };
+		8441B06E2C62C0DD000CDBD0 /* RubikRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RubikRegular.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,8 @@
 				842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */,
 				842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */,
 				842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */,
+				842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */,
+				842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */,
 				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
 				842F41BC2C60F22C0042FCF7 /* LaunchScreen.storyboard */,
@@ -82,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				842F41D52C616C7E0042FCF7 /* Rubik.ttf */,
+				8441B06E2C62C0DD000CDBD0 /* RubikRegular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				842F41BB2C60F22C0042FCF7 /* Assets.xcassets in Resources */,
+				8441B06F2C62C0DD000CDBD0 /* RubikRegular.ttf in Resources */,
 				842F41BE2C60F22C0042FCF7 /* Base in Resources */,
 				842F41D62C616C7E0042FCF7 /* Rubik.ttf in Resources */,
 			);
@@ -165,8 +175,10 @@
 			files = (
 				842F41DA2C621B1A0042FCF7 /* CustomMaxSize10TextField.swift in Sources */,
 				842F41D82C6176D80042FCF7 /* CustomeNoDigitsTextField.swift in Sources */,
+				842F41DE2C6240360042FCF7 /* CustomeLinkTextFeild.swift in Sources */,
 				842F41DC2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift in Sources */,
 				842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */,
+				842F41E02C625D0D0042FCF7 /* CustomePasswordTextField.swift in Sources */,
 				842F41B22C60F22A0042FCF7 /* AppDelegate.swift in Sources */,
 				842F41B42C60F22A0042FCF7 /* SceneDelegate.swift in Sources */,
 			);

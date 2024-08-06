@@ -1,16 +1,9 @@
-//
-//  CustomMaxSize10TextField.swift
-//  TextFields
-//
-//  Created by admin on 06.08.2024.
-//
-
 import UIKit
 import SnapKit
 
 class CustomMaxSize10TextField: UIView {
     
-    private let backgroundView = UIView()
+    private let backgroundTextField = UIView()
     private let textField = UITextField()
     private let titleLabel = UILabel()
     private let maxSymbolsLabel = UILabel()
@@ -28,40 +21,40 @@ class CustomMaxSize10TextField: UIView {
     private func setupCustomTextField() {
         // Title Label
         titleLabel.text = "Input limit"
-        titleLabel.font = UIFont(name: "Rubik", size: 13)
+        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
         titleLabel.textColor = UIColor.nightRider
         self.addSubview(titleLabel)
         
         // Max Symbols Label
         maxSymbolsLabel.text = "(0/10)"
-        maxSymbolsLabel.font = UIFont(name: "Rubik", size: 13)
+        maxSymbolsLabel.font = UIFont(name: "RubikRegular", size: 13)
         maxSymbolsLabel.textColor = UIColor.nightRider
         self.addSubview(maxSymbolsLabel)
         
         // Background View
-        backgroundView.backgroundColor = UIColor.fieldGray
-        backgroundView.layer.cornerRadius = 11
-        backgroundView.layer.borderWidth = 1.0
-        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-        self.addSubview(backgroundView)
+        backgroundTextField.backgroundColor = UIColor.fieldGray
+        backgroundTextField.layer.cornerRadius = 11
+        backgroundTextField.layer.borderWidth = 1.0
+        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        self.addSubview(backgroundTextField)
         
         // Text Field
         textField.placeholder = "Type here"
-        textField.font = UIFont(name: "Rubik", size: 17)
-        backgroundView.addSubview(textField)
+        textField.font = UIFont(name: "RubikRegular", size: 17)
+        backgroundTextField.addSubview(textField)
         
         // Setting Constraints
         titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
             make.leading.equalToSuperview()
         }
         
         maxSymbolsLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
             make.trailing.equalToSuperview()
         }
         
-        backgroundView.snp.makeConstraints { make in
+        backgroundTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
@@ -84,7 +77,7 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
         if newLength > 10 {
             maxSymbolsLabel.text = "(-\(newLength - 10))"
             maxSymbolsLabel.textColor = .red
-            backgroundView.layer.borderColor = UIColor.red.cgColor
+            backgroundTextField.layer.borderColor = UIColor.red.cgColor
             
             let attributedText = NSMutableAttributedString(string: newText)
             attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 10, length: newLength - 10))
@@ -92,7 +85,7 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
         } else {
             maxSymbolsLabel.text = "(\(newLength)/10)"
             maxSymbolsLabel.textColor = UIColor.nightRider
-            backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+            backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
             
             let attributedText = NSMutableAttributedString(string: newText)
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))

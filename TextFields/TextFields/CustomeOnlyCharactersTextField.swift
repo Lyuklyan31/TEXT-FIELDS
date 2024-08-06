@@ -27,20 +27,20 @@ class CustomeOnlyCharactersTextField: UIView {
     private func setupCustomTextField() {
         // Title Label
         titleLabel.text = "Only characters"
-        titleLabel.font = UIFont(name: "Rubik", size: 13)
-        titleLabel.textColor = UIColor(named: "nightRider")
+        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
+        titleLabel.textColor = UIColor.nightRider
         self.addSubview(titleLabel)
         
         // Background View
-        backgroundView.backgroundColor = UIColor(named: "fieldGray")
+        backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
-        backgroundView.layer.borderColor = UIColor(named: "fieldGray")?.withAlphaComponent(0.12).cgColor
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         self.addSubview(backgroundView)
         
         // Text Field
         textField.placeholder = "wwwww-ddddd"
-        textField.font = UIFont(name: "Rubik", size: 17)
+        textField.font = UIFont(name: "RubikRegular", size: 17)
         backgroundView.addSubview(textField)
         
         // Setting Constraints
@@ -85,12 +85,10 @@ extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
         guard let currentText = textField.text else { return true }
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
-        // Limit total length to 11 characters (5 letters + 1 hyphen + 5 digits)
         if newText.count > 11 {
             return false
         }
         
-        // Determine current input state
         let inputState = determineInputState(for: currentText)
         
         switch inputState {
