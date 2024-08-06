@@ -71,4 +71,12 @@ extension CustomeNoDigitsTextField: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        background.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        background.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+    }
 }
