@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     private let noDigitsTextField = CustomeNoDigitsTextField()
     private let maxSize10TextField = CustomMaxSize10TextField()
     private let onlyCharactersTextField = CustomeOnlyCharactersTextField()
+    private let linkTextField = CustomeLinkTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class MainViewController: UIViewController {
         setupNoDigitsTextField()
         setupMaxSize10TextField()
         setupOnlyCharactersTextField()
+        setupLinkTextField()
         setupGestures()
     }
     
@@ -72,6 +74,16 @@ class MainViewController: UIViewController {
         onlyCharactersTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(maxSize10TextField.snp.bottom).offset(54)
+            make.leading.trailing.equalTo(view).inset(16)
+            make.height.equalTo(44)
+        }
+    }
+    
+    private func setupLinkTextField() {
+        view.addSubview(linkTextField)
+        linkTextField.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(onlyCharactersTextField.snp.bottom).offset(54)
             make.leading.trailing.equalTo(view).inset(16)
             make.height.equalTo(44)
         }
