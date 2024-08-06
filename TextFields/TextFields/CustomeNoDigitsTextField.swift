@@ -8,18 +8,26 @@
 import UIKit
 import SnapKit
 
-class CustomTextField: UIView {
-    private var placeholderText: String = "Type here"
-    private var titleText: String = "NO digits field"
+class CustomeNoDigitsTextField: UIView {
     
     private let backraund = UIView()
-    let textField = UITextField()
+    private let textField = UITextField()
     private let titleLabel = UILabel()
     
+    init() {
+        super.init(frame: .zero)
+        setupCustomTextField()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupCustomTextField()
+    }
+    
     private func setupCustomTextField() {
-        titleLabel.text = titleText
+        titleLabel.text = "NO digits field"
         titleLabel.font = UIFont(name: "Rubik", size: 13)
-        titleLabel.textColor = UIColor(named: "nightRider")
+        titleLabel.textColor = UIColor.nightRider
         
         backraund.addSubview(titleLabel)
         
@@ -27,14 +35,14 @@ class CustomTextField: UIView {
             make.bottom.equalTo(backraund.snp.top).offset(-4)
         }
         
-        textField.placeholder = placeholderText
+        textField.placeholder = "Type here"
         textField.font = UIFont(name: "Rubik", size: 17)
         
-        backraund.backgroundColor = UIColor(named: "fieldGray")
+        backraund.backgroundColor = UIColor.fieldGray
         backraund.layer.cornerRadius = 11
         
         backraund.layer.borderWidth = 1.0
-        backraund.layer.borderColor = UIColor(named: "fieldGray")?.withAlphaComponent(0.12).cgColor
+        backraund.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
         self.addSubview(backraund)
         
@@ -53,9 +61,14 @@ class CustomTextField: UIView {
     }
 }
 
-extension CustomTextField: UITextFieldDelegate {
+extension CustomeNoDigitsTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let invalidCharacters = CharacterSet(charactersIn: "0123456789")
         return string.rangeOfCharacter(from: invalidCharacters) == nil
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
