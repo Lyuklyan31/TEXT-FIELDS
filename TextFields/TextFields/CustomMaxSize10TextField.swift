@@ -105,4 +105,12 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        backgroundTextField.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+    }
 }
