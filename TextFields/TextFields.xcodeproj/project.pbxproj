@@ -74,12 +74,8 @@
 			children = (
 				842F41B12C60F22A0042FCF7 /* AppDelegate.swift */,
 				842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */,
-				842F41B52C60F22A0042FCF7 /* MainViewController.swift */,
-				842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */,
-				842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */,
-				842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */,
-				842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */,
-				842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */,
+				8441B0722C63C321000CDBD0 /* MainViewController */,
+				8441B0732C63C32F000CDBD0 /* CustomTextFields */,
 				8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */,
 				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
@@ -96,6 +92,26 @@
 				8441B06E2C62C0DD000CDBD0 /* RubikRegular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		8441B0722C63C321000CDBD0 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				842F41B52C60F22A0042FCF7 /* MainViewController.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		8441B0732C63C32F000CDBD0 /* CustomTextFields */ = {
+			isa = PBXGroup;
+			children = (
+				842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */,
+				842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */,
+				842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */,
+				842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */,
+				842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */,
+			);
+			path = CustomTextFields;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
