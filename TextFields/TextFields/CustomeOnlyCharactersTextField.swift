@@ -11,8 +11,8 @@ import SnapKit
 class CustomeOnlyCharactersTextField: UIView {
     
     private let textField = UITextField()
-    private let backgroundView = UIView()
-    private let titleLabel = UILabel()
+    private let backgroundTextField = UIView()
+    private let titleTextField = UILabel()
     
     init() {
         super.init(frame: .zero)
@@ -26,31 +26,31 @@ class CustomeOnlyCharactersTextField: UIView {
     
     private func setupCustomTextField() {
         // Title Label
-        titleLabel.text = "Only characters"
-        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        self.addSubview(titleLabel)
+        titleTextField.text = "Only characters"
+        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.textColor = UIColor.nightRider
+        self.addSubview(titleTextField)
         
         // Background View
-        backgroundView.backgroundColor = UIColor.fieldGray
-        backgroundView.layer.cornerRadius = 11
-        backgroundView.layer.borderWidth = 1.0
-        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-        self.addSubview(backgroundView)
+        backgroundTextField.backgroundColor = UIColor.fieldGray
+        backgroundTextField.layer.cornerRadius = 11
+        backgroundTextField.layer.borderWidth = 1.0
+        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        self.addSubview(backgroundTextField)
         
         // Text Field
         textField.placeholder = "wwwww-ddddd"
         textField.font = UIFont(name: "RubikRegular", size: 17)
-        backgroundView.addSubview(textField)
+        backgroundTextField.addSubview(textField)
         
         // Setting Constraints
-        titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+        titleTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
             make.leading.equalToSuperview()
         }
         
-        backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4) 
+        backgroundTextField.snp.makeConstraints { make in
+            make.top.equalTo(titleTextField.snp.bottom).offset(4) 
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
@@ -123,10 +123,10 @@ extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        backgroundView.layer.borderColor = UIColor.blue.cgColor
+        backgroundTextField.layer.borderColor = UIColor.blue.cgColor
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }

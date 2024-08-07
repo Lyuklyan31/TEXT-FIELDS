@@ -5,6 +5,13 @@
 //  Created by admin on 06.08.2024.
 //
 
+//
+//  CustomMaxSize10TextField.swift
+//  TextFields
+//
+//  Created by admin on 06.08.2024.
+//
+
 import UIKit
 import SnapKit
 
@@ -12,7 +19,7 @@ class CustomMaxSize10TextField: UIView {
     
     private let textField = UITextField()
     private let backgroundTextField = UIView()
-    private let titleLabel = UILabel()
+    private let titleTextField = UILabel()
     private let maxSymbolsLabel = UILabel()
     
     init() {
@@ -27,10 +34,10 @@ class CustomMaxSize10TextField: UIView {
     
     private func setupCustomTextField() {
         // Title Label
-        titleLabel.text = "Input limit"
-        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        self.addSubview(titleLabel)
+        titleTextField.text = "Input limit"
+        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.textColor = UIColor.nightRider
+        self.addSubview(titleTextField)
         
         // Max Symbols Label
         maxSymbolsLabel.text = "(0/10)"
@@ -51,7 +58,7 @@ class CustomMaxSize10TextField: UIView {
         backgroundTextField.addSubview(textField)
         
         // Setting Constraints
-        titleLabel.snp.makeConstraints { make in
+        titleTextField.snp.makeConstraints { make in
             make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
             make.leading.equalToSuperview()
         }
@@ -62,7 +69,7 @@ class CustomMaxSize10TextField: UIView {
         }
         
         backgroundTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleTextField.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
@@ -88,6 +95,7 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
             backgroundTextField.layer.borderColor = UIColor.red.cgColor
             
             let attributedText = NSMutableAttributedString(string: newText)
+            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: 10))
             attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 10, length: newLength - 10))
             textField.attributedText = attributedText
         } else {
@@ -112,6 +120,6 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        backgroundTextField.layer.borderColor = UIColor(named: "fieldGray")?.withAlphaComponent(0.12).cgColor
+        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }

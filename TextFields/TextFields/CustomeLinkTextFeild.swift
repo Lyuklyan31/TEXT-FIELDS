@@ -13,7 +13,7 @@ class CustomLinkTextField: UIView {
     
     private let backgroundTextField = UIView()
     private let textField = UITextField()
-    private let titleLabel = UILabel()
+    private let titleTextField = UILabel()
     private let initialText = "https://"
     
     private var hasTextChanged = false
@@ -32,10 +32,10 @@ class CustomLinkTextField: UIView {
     
     private func setupCustomTextField() {
         // Title Label
-        titleLabel.text = "Link"
-        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        self.addSubview(titleLabel)
+        titleTextField.text = "Link"
+        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.textColor = UIColor.nightRider
+        self.addSubview(titleTextField)
         
         // Background View
         backgroundTextField.backgroundColor = UIColor.fieldGray
@@ -51,13 +51,13 @@ class CustomLinkTextField: UIView {
         backgroundTextField.addSubview(textField)
         
         // Setting Constraints
-        titleLabel.snp.makeConstraints { make in
+        titleTextField.snp.makeConstraints { make in
             make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
             make.leading.equalToSuperview()
         }
         
         backgroundTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleTextField.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()

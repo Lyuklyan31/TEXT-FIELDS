@@ -20,6 +20,7 @@
 		842F41DE2C6240360042FCF7 /* CustomeLinkTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */; };
 		842F41E02C625D0D0042FCF7 /* CustomePasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */; };
 		8441B06F2C62C0DD000CDBD0 /* RubikRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8441B06E2C62C0DD000CDBD0 /* RubikRegular.ttf */; };
+		8441B0712C639512000CDBD0 /* KeyboardAppearListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeLinkTextFeild.swift; sourceTree = "<group>"; };
 		842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomePasswordTextField.swift; sourceTree = "<group>"; };
 		8441B06E2C62C0DD000CDBD0 /* RubikRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RubikRegular.ttf; sourceTree = "<group>"; };
+		8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAppearListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */,
 				842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */,
 				842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */,
+				8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */,
 				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
 				842F41BC2C60F22C0042FCF7 /* LaunchScreen.storyboard */,
@@ -175,6 +178,7 @@
 			files = (
 				842F41DA2C621B1A0042FCF7 /* CustomMaxSize10TextField.swift in Sources */,
 				842F41D82C6176D80042FCF7 /* CustomeNoDigitsTextField.swift in Sources */,
+				8441B0712C639512000CDBD0 /* KeyboardAppearListener.swift in Sources */,
 				842F41DE2C6240360042FCF7 /* CustomeLinkTextFeild.swift in Sources */,
 				842F41DC2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift in Sources */,
 				842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */,
