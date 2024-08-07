@@ -1,10 +1,17 @@
+//
+//  CustomePasswordTextField.swift
+//  TextFields
+//
+//  Created by admin on 06.08.2024.
+//
+
 import UIKit
 import SnapKit
 
 class CustomMaxSize10TextField: UIView {
     
-    private let backgroundTextField = UIView()
     private let textField = UITextField()
+    private let backgroundTextField = UIView()
     private let titleLabel = UILabel()
     private let maxSymbolsLabel = UILabel()
     
@@ -55,6 +62,7 @@ class CustomMaxSize10TextField: UIView {
         }
         
         backgroundTextField.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
@@ -104,6 +112,6 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundTextField.layer.borderColor = UIColor(named: "fieldGray")?.withAlphaComponent(0.12).cgColor
     }
 }

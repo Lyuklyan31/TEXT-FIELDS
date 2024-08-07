@@ -1,5 +1,5 @@
 //
-//  CustomeOnlyCharactersTextField.swift
+//  CustomePasswordTextField.swift
 //  TextFields
 //
 //  Created by admin on 06.08.2024.
@@ -10,8 +10,8 @@ import SnapKit
 
 class CustomeOnlyCharactersTextField: UIView {
     
-    private let backgroundView = UIView()
     private let textField = UITextField()
+    private let backgroundView = UIView()
     private let titleLabel = UILabel()
     
     init() {
@@ -50,6 +50,7 @@ class CustomeOnlyCharactersTextField: UIView {
         }
         
         backgroundView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4) 
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()

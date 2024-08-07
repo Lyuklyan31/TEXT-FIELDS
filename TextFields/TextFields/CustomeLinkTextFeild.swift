@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 import WebKit
 
-class CustomeLinkTextField: UIView {
+class CustomLinkTextField: UIView {
     
     private let backgroundTextField = UIView()
     private let textField = UITextField()
-    private let titleTextField = UILabel()
+    private let titleLabel = UILabel()
     private let initialText = "https://"
     
     private var hasTextChanged = false
@@ -31,37 +31,40 @@ class CustomeLinkTextField: UIView {
     }
     
     private func setupCustomTextField() {
-        titleTextField.text = "Link"
-        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
-        titleTextField.textColor = UIColor.nightRider
+        // Title Label
+        titleLabel.text = "Link"
+        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        self.addSubview(titleLabel)
         
-        backgroundTextField.addSubview(titleTextField)
-        
-        titleTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
-            make.leading.equalToSuperview()
-        }
-        
-        textField.placeholder = "www.example.com"
-        textField.font = UIFont(name: "RubikRegular", size: 17)
-        textField.delegate = self
-        
+        // Background View
         backgroundTextField.backgroundColor = UIColor.fieldGray
         backgroundTextField.layer.cornerRadius = 11
         backgroundTextField.layer.borderWidth = 1.0
         backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         self.addSubview(backgroundTextField)
         
+        // Text Field
+        textField.placeholder = "www.example.com"
+        textField.font = UIFont(name: "RubikRegular", size: 17)
+        textField.delegate = self
+        backgroundTextField.addSubview(textField)
+        
+        // Setting Constraints
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
+            make.leading.equalToSuperview()
+        }
+        
         backgroundTextField.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
         }
         
-        backgroundTextField.addSubview(textField)
         textField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(8)
-            make.top.equalToSuperview().inset(7)
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
         }
         
         textField.addTarget(self, action: #selector(textFieldDidBeginEditing(_:)), for: .editingDidBegin)
@@ -86,10 +89,11 @@ class CustomeLinkTextField: UIView {
     }
 }
 
-extension CustomeLinkTextField: WKNavigationDelegate {
+extension CustomLinkTextField: WKNavigationDelegate {
+    
     private func openURLInWebView(url: URL) {
         let webViewController = UIViewController()
-        let webView = WKWebView()
+        webView = WKWebView()
         webView.navigationDelegate = self
         
         webViewController.view = webView
@@ -103,8 +107,8 @@ extension CustomeLinkTextField: WKNavigationDelegate {
         }
     }
 }
- 
-extension CustomeLinkTextField: UITextFieldDelegate {
+
+extension CustomLinkTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text as NSString? else { return true }
         let newText = currentText.replacingCharacters(in: range, with: string)
