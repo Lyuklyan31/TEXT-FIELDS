@@ -1,5 +1,5 @@
 //
-//  CustomeLinkTextField.swift
+//  CustomLinkTextField.swift
 //  TextFields
 //
 //  Created by admin on 06.08.2024.
@@ -10,26 +10,31 @@ import SnapKit
 import WebKit
 
 class CustomLinkTextField: UIView {
-    
+
+    // MARK: - UI Elements
+
     private let backgroundTextField = UIView()
     private let textField = UITextField()
     private let titleTextField = UILabel()
     private let initialText = "https://"
-    
+
     private var hasTextChanged = false
-    
     private var webView: WKWebView!
-    
+
+    // MARK: - Initializers
+
     init() {
         super.init(frame: .zero)
         setupCustomTextField()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupCustomTextField()
     }
-    
+
+    // MARK: - Setup Methods
+
     private func setupCustomTextField() {
         // Title Label
         titleTextField.text = "Link"
@@ -70,7 +75,9 @@ class CustomLinkTextField: UIView {
         textField.addTarget(self, action: #selector(textFieldDidBeginEditing(_:)), for: .editingDidBegin)
         textField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
     }
-    
+
+    // MARK: - Text Field Actions
+
     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text?.isEmpty ?? true {
             textField.text = initialText
@@ -89,24 +96,7 @@ class CustomLinkTextField: UIView {
     }
 }
 
-extension CustomLinkTextField: WKNavigationDelegate {
-    
-    private func openURLInWebView(url: URL) {
-        let webViewController = UIViewController()
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        
-        webViewController.view = webView
-        
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let navigationController = windowScene.windows.first?.rootViewController as? UINavigationController {
-            navigationController.pushViewController(webViewController, animated: true)
-        }
-    }
-}
+// MARK: - UITextFieldDelegate
 
 extension CustomLinkTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -121,7 +111,7 @@ extension CustomLinkTextField: UITextFieldDelegate {
         hasTextChanged = true
         return true
     }
-   
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
@@ -132,5 +122,24 @@ extension CustomLinkTextField: UITextFieldDelegate {
             }
         }
         return true
+    }
+}
+
+// MARK: - WebView Handling
+
+extension CustomLinkTextField: WKNavigationDelegate {
+    private func openURLInWebView(url: URL) {
+        let webViewController = UIViewController()
+        webView = WKWebView()
+        webView.navigationDelegate = self
+        
+        webViewController.view = webView
+        webView.load(URLRequest(url: url))
+        webView.allowsBackForwardNavigationGestures = true
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let navigationController = windowScene.windows.first?.rootViewController as? UINavigationController {
+            navigationController.pushViewController(webViewController, animated: true)
+        }
     }
 }
