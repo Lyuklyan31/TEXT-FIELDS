@@ -13,10 +13,13 @@ class MainViewController: UIViewController {
     // UI Elements
     private let titleLabel = UILabel()
     
-    private let noDigitsTextField = CustomeNoDigitsTextField()
+    private let noDigitsTextField = CustomNoDigitsTextField()
     private let maxSize10TextField = CustomMaxSize10TextField()
     private let onlyCharactersTextField = CustomeOnlyCharactersTextField()
-    private let linkTextField = CustomeLinkTextField()
+    private let linkTextField = CustomLinkTextField()
+    private let passwordTextField = CustomePasswordTextField()
+    
+    private let titleTextField = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,7 @@ class MainViewController: UIViewController {
         setupMaxSize10TextField()
         setupOnlyCharactersTextField()
         setupLinkTextField()
+        setupPasswordTextField()
         setupGestures()
     }
     
@@ -50,42 +54,69 @@ class MainViewController: UIViewController {
     }
     
     private func setupNoDigitsTextField() {
-        view.addSubview(noDigitsTextField)
-        noDigitsTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(54)
-            make.leading.trailing.equalTo(view).inset(16)
-            make.height.equalTo(44)
+            view.addSubview(titleTextField)
+            view.addSubview(noDigitsTextField)
+
+        titleTextField.text = "NO digits field"
+        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.textColor = UIColor.nightRider
+
+        titleTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(noDigitsTextField.snp.top).offset(-4)
+            make.leading.equalTo(16)
         }
-    }
+        
+            noDigitsTextField.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.top.equalTo(titleLabel.snp.bottom).offset(54)
+                make.leading.trailing.equalTo(view).inset(16)
+                make.height.equalTo(36)
+            }
+        }
+
+
     
     private func setupMaxSize10TextField() {
         view.addSubview(maxSize10TextField)
+      
         maxSize10TextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(noDigitsTextField.snp.bottom).offset(54)
             make.leading.trailing.equalTo(view).inset(16)
-            make.height.equalTo(44)
+            make.height.equalTo(36)
         }
     }
     
     private func setupOnlyCharactersTextField() {
         view.addSubview(onlyCharactersTextField)
+        
         onlyCharactersTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(maxSize10TextField.snp.bottom).offset(54)
             make.leading.trailing.equalTo(view).inset(16)
-            make.height.equalTo(44)
+            make.height.equalTo(36)
         }
     }
     
     private func setupLinkTextField() {
         view.addSubview(linkTextField)
+       
         linkTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(onlyCharactersTextField.snp.bottom).offset(54)
             make.leading.trailing.equalTo(view).inset(16)
-            make.height.equalTo(44)
+            make.height.equalTo(36)
+        }
+    }
+    
+    private func setupPasswordTextField() {
+        view.addSubview(passwordTextField)
+       
+        passwordTextField.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(linkTextField.snp.bottom).offset(54)
+            make.leading.trailing.equalTo(view).inset(16)
+            make.height.equalTo(36)
         }
     }
     
@@ -98,4 +129,3 @@ class MainViewController: UIViewController {
         view.endEditing(true)
     }
 }
-
