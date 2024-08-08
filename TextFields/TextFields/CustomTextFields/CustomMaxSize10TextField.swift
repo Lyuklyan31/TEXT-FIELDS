@@ -16,6 +16,7 @@ class CustomMaxSize10TextField: UIView {
     private let backgroundTextField = UIView()
     private let titleTextField = UILabel()
     private let maxSymbolsLabel = UILabel()
+    private let circleMaxSymbol = UIView()
     
     // MARK: - Initializers
     
@@ -34,15 +35,9 @@ class CustomMaxSize10TextField: UIView {
     private func setupCustomTextField() {
         // Configure title label
         titleTextField.text = "Input limit"
-        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
         titleTextField.textColor = UIColor.nightRider
         self.addSubview(titleTextField)
-        
-        // Configure max symbols label
-        maxSymbolsLabel.text = "(0/10)"
-        maxSymbolsLabel.font = UIFont(name: "RubikRegular", size: 13)
-        maxSymbolsLabel.textColor = UIColor.nightRider
-        self.addSubview(maxSymbolsLabel)
         
         // Configure background view
         backgroundTextField.backgroundColor = UIColor.fieldGray
@@ -52,9 +47,29 @@ class CustomMaxSize10TextField: UIView {
         self.addSubview(backgroundTextField)
         
         // Configure text field
-        textField.placeholder = "Type here"
-        textField.font = UIFont(name: "RubikRegular", size: 17)
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Type here",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
+        )
+        textField.font = UIFont.setFont(.rubikRegular, size: 17)
         backgroundTextField.addSubview(textField)
+        
+        // Configure max symbols label
+        maxSymbolsLabel.text = "10"
+        maxSymbolsLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        maxSymbolsLabel.textColor = UIColor.nightRider
+        circleMaxSymbol.addSubview(maxSymbolsLabel)
+        
+        circleMaxSymbol.backgroundColor = UIColor.systemBackground
+        circleMaxSymbol.layer.cornerRadius = 15
+        circleMaxSymbol.layer.borderWidth = 1.0
+        circleMaxSymbol.layer.borderColor = UIColor.black.cgColor
+        circleMaxSymbol.clipsToBounds = true
+        self.addSubview(circleMaxSymbol)
+        
+        // Adjust zPosition so that circleMaxSymbol stays on top
+        backgroundTextField.layer.zPosition = 0
+        circleMaxSymbol.layer.zPosition = 1
         
         // Set constraints
         titleTextField.snp.makeConstraints { make in
@@ -62,16 +77,21 @@ class CustomMaxSize10TextField: UIView {
             make.leading.equalToSuperview()
         }
         
-        maxSymbolsLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
-            make.trailing.equalToSuperview()
-        }
-        
         backgroundTextField.snp.makeConstraints { make in
             make.top.equalTo(titleTextField.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
+        }
+        
+        circleMaxSymbol.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundTextField.snp.bottom).offset(14)
+            make.trailing.equalTo(backgroundTextField.snp.trailing).offset(-18)
+            make.width.height.equalTo(30)
+        }
+        
+        maxSymbolsLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
         textField.snp.makeConstraints { make in
@@ -90,9 +110,20 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
         let newText = currentText.replacingCharacters(in: range, with: string)
         let newLength = newText.count
         
-        if newLength > 10 {
-            // Update label and border color for exceeding limit
-            maxSymbolsLabel.text = "(-\(newLength - 10))"
+        let remainingCharacters = 10 - newLength
+
+        if newLength <= 10 {
+            // Update label and border color within limit (counting down)
+            maxSymbolsLabel.text = "\(remainingCharacters)"
+            maxSymbolsLabel.textColor = UIColor.nightRider
+            backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+            
+            let attributedText = NSMutableAttributedString(string: newText)
+            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
+            textField.attributedText = attributedText
+        } else {
+            // Update label and border color for exceeding limit (negative counting)
+            maxSymbolsLabel.text = "-\(newLength - 10)"
             maxSymbolsLabel.textColor = .red
             backgroundTextField.layer.borderColor = UIColor.red.cgColor
             
@@ -100,18 +131,11 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: 10))
             attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 10, length: newLength - 10))
             textField.attributedText = attributedText
-        } else {
-            // Update label and border color within limit
-            maxSymbolsLabel.text = "(\(newLength)/10)"
-            maxSymbolsLabel.textColor = UIColor.nightRider
-            backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-            
-            let attributedText = NSMutableAttributedString(string: newText)
-            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
-            textField.attributedText = attributedText
         }
+        
         return false
     }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Dismiss keyboard when return key is pressed
@@ -121,7 +145,7 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Highlight border when editing begins
-        backgroundTextField.layer.borderColor = UIColor.blue.cgColor
+        backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
