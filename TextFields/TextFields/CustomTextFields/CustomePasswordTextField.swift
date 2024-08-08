@@ -46,7 +46,7 @@ class CustomePasswordTextField: UIView {
     private func setupCustomTextField() {
         // Title Label
         titleTextField.text = "Validation rules"
-        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
         titleTextField.textColor = UIColor.nightRider
         self.addSubview(titleTextField)
         
@@ -58,34 +58,38 @@ class CustomePasswordTextField: UIView {
         self.addSubview(backgroundTextField)
         
         // Text Field
-        textField.placeholder = "Password"
-        textField.font = UIFont(name: "RubikRegular", size: 17)
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Password",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
+        )
+        textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.isSecureTextEntry = true
         backgroundTextField.addSubview(textField)
         
         // Line View
         lineExecution.backgroundColor = .clear
-        self.addSubview(lineExecution)
+        lineExecution.layer.cornerRadius = 3
+        backgroundTextField.addSubview(lineExecution)
         
         // Requirements Labels
-        minLength8Characters.text = "Min length 8 characters."
+        minLength8Characters.text = "- minimum of 8 characters."
         minLength8Characters.textColor = UIColor.matterhorn
-        minLength8Characters.font = UIFont(name: "RubikRegular", size: 13)
+        minLength8Characters.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(minLength8Characters)
         
-        min1Digit.text = "Min 1 digit"
+        min1Digit.text = "- minimum 1 digit"
         min1Digit.textColor = UIColor.matterhorn
-        min1Digit.font = UIFont(name: "RubikRegular", size: 13)
+        min1Digit.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(min1Digit)
         
-        min1Lowercase.text = "Min 1 lowercase"
+        min1Lowercase.text = "- Min 1 lowercase"
         min1Lowercase.textColor = UIColor.matterhorn
-        min1Lowercase.font = UIFont(name: "RubikRegular", size: 13)
+        min1Lowercase.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(min1Lowercase)
         
-        min1CapitalRequired.text = "Min 1 capital required."
+        min1CapitalRequired.text = "- Min 1 capital required."
         min1CapitalRequired.textColor = UIColor.matterhorn
-        min1CapitalRequired.font = UIFont(name: "RubikRegular", size: 13)
+        min1CapitalRequired.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(min1CapitalRequired)
         
         // Setting Constraints
@@ -110,9 +114,9 @@ class CustomePasswordTextField: UIView {
         
         // Line View Constraints
         lineExecution.snp.makeConstraints { make in
-            make.top.equalTo(backgroundTextField.snp.bottom).offset(4)
+            make.top.equalTo(backgroundTextField.snp.bottom).offset(-8)
             make.leading.equalToSuperview()
-            make.height.equalTo(4)
+            make.height.equalTo(8)
             self.lineWidthConstraint = make.width.equalTo(0).constraint
         }
         
@@ -138,7 +142,6 @@ class CustomePasswordTextField: UIView {
         min1CapitalRequired.snp.makeConstraints { make in
             make.top.equalTo(min1Lowercase.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
         }
         
         setupTextFieldDelegate()
@@ -171,7 +174,7 @@ class CustomePasswordTextField: UIView {
         
         let completedConditions = conditions.filter { $0.1 }.count
         
-        // Update labels and line progress
+        // Оновлення міток і прогресу
         for (label, isMet) in conditions {
             isMet ? setConditionMet(label: label) : resetCondition(label: label)
         }
@@ -187,34 +190,36 @@ class CustomePasswordTextField: UIView {
         case 3:
             color = .orange
         case 4:
-            color = .green
+            color = .forestGreen
         default:
             color = .clear
         }
         
         lineExecution.backgroundColor = color
         lineWidthConstraint?.update(offset: self.frame.width * progress)
-        
-        UIView.animate(withDuration: 0.3) {
-            self.layoutIfNeeded()
-        }
     }
     
     private func setConditionMet(label: UILabel) {
         let checkmark = "✔︎ "
         
         if let text = label.text, !text.hasPrefix(checkmark) {
-            let attributedString = NSMutableAttributedString(string: checkmark + text)
-            attributedString.addAttribute(.foregroundColor, value: UIColor.green, range: NSRange(location: 0, length: attributedString.length))
+            let newText = text.replacingOccurrences(of: "-", with: checkmark)
+            let attributedString = NSMutableAttributedString(string: newText)
+            attributedString.addAttribute(.foregroundColor, value: UIColor.forestGreen, range: NSRange(location: 0, length: attributedString.length))
             label.attributedText = attributedString
         }
     }
     
     private func resetCondition(label: UILabel) {
-        let text = label.text?.replacingOccurrences(of: "✔︎ ", with: "") ?? ""
-        let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedString.length))
-        label.attributedText = attributedString
+        let checkmark = "✔︎ "
+        let hyphen = "- "
+        
+        if let text = label.text, text.hasPrefix(checkmark) {
+            let newText = text.replacingOccurrences(of: checkmark, with: hyphen)
+            let attributedString = NSMutableAttributedString(string: newText)
+            attributedString.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedString.length))
+            label.attributedText = attributedString
+        }
     }
 }
 
@@ -233,7 +238,7 @@ extension CustomePasswordTextField: UITextFieldDelegate {
             textField.text = initialText
             hasTextChanged = false
         }
-        backgroundTextField.layer.borderColor = UIColor.blue.cgColor
+        backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

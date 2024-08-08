@@ -33,7 +33,7 @@ class CustomeOnlyCharactersTextField: UIView {
     private func setupCustomTextField() {
         // Configure title label
         titleTextField.text = "Only characters"
-        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
         titleTextField.textColor = UIColor.nightRider
         self.addSubview(titleTextField)
         
@@ -45,8 +45,11 @@ class CustomeOnlyCharactersTextField: UIView {
         self.addSubview(backgroundTextField)
         
         // Configure text field
-        textField.placeholder = "wwwww-ddddd"
-        textField.font = UIFont(name: "RubikRegular", size: 17)
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "wwwww-ddddd",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
+        )
+        textField.font = UIFont.setFont(.rubikRegular, size: 17)
         backgroundTextField.addSubview(textField)
         
         // Set constraints
@@ -137,7 +140,7 @@ extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Highlight border when editing begins
-        backgroundTextField.layer.borderColor = UIColor.blue.cgColor
+        backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

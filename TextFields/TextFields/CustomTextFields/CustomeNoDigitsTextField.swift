@@ -14,7 +14,7 @@ class CustomNoDigitsTextField: UIView {
     
     private let textField = UITextField()
     private let background = UIView()
-    private let titleLabel = UILabel()
+    private let titleTextField = UILabel()
 
     // MARK: - Initializers
     
@@ -32,15 +32,18 @@ class CustomNoDigitsTextField: UIView {
     
     private func setupCustomTextField() {
         // Configure title label
-        titleLabel.text = "NO digits field"
-        titleLabel.font = UIFont(name: "RubikRegular", size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        self.addSubview(titleLabel)
+        titleTextField.text = "NO digits field"
+        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleTextField.textColor = UIColor.nightRider
+        self.addSubview(titleTextField)
         
         // Configure text field
-        textField.placeholder = "Type here"
-        textField.font = UIFont(name: "RubikRegular", size: 17)
-
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Type here",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
+        )
+        textField.font = UIFont.setFont(.rubikRegular, size: 17)
+       
         // Configure background view
         background.backgroundColor = UIColor.fieldGray
         background.layer.cornerRadius = 11
@@ -49,7 +52,7 @@ class CustomNoDigitsTextField: UIView {
 
         self.addSubview(background)
         background.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleTextField.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(36)
         }
@@ -62,7 +65,7 @@ class CustomNoDigitsTextField: UIView {
         textField.delegate = self
 
         // Configure title label constraints
-        titleLabel.snp.makeConstraints { make in
+        titleTextField.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.equalTo(background.snp.top).offset(-4)
@@ -98,7 +101,7 @@ extension CustomNoDigitsTextField: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Highlight border when editing begins
-        setBorderColor(.blue)
+        setBorderColor(.systemBlue)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

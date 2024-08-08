@@ -72,7 +72,7 @@ class MainViewController: UIViewController {
         contentView.addSubview(titleLabel)
         titleLabel.text = "Text Fields"
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: "Rubik", size: 34)
+        titleLabel.font = UIFont.setFont(.rubikMedium, size: 34)
         titleLabel.textColor = UIColor.nightRider
         
         titleLabel.snp.makeConstraints { make in
@@ -130,7 +130,7 @@ class MainViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(linkTextField.snp.bottom).offset(30)
             make.leading.trailing.equalTo(contentView).inset(16)
-            make.height.equalTo(188)
+            make.height.equalTo(160)
             make.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
