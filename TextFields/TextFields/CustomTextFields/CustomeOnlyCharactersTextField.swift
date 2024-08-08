@@ -72,8 +72,9 @@ class CustomeOnlyCharactersTextField: UIView {
         textField.delegate = self
     }
 }
-    // MARK: - UITextFieldDelegate
-    
+
+// MARK: - UITextFieldDelegate
+
 extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
     
     enum InputState {
@@ -96,6 +97,10 @@ extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text else { return true }
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        if string.isEmpty && range.length > 0 {
+            return true
+        }
         
         // Limit the length of the text
         if newText.count > 11 {
@@ -148,4 +153,3 @@ extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
         backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }
-
