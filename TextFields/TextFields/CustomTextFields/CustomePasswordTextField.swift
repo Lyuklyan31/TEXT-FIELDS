@@ -69,7 +69,7 @@ class CustomePasswordTextField: UIView {
         // Line View
         lineExecution.backgroundColor = .clear
         lineExecution.layer.cornerRadius = 3
-        backgroundTextField.addSubview(lineExecution)
+        self.addSubview(lineExecution)
         
         // Requirements Labels
         minLength8Characters.text = "- minimum of 8 characters."
@@ -82,12 +82,12 @@ class CustomePasswordTextField: UIView {
         min1Digit.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(min1Digit)
         
-        min1Lowercase.text = "- Min 1 lowercase"
+        min1Lowercase.text = "- minimum 1 lowercase"
         min1Lowercase.textColor = UIColor.matterhorn
         min1Lowercase.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(min1Lowercase)
         
-        min1CapitalRequired.text = "- Min 1 capital required."
+        min1CapitalRequired.text = "- minimum 1 capital required."
         min1CapitalRequired.textColor = UIColor.matterhorn
         min1CapitalRequired.font = UIFont.setFont(.rubikRegular, size: 13)
         self.addSubview(min1CapitalRequired)
@@ -114,15 +114,15 @@ class CustomePasswordTextField: UIView {
         
         // Line View Constraints
         lineExecution.snp.makeConstraints { make in
-            make.top.equalTo(backgroundTextField.snp.bottom).offset(-8)
-            make.leading.equalToSuperview()
-            make.height.equalTo(8)
+            make.top.equalTo(backgroundTextField.snp.bottom).offset(-9)
+            make.leading.equalToSuperview().inset(-0.45)
+            make.height.equalTo(9)
             self.lineWidthConstraint = make.width.equalTo(0).constraint
         }
         
         // Minimum Length Label Constraints
         minLength8Characters.snp.makeConstraints { make in
-            make.top.equalTo(lineExecution.snp.bottom).offset(4)
+            make.top.equalTo(lineExecution.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(8)
         }
         
@@ -200,7 +200,7 @@ class CustomePasswordTextField: UIView {
     }
     
     private func setConditionMet(label: UILabel) {
-        let checkmark = "✔︎ "
+        let checkmark = "✔︎"
         
         if let text = label.text, !text.hasPrefix(checkmark) {
             let newText = text.replacingOccurrences(of: "-", with: checkmark)
@@ -211,13 +211,13 @@ class CustomePasswordTextField: UIView {
     }
     
     private func resetCondition(label: UILabel) {
-        let checkmark = "✔︎ "
-        let hyphen = "- "
+        let checkmark = "✔︎"
+        let hyphen = "-"
         
         if let text = label.text, text.hasPrefix(checkmark) {
             let newText = text.replacingOccurrences(of: checkmark, with: hyphen)
             let attributedString = NSMutableAttributedString(string: newText)
-            attributedString.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedString.length))
+            attributedString.addAttribute(.foregroundColor, value: UIColor.matterhorn, range: NSRange(location: 0, length: attributedString.length))
             label.attributedText = attributedString
         }
     }
@@ -236,7 +236,6 @@ extension CustomePasswordTextField: UITextFieldDelegate {
         // Handle when text field begins editing
         if textField.text?.isEmpty ?? true {
             textField.text = initialText
-            hasTextChanged = false
         }
         backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
@@ -244,9 +243,7 @@ extension CustomePasswordTextField: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Handle when text field ends editing
         if !hasTextChanged {
-            if textField.text == initialText {
-                textField.text = ""
-            }
+            textField.text = ""
         }
         backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
