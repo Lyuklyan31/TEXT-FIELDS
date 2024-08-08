@@ -1,10 +1,3 @@
-//
-//  CustomLinkTextField.swift
-//  TextFields
-//
-//  Created by admin on 06.08.2024.
-//
-
 import UIKit
 import SnapKit
 import WebKit
@@ -38,7 +31,7 @@ class CustomLinkTextField: UIView {
     private func setupCustomTextField() {
         // Title Label
         titleTextField.text = "Link"
-        titleTextField.font = UIFont(name: "RubikRegular", size: 13)
+        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
         titleTextField.textColor = UIColor.nightRider
         self.addSubview(titleTextField)
         
@@ -50,8 +43,11 @@ class CustomLinkTextField: UIView {
         self.addSubview(backgroundTextField)
         
         // Text Field
-        textField.placeholder = "www.example.com"
-        textField.font = UIFont(name: "RubikRegular", size: 17)
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "www.example.com",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
+        )
+        textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
         backgroundTextField.addSubview(textField)
         
@@ -83,7 +79,7 @@ class CustomLinkTextField: UIView {
             textField.text = initialText
             hasTextChanged = false
         }
-        backgroundTextField.layer.borderColor = UIColor.blue.cgColor
+        backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
@@ -102,6 +98,13 @@ extension CustomLinkTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text as NSString? else { return true }
         let newText = currentText.replacingCharacters(in: range, with: string)
+        
+        if string.isEmpty {
+            return true
+        } else if string == UIPasteboard.general.string {
+            handlePasteAction(textField: textField)
+            return false
+        }
         
         if newText.hasPrefix(initialText) {
             if newText.count < initialText.count {
@@ -122,6 +125,15 @@ extension CustomLinkTextField: UITextFieldDelegate {
             }
         }
         return true
+    }
+    
+    private func handlePasteAction(textField: UITextField) {
+        guard let pastedText = UIPasteboard.general.string, !pastedText.isEmpty else { return }
+        let formattedString = pastedText.starts(with: "http://") || pastedText.starts(with: "https://") ? pastedText : "https://" + pastedText
+        textField.text = formattedString
+        if let url = URL(string: formattedString) {
+            openURLInWebView(url: url)
+        }
     }
 }
 
