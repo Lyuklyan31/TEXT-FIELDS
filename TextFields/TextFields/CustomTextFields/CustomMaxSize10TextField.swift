@@ -16,7 +16,6 @@ class CustomMaxSize10TextField: UIView {
     private let backgroundTextField = UIView()
     private let titleTextField = UILabel()
     private let maxSymbolsLabel = UILabel()
-    private let circleMaxSymbol = UIView()
     
     // MARK: - Initializers
     
@@ -33,73 +32,54 @@ class CustomMaxSize10TextField: UIView {
     // MARK: - Setup Methods
     
     private func setupCustomTextField() {
-        // Configure title label
-        titleTextField.text = "Input limit"
-        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleTextField.textColor = UIColor.nightRider
-        self.addSubview(titleTextField)
-        
-        // Configure background view
-        backgroundTextField.backgroundColor = UIColor.fieldGray
-        backgroundTextField.layer.cornerRadius = 11
-        backgroundTextField.layer.borderWidth = 1.0
-        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-        self.addSubview(backgroundTextField)
-        
-        // Configure text field
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "Type here",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
-        )
-        textField.font = UIFont.setFont(.rubikRegular, size: 17)
-        backgroundTextField.addSubview(textField)
-        
-        // Configure max symbols label
-        maxSymbolsLabel.text = "10"
-        maxSymbolsLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        maxSymbolsLabel.textColor = UIColor.nightRider
-        circleMaxSymbol.addSubview(maxSymbolsLabel)
-        
-        circleMaxSymbol.backgroundColor = UIColor.systemBackground
-        circleMaxSymbol.layer.cornerRadius = 15
-        circleMaxSymbol.layer.borderWidth = 1.0
-        circleMaxSymbol.layer.borderColor = UIColor.black.cgColor
-        circleMaxSymbol.clipsToBounds = true
-        self.addSubview(circleMaxSymbol)
-        
-        // Adjust zPosition so that circleMaxSymbol stays on top
-        backgroundTextField.layer.zPosition = 0
-        circleMaxSymbol.layer.zPosition = 1
-        
-        // Set constraints
-        titleTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
-            make.leading.equalToSuperview()
+            // Title Label
+            titleTextField.text = "Input limit"
+            titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
+            titleTextField.textColor = UIColor.nightRider
+            self.addSubview(titleTextField)
+            
+            // Max Symbols Label
+            maxSymbolsLabel.text = "10"
+            maxSymbolsLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+            maxSymbolsLabel.textColor = UIColor.nightRider
+            self.addSubview(maxSymbolsLabel)
+            
+            // Background View
+            backgroundTextField.backgroundColor = UIColor.fieldGray
+            backgroundTextField.layer.cornerRadius = 11
+            backgroundTextField.layer.borderWidth = 1.0
+            backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+            self.addSubview(backgroundTextField)
+            
+            // Text Field
+            textField.placeholder = "Type here"
+            textField.font = UIFont.setFont(.rubikRegular, size: 17)
+            backgroundTextField.addSubview(textField)
+            
+            // Setting Constraints
+            titleTextField.snp.makeConstraints { make in
+                make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
+                make.leading.equalToSuperview()
+            }
+            
+            maxSymbolsLabel.snp.makeConstraints { make in
+                make.bottom.equalTo(backgroundTextField.snp.top).offset(-7)
+                make.trailing.equalToSuperview()
+            }
+            
+            backgroundTextField.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.height.equalTo(36)
+                make.leading.trailing.equalToSuperview()
+            }
+            
+            textField.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
+            }
+            
+            textField.delegate = self
         }
-        
-        backgroundTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleTextField.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(36)
-            make.leading.trailing.equalToSuperview()
-        }
-        
-        circleMaxSymbol.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundTextField.snp.bottom).offset(14)
-            make.trailing.equalTo(backgroundTextField.snp.trailing).offset(-18)
-            make.width.height.equalTo(30)
-        }
-        
-        maxSymbolsLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
-        }
-        
-        textField.delegate = self
-    }
+
 }
     // MARK: - UITextFieldDelegate
     
@@ -116,7 +96,7 @@ extension CustomMaxSize10TextField: UITextFieldDelegate {
             // Update label and border color within limit (counting down)
             maxSymbolsLabel.text = "\(remainingCharacters)"
             maxSymbolsLabel.textColor = UIColor.nightRider
-            backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+            backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
             
             let attributedText = NSMutableAttributedString(string: newText)
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
