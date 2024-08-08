@@ -1,3 +1,10 @@
+//
+//  CustomePasswordTextField.swift
+//  TextFields
+//
+//  Created by admin on 06.08.2024.
+//
+
 import UIKit
 import SnapKit
 import WebKit
@@ -9,7 +16,7 @@ class CustomLinkTextField: UIView {
     private let backgroundTextField = UIView()
     private let textField = UITextField()
     private let titleTextField = UILabel()
-    private let initialText = "https://"
+    private let prefix = "https://"
 
     private var hasTextChanged = false
     private var webView: WKWebView!
@@ -75,19 +82,10 @@ class CustomLinkTextField: UIView {
     // MARK: - Text Field Actions
 
     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.text?.isEmpty ?? true {
-            textField.text = initialText
-            hasTextChanged = false
-        }
         backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
-        if !hasTextChanged {
-            if textField.text == initialText {
-                textField.text = ""
-            }
-        }
         backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }
@@ -98,19 +96,14 @@ extension CustomLinkTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text as NSString? else { return true }
         let newText = currentText.replacingCharacters(in: range, with: string)
-        
+
         if string.isEmpty {
             return true
         } else if string == UIPasteboard.general.string {
             handlePasteAction(textField: textField)
             return false
         }
-        
-        if newText.hasPrefix(initialText) {
-            if newText.count < initialText.count {
-                return false
-            }
-        }
+
         hasTextChanged = true
         return true
     }
@@ -119,7 +112,12 @@ extension CustomLinkTextField: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if let urlString = textField.text, !urlString.isEmpty {
-            let formattedString = urlString.starts(with: "http://") || urlString.starts(with: "https://") ? urlString : "https://" + urlString
+            var formattedString = urlString
+            // Add "https://" if not already present
+            if !formattedString.lowercased().hasPrefix(prefix) {
+                formattedString = prefix + formattedString
+            }
+            
             if let url = URL(string: formattedString) {
                 openURLInWebView(url: url)
             }
@@ -129,8 +127,23 @@ extension CustomLinkTextField: UITextFieldDelegate {
     
     private func handlePasteAction(textField: UITextField) {
         guard let pastedText = UIPasteboard.general.string, !pastedText.isEmpty else { return }
-        let formattedString = pastedText.starts(with: "http://") || pastedText.starts(with: "https://") ? pastedText : "https://" + pastedText
+        
+        // Format pasted text
+        var formattedString = pastedText
+        
+        // Remove any leading "https://" or "http://"
+        if formattedString.lowercased().hasPrefix(prefix) {
+            formattedString.removeFirst(prefix.count)
+        } else if formattedString.lowercased().hasPrefix("http://") {
+            formattedString.removeFirst("http://".count)
+        }
+        
+        // Add "https://" if not already present
+        formattedString = prefix + formattedString
+        
+        // Update the textField text without showing "https://"
         textField.text = formattedString
+        
         if let url = URL(string: formattedString) {
             openURLInWebView(url: url)
         }
