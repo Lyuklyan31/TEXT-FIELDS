@@ -17,14 +17,18 @@ class LimitTextField: UIView {
     private let titleTextField = UILabel()
     private let maxSymbolsLabel = UILabel()
     
+    private var limit: Int
+    
     // MARK: - Initializers
     
-    init() {
+    init(limit: Int) {
+        self.limit = limit
         super.init(frame: .zero)
         setupCustomTextField()
     }
     
     required init?(coder: NSCoder) {
+        self.limit = 0
         super.init(coder: coder)
         setupCustomTextField()
     }
@@ -39,7 +43,7 @@ class LimitTextField: UIView {
             self.addSubview(titleTextField)
             
             // Max Symbols Label
-            maxSymbolsLabel.text = "10"
+            maxSymbolsLabel.text = String(limit)
             maxSymbolsLabel.font = UIFont.setFont(.rubikRegular, size: 13)
             maxSymbolsLabel.textColor = UIColor.nightRider
             self.addSubview(maxSymbolsLabel)
@@ -93,7 +97,7 @@ extension LimitTextField: UITextFieldDelegate {
         let newText = currentText.replacingCharacters(in: range, with: string)
         let newLength = newText.count
         
-        let remainingCharacters = 10 - newLength
+        let remainingCharacters = limit - newLength
 
         if newLength <= 10 {
             // Update label and border color within limit (counting down)
@@ -106,13 +110,13 @@ extension LimitTextField: UITextFieldDelegate {
             textField.attributedText = attributedText
         } else {
             // Update label and border color for exceeding limit (negative counting)
-            maxSymbolsLabel.text = "-\(newLength - 10)"
+            maxSymbolsLabel.text = "-\(newLength - limit)"
             maxSymbolsLabel.textColor = .red
             backgroundTextField.layer.borderColor = UIColor.red.cgColor
             
             let attributedText = NSMutableAttributedString(string: newText)
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: 10))
-            attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 10, length: newLength - 10))
+            attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 10, length: newLength - limit))
             textField.attributedText = attributedText
         }
         
