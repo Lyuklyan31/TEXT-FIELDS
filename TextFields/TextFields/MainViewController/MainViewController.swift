@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
     private let stackView = UIStackView()
     
     private let noDigitsTextField = CustomNoDigitsTextField()
-    private let limitTextField = LimitTextField()
+    private let limitTextField = LimitTextField(limit: 10)
     private let onlyCharactersTextField = CustomeOnlyCharactersTextField()
     private let linkTextField = CustomLinkTextField()
     private let passwordTextField = CustomePasswordTextField()
@@ -82,18 +82,19 @@ class MainViewController: UIViewController {
         stackView.spacing = 30
         stackView.distribution = .fill
         
-        stackView.addArrangedSubview(noDigitsTextField)
-        stackView.addArrangedSubview(limitTextField)
-        stackView.addArrangedSubview(onlyCharactersTextField)
-        stackView.addArrangedSubview(linkTextField)
-        stackView.addArrangedSubview(passwordTextField)
-        
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-20)
+        [noDigitsTextField, limitTextField, onlyCharactersTextField, linkTextField, passwordTextField].forEach {
+            stackView.addArrangedSubview($0)
+            $0.snp.makeConstraints { $0.height.equalTo(66) }
+        }
+
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.leading.trailing.equalTo(contentView).inset(16)
+            $0.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
+
+
     
     // MARK: - Keyboard Notifications
     
