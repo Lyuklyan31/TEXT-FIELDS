@@ -59,7 +59,8 @@ class CustomNoDigitsTextField: UIView {
 
         background.addSubview(textField)
         textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
+            make.leading.trailing.equalTo(8)
+            make.top.bottom.equalTo(7)
         }
 
         textField.delegate = self
