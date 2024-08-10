@@ -93,19 +93,6 @@ class CustomLinkTextField: UIView {
 // MARK: - UITextFieldDelegate
 
 extension CustomLinkTextField: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
-        if string.isEmpty {
-            return true
-        } else if string == UIPasteboard.general.string {
-            handlePasteAction(textField: textField)
-            return false
-        }
-
-        hasTextChanged = true
-        return true
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
