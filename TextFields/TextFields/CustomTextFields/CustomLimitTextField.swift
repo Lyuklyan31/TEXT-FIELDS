@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomMaxSize10TextField: UIView {
+class LimitTextField: UIView {
     
     // MARK: - UI Elements
     
@@ -52,7 +52,10 @@ class CustomMaxSize10TextField: UIView {
             self.addSubview(backgroundTextField)
             
             // Text Field
-            textField.placeholder = "Type here"
+            textField.attributedPlaceholder = NSAttributedString(
+            string: "Type here",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
+            )
             textField.font = UIFont.setFont(.rubikRegular, size: 17)
             backgroundTextField.addSubview(textField)
             
@@ -83,7 +86,7 @@ class CustomMaxSize10TextField: UIView {
 }
     // MARK: - UITextFieldDelegate
     
-extension CustomMaxSize10TextField: UITextFieldDelegate {
+extension LimitTextField: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text as NSString? else { return true }

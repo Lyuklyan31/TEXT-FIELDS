@@ -13,14 +13,15 @@ class MainViewController: UIViewController {
     // MARK: - UI Elements
     
     private let titleLabel = UILabel()
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let stackView = UIStackView()
+    
     private let noDigitsTextField = CustomNoDigitsTextField()
-    private let maxSize10TextField = CustomMaxSize10TextField()
+    private let limitTextField = LimitTextField()
     private let onlyCharactersTextField = CustomeOnlyCharactersTextField()
     private let linkTextField = CustomLinkTextField()
     private let passwordTextField = CustomePasswordTextField()
-    
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
     
     private var keyboardHandler: KeyboardAppearListener?
 
@@ -29,25 +30,16 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        view.backgroundColor = .systemBackground
         keyboardHandler = KeyboardAppearListener(viewController: self)
-        registerForKeyboardNotifications()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Setup UI
     
     private func setupUI() {
+        view.backgroundColor = .systemBackground
         setupScrollView()
         setupTitleLabel()
-        setupNoDigitsTextField()
-        setupMaxSize10TextField()
-        setupOnlyCharactersTextField()
-        setupLinkTextField()
-        setupPasswordTextField()
+        setupStackView()
         setupGestures()
     }
     
@@ -82,89 +74,57 @@ class MainViewController: UIViewController {
         }
     }
     
-    // MARK: - Text Field Setup
+    // MARK: - Stack View Setup
     
-    private func setupNoDigitsTextField() {
-        contentView.addSubview(noDigitsTextField)
-        noDigitsTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+    private func setupStackView() {
+        contentView.addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.spacing = 30
+        stackView.distribution = .fill
+        
+        stackView.addArrangedSubview(noDigitsTextField)
+        stackView.addArrangedSubview(limitTextField)
+        stackView.addArrangedSubview(onlyCharactersTextField)
+        stackView.addArrangedSubview(linkTextField)
+        stackView.addArrangedSubview(passwordTextField)
+        
+        stackView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(30)
             make.leading.trailing.equalTo(contentView).inset(16)
-            make.height.equalTo(66)
-        }
-    }
-    
-    private func setupMaxSize10TextField() {
-        contentView.addSubview(maxSize10TextField)
-        maxSize10TextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(noDigitsTextField.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.height.equalTo(66)
-        }
-    }
-    
-    private func setupOnlyCharactersTextField() {
-        contentView.addSubview(onlyCharactersTextField)
-        onlyCharactersTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(maxSize10TextField.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.height.equalTo(66)
-        }
-    }
-    
-    private func setupLinkTextField() {
-        contentView.addSubview(linkTextField)
-        linkTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(onlyCharactersTextField.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.height.equalTo(66)
-        }
-    }
-    
-    private func setupPasswordTextField() {
-        contentView.addSubview(passwordTextField)
-        passwordTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(linkTextField.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.height.equalTo(160)
             make.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
     
     // MARK: - Keyboard Notifications
     
-    private func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        
-        let keyboardHeight = keyboardFrame.height
-        let bottomInset = keyboardHeight - view.safeAreaInsets.bottom
-
-        scrollView.contentInset.bottom = bottomInset
-        scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        scrollView.contentInset.bottom = 0
-        scrollView.verticalScrollIndicatorInsets.bottom = 0
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
+//    private func registerForKeyboardNotifications() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//    
+//    @objc private func keyboardWillShow(_ notification: Notification) {
+//        guard let userInfo = notification.userInfo,
+//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+//        
+//        let keyboardHeight = keyboardFrame.height
+//        let bottomInset = keyboardHeight - view.safeAreaInsets.bottom
+//
+//        scrollView.contentInset.bottom = bottomInset
+//        scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+//        
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+//
+//    @objc private func keyboardWillHide(_ notification: Notification) {
+//        scrollView.contentInset.bottom = 0
+//        scrollView.verticalScrollIndicatorInsets.bottom = 0
+//        
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
 
     // MARK: - Gestures
     
@@ -177,3 +137,4 @@ class MainViewController: UIViewController {
         view.endEditing(true)
     }
 }
+

@@ -13,11 +13,11 @@
 		842F41BB2C60F22C0042FCF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BA2C60F22C0042FCF7 /* Assets.xcassets */; };
 		842F41BE2C60F22C0042FCF7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BD2C60F22C0042FCF7 /* Base */; };
 		842F41CA2C610CC60042FCF7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 842F41C92C610CC60042FCF7 /* SnapKit */; };
-		842F41D82C6176D80042FCF7 /* CustomeNoDigitsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */; };
-		842F41DA2C621B1A0042FCF7 /* CustomMaxSize10TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */; };
-		842F41DC2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */; };
-		842F41DE2C6240360042FCF7 /* CustomeLinkTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */; };
-		842F41E02C625D0D0042FCF7 /* CustomePasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */; };
+		842F41D82C6176D80042FCF7 /* CustomNoDigitsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D72C6176D80042FCF7 /* CustomNoDigitsTextField.swift */; };
+		842F41DA2C621B1A0042FCF7 /* CustomLimitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D92C621B1A0042FCF7 /* CustomLimitTextField.swift */; };
+		842F41DC2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DB2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift */; };
+		842F41DE2C6240360042FCF7 /* CustomLinkTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* CustomLinkTextFeild.swift */; };
+		842F41E02C625D0D0042FCF7 /* CustomPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* CustomPasswordTextField.swift */; };
 		8441B0712C639512000CDBD0 /* KeyboardAppearListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */; };
 		848DBCDC2C64C272006E2B5A /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848DBCDB2C64C272006E2B5A /* Rubik-Medium.ttf */; };
 		848DBCDF2C64C2C1006E2B5A /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */; };
@@ -33,11 +33,11 @@
 		842F41BA2C60F22C0042FCF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		842F41BD2C60F22C0042FCF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842F41BF2C60F22C0042FCF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeNoDigitsTextField.swift; sourceTree = "<group>"; };
-		842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMaxSize10TextField.swift; sourceTree = "<group>"; };
-		842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeOnlyCharactersTextField.swift; sourceTree = "<group>"; };
-		842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeLinkTextFeild.swift; sourceTree = "<group>"; };
-		842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomePasswordTextField.swift; sourceTree = "<group>"; };
+		842F41D72C6176D80042FCF7 /* CustomNoDigitsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoDigitsTextField.swift; sourceTree = "<group>"; };
+		842F41D92C621B1A0042FCF7 /* CustomLimitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLimitTextField.swift; sourceTree = "<group>"; };
+		842F41DB2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnlyCharactersTextField.swift; sourceTree = "<group>"; };
+		842F41DD2C6240360042FCF7 /* CustomLinkTextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLinkTextFeild.swift; sourceTree = "<group>"; };
+		842F41DF2C625D0D0042FCF7 /* CustomPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPasswordTextField.swift; sourceTree = "<group>"; };
 		8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAppearListener.swift; sourceTree = "<group>"; };
 		848DBCDB2C64C272006E2B5A /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 				842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */,
 				8441B0722C63C321000CDBD0 /* MainViewController */,
 				8441B0732C63C32F000CDBD0 /* CustomTextFields */,
-				848DBCDD2C64C2AA006E2B5A /* Extansions */,
+				848DBCDD2C64C2AA006E2B5A /* Extensions */,
 				8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */,
 				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
@@ -111,21 +111,21 @@
 		8441B0732C63C32F000CDBD0 /* CustomTextFields */ = {
 			isa = PBXGroup;
 			children = (
-				842F41D72C6176D80042FCF7 /* CustomeNoDigitsTextField.swift */,
-				842F41D92C621B1A0042FCF7 /* CustomMaxSize10TextField.swift */,
-				842F41DB2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift */,
-				842F41DD2C6240360042FCF7 /* CustomeLinkTextFeild.swift */,
-				842F41DF2C625D0D0042FCF7 /* CustomePasswordTextField.swift */,
+				842F41D72C6176D80042FCF7 /* CustomNoDigitsTextField.swift */,
+				842F41D92C621B1A0042FCF7 /* CustomLimitTextField.swift */,
+				842F41DB2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift */,
+				842F41DD2C6240360042FCF7 /* CustomLinkTextFeild.swift */,
+				842F41DF2C625D0D0042FCF7 /* CustomPasswordTextField.swift */,
 			);
 			path = CustomTextFields;
 			sourceTree = "<group>";
 		};
-		848DBCDD2C64C2AA006E2B5A /* Extansions */ = {
+		848DBCDD2C64C2AA006E2B5A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */,
 			);
-			path = Extansions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,14 +207,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				842F41DA2C621B1A0042FCF7 /* CustomMaxSize10TextField.swift in Sources */,
-				842F41D82C6176D80042FCF7 /* CustomeNoDigitsTextField.swift in Sources */,
+				842F41DA2C621B1A0042FCF7 /* CustomLimitTextField.swift in Sources */,
+				842F41D82C6176D80042FCF7 /* CustomNoDigitsTextField.swift in Sources */,
 				8441B0712C639512000CDBD0 /* KeyboardAppearListener.swift in Sources */,
-				842F41DE2C6240360042FCF7 /* CustomeLinkTextFeild.swift in Sources */,
-				842F41DC2C622BE00042FCF7 /* CustomeOnlyCharactersTextField.swift in Sources */,
+				842F41DE2C6240360042FCF7 /* CustomLinkTextFeild.swift in Sources */,
+				842F41DC2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift in Sources */,
 				842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */,
 				848DBCDF2C64C2C1006E2B5A /* UIFontExtension.swift in Sources */,
-				842F41E02C625D0D0042FCF7 /* CustomePasswordTextField.swift in Sources */,
+				842F41E02C625D0D0042FCF7 /* CustomPasswordTextField.swift in Sources */,
 				842F41B22C60F22A0042FCF7 /* AppDelegate.swift in Sources */,
 				842F41B42C60F22A0042FCF7 /* SceneDelegate.swift in Sources */,
 			);
