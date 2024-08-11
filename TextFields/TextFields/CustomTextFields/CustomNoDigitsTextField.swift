@@ -13,74 +13,79 @@ class CustomNoDigitsTextField: UIView {
     // MARK: - UI Elements
     
     private let textField = UITextField()
-    private let background = UIView()
-    private let titleTextField = UILabel()
-
+    private let backgroundView = UIView()
+    private let titleLabel = UILabel()
+    
     // MARK: - Initializers
     
     init() {
         super.init(frame: .zero)
-        setupCustomTextField()
+        setupUI()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupCustomTextField()
+        setupUI()
     }
     
     // MARK: - Setup Methods
     
-    private func setupCustomTextField() {
-        // Configure title label
-        titleTextField.text = "NO digits field"
-        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleTextField.textColor = UIColor.nightRider
-        self.addSubview(titleTextField)
+    // SetupUI
+    private func setupUI() {
+        addSubview(titleLabel)
+        addSubview(backgroundView)
+        backgroundView.addSubview(textField)
         
-        // Configure text field
+        setupTitleLabel()
+        setupBackgroundView()
+        setupTextField()
+    }
+    
+    // SetupTitleLabel
+    private func setupTitleLabel() {
+        titleLabel.text = "NO digits field"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview()
+            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+        }
+    }
+    
+    // SetupBackgroundView
+    private func setupBackgroundView() {
+        backgroundView.backgroundColor = UIColor.fieldGray
+        backgroundView.layer.cornerRadius = 11
+        backgroundView.layer.borderWidth = 1.0
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        
+        backgroundView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(36)
+        }
+    }
+    
+    // SetupTextField
+    private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
             string: "Type here",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
-       
-        // Configure background view
-        background.backgroundColor = UIColor.fieldGray
-        background.layer.cornerRadius = 11
-        background.layer.borderWidth = 1.0
-        background.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-
-        self.addSubview(background)
-        background.snp.makeConstraints { make in
-            make.top.equalTo(titleTextField.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(36)
-        }
-
-        background.addSubview(textField)
+        textField.delegate = self
+        
         textField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(8)
             make.top.bottom.equalToSuperview().inset(7)
         }
-
-        textField.delegate = self
-
-        // Configure title label constraints
-        titleTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.bottom.equalTo(background.snp.top).offset(-4)
-        }
     }
     
-    // MARK: - Public Methods
+    // MARK: - SetBorderColor
     
-    func setPlaceholder(_ placeholder: String) {
-        textField.placeholder = placeholder
-    }
-
     func setBorderColor(_ color: UIColor) {
-        background.layer.borderColor = color.cgColor
+        backgroundView.layer.borderColor = color.cgColor
     }
 }
 

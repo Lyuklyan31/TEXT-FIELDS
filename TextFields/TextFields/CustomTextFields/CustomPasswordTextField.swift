@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomePasswordTextField: UIView {
+class CustomPasswordTextField: UIView {
     
     // MARK: - UI Elements
     
@@ -225,7 +225,7 @@ class CustomePasswordTextField: UIView {
 
 // MARK: - UITextFieldDelegate
 
-extension CustomePasswordTextField: UITextFieldDelegate {
+extension CustomPasswordTextField: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Dismiss keyboard when return key is pressed
         textField.resignFirstResponder()

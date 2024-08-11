@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomeOnlyCharactersTextField: UIView {
+class CustomOnlyCharactersTextField: UIView {
     
     // MARK: - UI Elements
     
@@ -75,7 +75,7 @@ class CustomeOnlyCharactersTextField: UIView {
 
 // MARK: - UITextFieldDelegate
 
-extension CustomeOnlyCharactersTextField: UITextFieldDelegate {
+extension CustomOnlyCharactersTextField: UITextFieldDelegate {
     
     enum InputState {
         case letters
