@@ -89,24 +89,22 @@ class CustomNoDigitsTextField: UIView {
 extension CustomNoDigitsTextField: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // Allow only non-digit characters
-        let invalidCharacters = CharacterSet(charactersIn: "0123456789")
-        return string.rangeOfCharacter(from: invalidCharacters) == nil
+        guard let text = textField.text as NSString? else { return false }
+        textField.text = text.replacingCharacters(in: range, with: string).filter { !$0.isNumber }
+        return false
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Dismiss keyboard when return key is pressed
+        
         textField.resignFirstResponder()
         return true
     }
-
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Highlight border when editing begins
         setBorderColor(.systemBlue)
     }
-
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // Restore border color when editing ends
         setBorderColor(UIColor(.fieldGray.opacity(0.12)))
     }
 }
