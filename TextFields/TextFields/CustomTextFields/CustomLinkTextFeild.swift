@@ -7,149 +7,136 @@
 
 import UIKit
 import SnapKit
-import WebKit
+import SafariServices
 
 class CustomLinkTextField: UIView {
-
+    
     // MARK: - UI Elements
-
-    private let backgroundTextField = UIView()
+    
     private let textField = UITextField()
-    private let titleTextField = UILabel()
+    private let backgroundView = UIView()
+    private let titleLabel = UILabel()
     private let prefix = "https://"
-
-    private var hasTextChanged = false
-    private var webView: WKWebView!
-
+    private var typingTimer: Timer?
+    
     // MARK: - Initializers
-
+    
     init() {
         super.init(frame: .zero)
-        setupCustomTextField()
+        setupUI()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupCustomTextField()
+        setupUI()
     }
-
+    
     // MARK: - Setup Methods
-
-    private func setupCustomTextField() {
-        // Title Label
-        titleTextField.text = "Link"
-        titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleTextField.textColor = UIColor.nightRider
-        self.addSubview(titleTextField)
+    
+    // SetupUI
+    private func setupUI() {
+        addSubview(titleLabel)
+        addSubview(backgroundView)
+        backgroundView.addSubview(textField)
         
-        // Background View
-        backgroundTextField.backgroundColor = UIColor.fieldGray
-        backgroundTextField.layer.cornerRadius = 11
-        backgroundTextField.layer.borderWidth = 1.0
-        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-        self.addSubview(backgroundTextField)
+        setupTitleLabel()
+        setupBackgroundView()
+        setupTextField()
+    }
+    
+    // SetupTitleLabel
+    private func setupTitleLabel() {
+        titleLabel.text = "Link"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
         
-        // Text Field
+        titleLabel.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview()
+            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+        }
+    }
+    
+    // SetupBackgroundView
+    private func setupBackgroundView() {
+        backgroundView.backgroundColor = UIColor.fieldGray
+        backgroundView.layer.cornerRadius = 11
+        backgroundView.layer.borderWidth = 1.0
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        
+        backgroundView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(36)
+        }
+    }
+    
+    // SetupTextField
+    private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
             string: "www.example.com",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
-        backgroundTextField.addSubview(textField)
-        
-        // Setting Constraints
-        titleTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
-            make.leading.equalToSuperview()
-        }
-        
-        backgroundTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleTextField.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(36)
-            make.leading.trailing.equalToSuperview()
-        }
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview().inset(7)
         }
-        
-        textField.addTarget(self, action: #selector(textFieldDidBeginEditing(_:)), for: .editingDidBegin)
-        textField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
-    }
-
-    // MARK: - Text Field Actions
-
-    @objc func textFieldDidBeginEditing(_ textField: UITextField) {
-        backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
-    @objc func textFieldDidEndEditing(_ textField: UITextField) {
-        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+    // MARK: - SetBorderColor
+    
+    func setBorderColor(_ color: UIColor) {
+        backgroundView.layer.borderColor = color.cgColor
+    }
+    
+    // MARK: - Text Field Actions
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        typingTimer?.invalidate()
+        typingTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(checkForValidLink), userInfo: nil, repeats: false)
+    }
+
+    @objc private func checkForValidLink() {
+        guard let urlString = textField.text, !urlString.isEmpty else { return }
+        var formattedString = urlString
+
+        if !formattedString.lowercased().hasPrefix(prefix) {
+            formattedString = prefix + formattedString
+        }
+        
+        if let url = URL(string: formattedString), UIApplication.shared.canOpenURL(url) {
+            openURLInSafariViewController(url: url)
+        }
+    }
+    
+    private func openURLInSafariViewController(url: URL) {
+        let safariViewController = SFSafariViewController(url: url)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let navigationController = windowScene.windows.first?.rootViewController as? UINavigationController {
+            navigationController.present(safariViewController, animated: true, completion: nil)
+        }
     }
 }
 
 // MARK: - UITextFieldDelegate
 
 extension CustomLinkTextField: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
-        if let urlString = textField.text, !urlString.isEmpty {
-            var formattedString = urlString
-            // Add "https://" if not already present
-            if !formattedString.lowercased().hasPrefix(prefix) {
-                formattedString = prefix + formattedString
-            }
-            
-            if let url = URL(string: formattedString) {
-                openURLInWebView(url: url)
-            }
-        }
+        checkForValidLink()
         return true
     }
     
-    private func handlePasteAction(textField: UITextField) {
-        guard let pastedText = UIPasteboard.general.string, !pastedText.isEmpty else { return }
-        
-        // Format pasted text
-        var formattedString = pastedText
-        
-        // Remove any leading "https://" or "http://"
-        if formattedString.lowercased().hasPrefix(prefix) {
-            formattedString.removeFirst(prefix.count)
-        } else if formattedString.lowercased().hasPrefix("http://") {
-            formattedString.removeFirst("http://".count)
-        }
-        
-        // Add "https://" if not already present
-        formattedString = prefix + formattedString
-        
-        // Update the textField text without showing "https://"
-        textField.text = formattedString
-        
-        if let url = URL(string: formattedString) {
-            openURLInWebView(url: url)
-        }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        setBorderColor(.systemBlue)
     }
-}
-
-// MARK: - WebView Handling
-
-extension CustomLinkTextField: WKNavigationDelegate {
-    private func openURLInWebView(url: URL) {
-        let webViewController = UIViewController()
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        
-        webViewController.view = webView
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let navigationController = windowScene.windows.first?.rootViewController as? UINavigationController {
-            navigationController.pushViewController(webViewController, animated: true)
-        }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        setBorderColor(UIColor(.fieldGray.opacity(0.12)))
     }
 }
