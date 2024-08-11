@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
     private let stackView = UIStackView()
     
     private let noDigitsTextField = CustomNoDigitsTextField()
-    private let limitTextField = LimitTextField(limit: 10)
+    private let limitTextField = LimitTextField(characterLimit: 10)
     private let onlyCharactersTextField = CustomOnlyCharactersTextField()
     private let linkTextField = CustomLinkTextField()
     private let passwordTextField = CustomPasswordTextField()

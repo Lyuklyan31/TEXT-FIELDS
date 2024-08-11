@@ -8,135 +8,161 @@
 import UIKit
 import SnapKit
 
+// MARK: - LimitTextField: Custom UIView with Character Limit
+
 class LimitTextField: UIView {
     
     // MARK: - UI Elements
     
+    private let titleLabel = UILabel()
+    private let characterCountLabel = UILabel()
+    private let backgroundView = UIView()
     private let textField = UITextField()
-    private let backgroundTextField = UIView()
-    private let titleTextField = UILabel()
-    private let maxSymbolsLabel = UILabel()
     
-    private var limit: Int
+    private var characterLimit: Int
     
     // MARK: - Initializers
     
-    init(limit: Int) {
-        self.limit = limit
+    init(characterLimit: Int) {
+        self.characterLimit = characterLimit
         super.init(frame: .zero)
-        setupCustomTextField()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
-        self.limit = 0
+        self.characterLimit = 0
         super.init(coder: coder)
-        setupCustomTextField()
+        setupView()
     }
     
     // MARK: - Setup Methods
     
-    private func setupCustomTextField() {
-            // Title Label
-            titleTextField.text = "Input limit"
-            titleTextField.font = UIFont.setFont(.rubikRegular, size: 13)
-            titleTextField.textColor = UIColor.nightRider
-            self.addSubview(titleTextField)
-            
-            // Max Symbols Label
-            maxSymbolsLabel.text = String(limit)
-            maxSymbolsLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-            maxSymbolsLabel.textColor = UIColor.nightRider
-            self.addSubview(maxSymbolsLabel)
-            
-            // Background View
-            backgroundTextField.backgroundColor = UIColor.fieldGray
-            backgroundTextField.layer.cornerRadius = 11
-            backgroundTextField.layer.borderWidth = 1.0
-            backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-            self.addSubview(backgroundTextField)
-            
-            // Text Field
-            textField.attributedPlaceholder = NSAttributedString(
+    // SetupView
+    private func setupView() {
+        addSubview(titleLabel)
+        addSubview(characterCountLabel)
+        addSubview(backgroundView)
+        backgroundView.addSubview(textField)
+        
+        setupTitleLabel()
+        setupCharacterCountLabel()
+        setupBackgroundView()
+        setupTextField()
+    }
+    
+    // SetupTitleLabel
+    private func setupTitleLabel() {
+        titleLabel.text = "Input limit"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+            make.leading.equalToSuperview()
+        }
+    }
+    
+    // SetupCharacterCountLabel
+    private func setupCharacterCountLabel() {
+        characterCountLabel.text = String(characterLimit)
+        characterCountLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        characterCountLabel.textColor = UIColor.nightRider
+        
+        characterCountLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundView.snp.top).offset(-7)
+            make.trailing.equalToSuperview()
+        }
+    }
+    
+    // SetupBackgroundView
+    private func setupBackgroundView() {
+        backgroundView.backgroundColor = UIColor.fieldGray
+        backgroundView.layer.cornerRadius = 11
+        backgroundView.layer.borderWidth = 1.0
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        
+        backgroundView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(36)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    // SetupTextField
+    private func setupTextField() {
+        textField.attributedPlaceholder = NSAttributedString(
             string: "Type here",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
-            )
-            textField.font = UIFont.setFont(.rubikRegular, size: 17)
-            backgroundTextField.addSubview(textField)
-            
-            // Setting Constraints
-            titleTextField.snp.makeConstraints { make in
-                make.bottom.equalTo(backgroundTextField.snp.top).offset(-4)
-                make.leading.equalToSuperview()
-            }
-            
-            maxSymbolsLabel.snp.makeConstraints { make in
-                make.bottom.equalTo(backgroundTextField.snp.top).offset(-7)
-                make.trailing.equalToSuperview()
-            }
-            
-            backgroundTextField.snp.makeConstraints { make in
-                make.centerX.equalToSuperview()
-                make.height.equalTo(36)
-                make.leading.trailing.equalToSuperview()
-            }
-            
-            textField.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
-            }
-            
-            textField.delegate = self
+        )
+        textField.font = UIFont.setFont(.rubikRegular, size: 17)
+        
+        textField.delegate = self
+        
+        textField.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
         }
-
+    }
 }
-    // MARK: - UITextFieldDelegate
-    
+
+// MARK: - UITextFieldDelegate
+
 extension LimitTextField: UITextFieldDelegate {
     
+    // Handles character input and updates character count and text field appearance
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text as NSString? else { return true }
         let newText = currentText.replacingCharacters(in: range, with: string)
         let newLength = newText.count
         
-        let remainingCharacters = limit - newLength
-
-        if newLength <= 10 {
-            // Update label and border color within limit (counting down)
-            maxSymbolsLabel.text = "\(remainingCharacters)"
-            maxSymbolsLabel.textColor = UIColor.nightRider
-            backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
-            
-            let attributedText = NSMutableAttributedString(string: newText)
-            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
-            textField.attributedText = attributedText
-        } else {
-            // Update label and border color for exceeding limit (negative counting)
-            maxSymbolsLabel.text = "-\(newLength - limit)"
-            maxSymbolsLabel.textColor = .red
-            backgroundTextField.layer.borderColor = UIColor.red.cgColor
-            
-            let attributedText = NSMutableAttributedString(string: newText)
-            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: 10))
-            attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 10, length: newLength - limit))
-            textField.attributedText = attributedText
-        }
+        let remainingCharacters = characterLimit - newLength
+        
+        updateCharacterCountLabel(remainingCharacters: remainingCharacters)
+        updateTextFieldAppearance(newText: newText, newLength: newLength)
         
         return false
     }
 
+    // Updates the label showing remaining characters
+    private func updateCharacterCountLabel(remainingCharacters: Int) {
+        if remainingCharacters >= 0 {
+            characterCountLabel.text = "\(remainingCharacters)"
+            characterCountLabel.textColor = UIColor.nightRider
+        } else {
+            characterCountLabel.text = "-\(-remainingCharacters)"
+            characterCountLabel.textColor = .red
+        }
+    }
+
+    // Changes text field appearance based on character count
+    private func updateTextFieldAppearance(newText: String, newLength: Int) {
+        let attributedText = NSMutableAttributedString(string: newText)
+        
+        if newLength <= characterLimit {
+            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
+            backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+        } else {
+            attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: characterLimit))
+            attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: characterLimit, length: newLength - characterLimit))
+            backgroundView.layer.borderColor = UIColor.red.cgColor
+        }
+        
+        textField.attributedText = attributedText
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Dismiss keyboard when return key is pressed
         textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Highlight border when editing begins
-        backgroundTextField.layer.borderColor = UIColor.systemBlue.cgColor
+        backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // Restore border color when editing ends
-        backgroundTextField.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        if let text = textField.text, text.count > characterLimit {
+            backgroundView.layer.borderColor = UIColor.red.cgColor
+        } else {
+            backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        }
     }
 }
