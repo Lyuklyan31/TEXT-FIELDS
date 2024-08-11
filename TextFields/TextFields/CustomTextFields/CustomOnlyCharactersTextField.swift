@@ -97,15 +97,11 @@ extension CustomOnlyCharactersTextField: UITextFieldDelegate {
         guard let currentText = textField.text else { return true }
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
-        // Allow text deletion
         if string.isEmpty && range.length > 0 { return true }
         
-        // Limit total length to 11 characters
         if newText.count > 11 { return false }
         
-        // Validate the input
         if isValidInput(newText) {
-            // Auto-insert a hyphen if the input has reached 5 letters and doesn't contain a hyphen yet
             if newText.count == 5 && !newText.contains("-") {
                 textField.text = newText + "-"
                 return false
