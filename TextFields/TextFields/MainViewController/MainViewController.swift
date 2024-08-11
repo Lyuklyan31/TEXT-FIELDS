@@ -12,25 +12,31 @@ class MainViewController: UIViewController {
     
     // MARK: - UI Elements
     
-    private let titleLabel = UILabel()
+    private let headerTitleLabel = UILabel()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let stackView = UIStackView()
     
     private let noDigitsTextField = CustomNoDigitsTextField()
     private let limitTextField = LimitTextField(limit: 10)
-    private let onlyCharactersTextField = CustomeOnlyCharactersTextField()
+    private let onlyCharactersTextField = CustomOnlyCharactersTextField()
     private let linkTextField = CustomLinkTextField()
-    private let passwordTextField = CustomePasswordTextField()
+    private let passwordTextField = CustomPasswordTextField()
     
-    private var keyboardHandler: KeyboardAppearListener?
+    private var keyboardManager: KeyboardManager?
 
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        keyboardHandler = KeyboardAppearListener(viewController: self)
+        configureDefaults()
+    }
+    
+    // MARK: - Default Configuration
+    
+    private func configureDefaults() {
+        keyboardManager = KeyboardManager(viewController: self, scrollView: scrollView)
     }
     
     // MARK: - Setup UI
@@ -38,7 +44,7 @@ class MainViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupScrollView()
-        setupTitleLabel()
+        setupHeaderTitleLabel()
         setupStackView()
         setupGestures()
     }
@@ -58,16 +64,16 @@ class MainViewController: UIViewController {
         }
     }
     
-    // MARK: - Title Label Setup
+    // MARK: - Header Title Label Setup
     
-    private func setupTitleLabel() {
-        contentView.addSubview(titleLabel)
-        titleLabel.text = "Text Fields"
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.setFont(.rubikMedium, size: 34)
-        titleLabel.textColor = UIColor.nightRider
+    private func setupHeaderTitleLabel() {
+        contentView.addSubview(headerTitleLabel)
+        headerTitleLabel.text = "Text Fields"
+        headerTitleLabel.textAlignment = .center
+        headerTitleLabel.font = UIFont(name: "Rubik-Medium", size: 34)
+        headerTitleLabel.textColor = UIColor.nightRider
         
-        titleLabel.snp.makeConstraints { make in
+        headerTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(contentView.snp.top).offset(48)
             make.leading.trailing.equalTo(contentView).inset(16)
@@ -88,46 +94,13 @@ class MainViewController: UIViewController {
         }
 
         stackView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.top.equalTo(headerTitleLabel.snp.bottom).offset(30)
             $0.leading.trailing.equalTo(contentView).inset(16)
             $0.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
 
-
-    
-    // MARK: - Keyboard Notifications
-    
-//    private func registerForKeyboardNotifications() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//    }
-//    
-//    @objc private func keyboardWillShow(_ notification: Notification) {
-//        guard let userInfo = notification.userInfo,
-//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-//        
-//        let keyboardHeight = keyboardFrame.height
-//        let bottomInset = keyboardHeight - view.safeAreaInsets.bottom
-//
-//        scrollView.contentInset.bottom = bottomInset
-//        scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
-//        
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.layoutIfNeeded()
-//        }
-//    }
-//
-//    @objc private func keyboardWillHide(_ notification: Notification) {
-//        scrollView.contentInset.bottom = 0
-//        scrollView.verticalScrollIndicatorInsets.bottom = 0
-//        
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.layoutIfNeeded()
-//        }
-//    }
-
-    // MARK: - Gestures
+    // MARK: - Setup Gestures
     
     private func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -138,4 +111,3 @@ class MainViewController: UIViewController {
         view.endEditing(true)
     }
 }
-

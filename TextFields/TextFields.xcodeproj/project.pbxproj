@@ -18,7 +18,7 @@
 		842F41DC2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DB2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift */; };
 		842F41DE2C6240360042FCF7 /* CustomLinkTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* CustomLinkTextFeild.swift */; };
 		842F41E02C625D0D0042FCF7 /* CustomPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* CustomPasswordTextField.swift */; };
-		8441B0712C639512000CDBD0 /* KeyboardAppearListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */; };
+		8441B0712C639512000CDBD0 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B0702C639512000CDBD0 /* KeyboardManager.swift */; };
 		848DBCDC2C64C272006E2B5A /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848DBCDB2C64C272006E2B5A /* Rubik-Medium.ttf */; };
 		848DBCDF2C64C2C1006E2B5A /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */; };
 		848DBCE22C64C317006E2B5A /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848DBCE02C64C317006E2B5A /* Rubik-Light.ttf */; };
@@ -38,7 +38,7 @@
 		842F41DB2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOnlyCharactersTextField.swift; sourceTree = "<group>"; };
 		842F41DD2C6240360042FCF7 /* CustomLinkTextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLinkTextFeild.swift; sourceTree = "<group>"; };
 		842F41DF2C625D0D0042FCF7 /* CustomPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPasswordTextField.swift; sourceTree = "<group>"; };
-		8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAppearListener.swift; sourceTree = "<group>"; };
+		8441B0702C639512000CDBD0 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		848DBCDB2C64C272006E2B5A /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		848DBCE02C64C317006E2B5A /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
@@ -81,10 +81,10 @@
 				8441B0722C63C321000CDBD0 /* MainViewController */,
 				8441B0732C63C32F000CDBD0 /* CustomTextFields */,
 				848DBCDD2C64C2AA006E2B5A /* Extensions */,
-				8441B0702C639512000CDBD0 /* KeyboardAppearListener.swift */,
-				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
+				848581EB2C68F577006D9A48 /* KeyboardManager */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
 				842F41BC2C60F22C0042FCF7 /* LaunchScreen.storyboard */,
+				842F41BA2C60F22C0042FCF7 /* Assets.xcassets */,
 				842F41BF2C60F22C0042FCF7 /* Info.plist */,
 			);
 			path = TextFields;
@@ -118,6 +118,14 @@
 				842F41DF2C625D0D0042FCF7 /* CustomPasswordTextField.swift */,
 			);
 			path = CustomTextFields;
+			sourceTree = "<group>";
+		};
+		848581EB2C68F577006D9A48 /* KeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				8441B0702C639512000CDBD0 /* KeyboardManager.swift */,
+			);
+			path = KeyboardManager;
 			sourceTree = "<group>";
 		};
 		848DBCDD2C64C2AA006E2B5A /* Extensions */ = {
@@ -209,7 +217,7 @@
 			files = (
 				842F41DA2C621B1A0042FCF7 /* CustomLimitTextField.swift in Sources */,
 				842F41D82C6176D80042FCF7 /* CustomNoDigitsTextField.swift in Sources */,
-				8441B0712C639512000CDBD0 /* KeyboardAppearListener.swift in Sources */,
+				8441B0712C639512000CDBD0 /* KeyboardManager.swift in Sources */,
 				842F41DE2C6240360042FCF7 /* CustomLinkTextFeild.swift in Sources */,
 				842F41DC2C622BE00042FCF7 /* CustomOnlyCharactersTextField.swift in Sources */,
 				842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */,
