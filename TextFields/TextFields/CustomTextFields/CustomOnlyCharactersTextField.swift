@@ -87,12 +87,11 @@ class CustomOnlyCharactersTextField: UIView {
 
 extension CustomOnlyCharactersTextField: UITextFieldDelegate {
     
-    // Checks if the text matches the allowed pattern
     private func isValidInput(_ text: String) -> Bool {
-        let pattern = "^[a-zA-Zа-яА-ЯіІєЄ]{1,5}-?[0-9]{0,5}$"
+        let pattern = "^[a-zA-Zа-яА-ЯіІєЄ]{1,5}(-[0-9]{0,5})?$"
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: text)
     }
-    
+
     // Handles text changes and enforces input rules
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text else { return true }
@@ -104,8 +103,9 @@ extension CustomOnlyCharactersTextField: UITextFieldDelegate {
         // Limit total length to 11 characters
         if newText.count > 11 { return false }
         
-        // Validate and auto-insert a hyphen if needed
+        // Validate the input
         if isValidInput(newText) {
+            // Auto-insert a hyphen if the input has reached 5 letters and doesn't contain a hyphen yet
             if newText.count == 5 && !newText.contains("-") {
                 textField.text = newText + "-"
                 return false
@@ -114,7 +114,7 @@ extension CustomOnlyCharactersTextField: UITextFieldDelegate {
         }
         return false
     }
-    
+
     // Dismiss the keyboard when the return key is pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
