@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let stackView = UIStackView()
+    private let showTabBarButton = UIButton()
     
     private let noDigitsTextField = NoDigitsTextField()
     private let limitTextField = LimitTextField(characterLimit: 10)
@@ -47,6 +48,7 @@ class MainViewController: UIViewController {
         setupHeaderTitleLabel()
         setupStackView()
         setupGestures()
+        setupShowTabBarButton()
     }
     
     // MARK: - Scroll View Setup
@@ -97,6 +99,19 @@ class MainViewController: UIViewController {
             $0.top.equalTo(headerTitleLabel.snp.bottom).offset(30)
             $0.leading.trailing.equalTo(contentView).inset(16)
             $0.bottom.equalTo(contentView.snp.bottom).offset(-20)
+        }
+    }
+    
+    func setupShowTabBarButton() {
+        contentView.addSubview(showTabBarButton)
+        showTabBarButton.setTitle("ShowTabBar", for: .normal)
+        showTabBarButton.backgroundColor = .systemBlue
+        
+        showTabBarButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(stackView).inset(40)
+            make.width.equalTo(200)
+            make.height.equalTo(50)
         }
     }
 
