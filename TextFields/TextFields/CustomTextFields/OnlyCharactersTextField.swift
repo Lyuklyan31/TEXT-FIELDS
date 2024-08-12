@@ -1,5 +1,5 @@
 //
-//  CustomPasswordTextField.swift
+//  CustomOnlyCharactersTextField.swift
 //  TextFields
 //
 //  Created by admin on 06.08.2024.
@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import SafariServices
 
-class CustomLinkTextField: UIView {
+class OnlyCharactersTextField: UIView {
     
     // MARK: - UI Elements
     
@@ -17,25 +16,22 @@ class CustomLinkTextField: UIView {
     private let backgroundView = UIView()
     private let titleLabel = UILabel()
     
-    private let prefix = "https://"
-    private var typingTimer: Timer?
-    
     // MARK: - Initializers
     
     init() {
         super.init(frame: .zero)
-        setupUI()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupUI()
+        setupView()
     }
     
     // MARK: - Setup UI and Constraints
     
-    // Sets up the UI elements and their constraints
-    private func setupUI() {
+    // Sets up all UI elements and their constraints
+    private func setupView() {
         addSubview(titleLabel)
         addSubview(backgroundView)
         backgroundView.addSubview(textField)
@@ -47,13 +43,13 @@ class CustomLinkTextField: UIView {
     
     // Configures the title label properties and constraints
     private func setupTitleLabel() {
-        titleLabel.text = "Link"
+        titleLabel.text = "Only characters"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         titleLabel.textColor = UIColor.nightRider
         
         titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
             make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+            make.leading.equalToSuperview()
         }
     }
     
@@ -66,68 +62,59 @@ class CustomLinkTextField: UIView {
         
         backgroundView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.height.equalTo(36)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
     // Configures the text field properties and constraints
     private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
-            string: "www.example.com",
+            string: "wwwww-ddddd",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         textField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(8)
-            make.top.bottom.equalToSuperview().inset(7)
-        }
-    }
-    
-    // MARK: - Text Field Actions
-    
-    // Called when text in the text field changes; starts a timer to check the link validity
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        typingTimer?.invalidate()
-        typingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(checkForValidLink), userInfo: nil, repeats: false)
-    }
-
-    // Checks if the current text is a valid URL and opens it if valid
-    @objc private func checkForValidLink() {
-        guard let urlString = textField.text, !urlString.isEmpty else { return }
-        var formattedString = urlString
-
-        if !formattedString.lowercased().hasPrefix(prefix) {
-            formattedString = prefix + formattedString
-        }
-        
-        if let url = URL(string: formattedString), UIApplication.shared.canOpenURL(url) {
-            openURLInSafariViewController(url: url)
-        }
-    }
-
-    // Presents a Safari View Controller with the given URL
-    private func openURLInSafariViewController(url: URL) {
-        let safariViewController = SFSafariViewController(url: url)
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let navigationController = windowScene.windows.first?.rootViewController as? UINavigationController {
-            navigationController.present(safariViewController, animated: true, completion: nil)
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
         }
     }
 }
 
 // MARK: - UITextFieldDelegate
 
-extension CustomLinkTextField: UITextFieldDelegate {
-    
+extension OnlyCharactersTextField: UITextFieldDelegate {
+   
+    // Checks if the input matches the regular expression
+    private func isValidInput(_ text: String) -> Bool {
+        let pattern = "^[a-zA-Zа-яА-ЯіІєЄ]{1,5}(-[0-9]{0,5})?$"
+        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: text)
+    }
+
+    // Handles text changes and enforces input rules
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let currentText = textField.text else { return true }
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        if string.isEmpty && range.length > 0 { return true }
+        if newText.count > 11 { return false }
+        
+        // Validate input and handle formatting
+        if isValidInput(newText) {
+            if newText.count == 5 && !newText.contains("-") {
+                textField.text = newText + "-"
+                return false
+            }
+            return true
+        }
+        return false
+    }
+
     // Dismiss the keyboard when the return key is pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        checkForValidLink()
         return true
     }
     

@@ -17,11 +17,11 @@ class MainViewController: UIViewController {
     private let contentView = UIView()
     private let stackView = UIStackView()
     
-    private let noDigitsTextField = CustomNoDigitsTextField()
+    private let noDigitsTextField = NoDigitsTextField()
     private let limitTextField = LimitTextField(characterLimit: 10)
-    private let onlyCharactersTextField = CustomOnlyCharactersTextField()
-    private let linkTextField = CustomLinkTextField()
-    private let passwordTextField = CustomPasswordTextField()
+    private let onlyCharactersTextField = OnlyCharactersTextField()
+    private let linkTextField = LinkTextField()
+    private let passwordTextField = PasswordTextField()
     
     private var keyboardManager: KeyboardManager?
 
