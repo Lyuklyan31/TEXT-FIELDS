@@ -103,16 +103,19 @@ class MainViewController: UIViewController {
     }
     
     func setupShowTabBarButton() {
-        contentView.addSubview(showTabBarButton)
-        showTabBarButton.setTitle("ShowTabBar", for: .normal)
+        view.addSubview(showTabBarButton)
+        showTabBarButton.setTitle("Show Tab Bar", for: .normal)
+        showTabBarButton.layer.cornerRadius = 11
         showTabBarButton.backgroundColor = .systemBlue
-        
+
         showTabBarButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(stackView).inset(40)
-            make.width.equalTo(200)
+            make.top.equalTo(stackView.snp.bottom).offset(100)
+            make.width.equalTo(300)
             make.height.equalTo(50)
         }
+        
+        showTabBarButton.addTarget(self, action: #selector(showTabBar), for: .touchUpInside)
     }
 
     // MARK: - Setup Gestures
@@ -124,5 +127,11 @@ class MainViewController: UIViewController {
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func showTabBar() {
+        let tabBarVC = TextFieldsTabBarController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true, completion: nil)
     }
 }
