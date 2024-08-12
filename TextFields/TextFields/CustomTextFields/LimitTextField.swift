@@ -21,7 +21,7 @@ class LimitTextField: UIView {
     
     // MARK: - Initializers
     
-    init(characterLimit: Int) {
+    init(_ characterLimit: Int) {
         self.characterLimit = characterLimit
         super.init(frame: .zero)
         setupView()

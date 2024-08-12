@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
     private let showTabBarButton = UIButton()
     
     private let noDigitsTextField = NoDigitsTextField()
-    private let limitTextField = LimitTextField(characterLimit: 10)
+    private let limitTextField = LimitTextField(10)
     private let onlyCharactersTextField = OnlyCharactersTextField()
     private let linkTextField = LinkTextField()
     private let passwordTextField = PasswordTextField()
