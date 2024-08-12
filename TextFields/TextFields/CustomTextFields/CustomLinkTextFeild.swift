@@ -16,6 +16,7 @@ class CustomLinkTextField: UIView {
     private let textField = UITextField()
     private let backgroundView = UIView()
     private let titleLabel = UILabel()
+    
     private let prefix = "https://"
     private var typingTimer: Timer?
     
@@ -31,9 +32,9 @@ class CustomLinkTextField: UIView {
         setupUI()
     }
     
-    // MARK: - Setup Methods
+    // MARK: - Setup UI and Constraints
     
-    // SetupUI
+    // Sets up the UI elements and their constraints
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(backgroundView)
@@ -44,7 +45,7 @@ class CustomLinkTextField: UIView {
         setupTextField()
     }
     
-    // SetupTitleLabel
+    // Configures the title label properties and constraints
     private func setupTitleLabel() {
         titleLabel.text = "Link"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
@@ -56,7 +57,7 @@ class CustomLinkTextField: UIView {
         }
     }
     
-    // SetupBackgroundView
+    // Configures the background view properties and constraints
     private func setupBackgroundView() {
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
@@ -70,7 +71,7 @@ class CustomLinkTextField: UIView {
         }
     }
     
-    // SetupTextField
+    // Configures the text field properties and constraints
     private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
             string: "www.example.com",
@@ -86,19 +87,15 @@ class CustomLinkTextField: UIView {
         }
     }
     
-    // MARK: - SetBorderColor
-    
-    func setBorderColor(_ color: UIColor) {
-        backgroundView.layer.borderColor = color.cgColor
-    }
-    
     // MARK: - Text Field Actions
     
+    // Called when text in the text field changes; starts a timer to check the link validity
     @objc private func textFieldDidChange(_ textField: UITextField) {
         typingTimer?.invalidate()
-        typingTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(checkForValidLink), userInfo: nil, repeats: false)
+        typingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(checkForValidLink), userInfo: nil, repeats: false)
     }
 
+    // Checks if the current text is a valid URL and opens it if valid
     @objc private func checkForValidLink() {
         guard let urlString = textField.text, !urlString.isEmpty else { return }
         var formattedString = urlString
@@ -111,7 +108,8 @@ class CustomLinkTextField: UIView {
             openURLInSafariViewController(url: url)
         }
     }
-    
+
+    // Presents a Safari View Controller with the given URL
     private func openURLInSafariViewController(url: URL) {
         let safariViewController = SFSafariViewController(url: url)
         
@@ -126,17 +124,20 @@ class CustomLinkTextField: UIView {
 
 extension CustomLinkTextField: UITextFieldDelegate {
     
+    // Dismiss the keyboard when the return key is pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         checkForValidLink()
         return true
     }
     
+    // Change border color when editing begins
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        setBorderColor(.systemBlue)
+        backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
+    // Reset border color when editing ends
     func textFieldDidEndEditing(_ textField: UITextField) {
-        setBorderColor(UIColor(.fieldGray.opacity(0.12)))
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }

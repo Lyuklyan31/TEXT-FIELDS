@@ -28,9 +28,9 @@ class CustomNoDigitsTextField: UIView {
         setupUI()
     }
     
-    // MARK: - Setup Methods
+    // MARK: - Setup UI and Constraints
     
-    // SetupUI
+    // Method to set up the overall UI elements and layout
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(backgroundView)
@@ -41,7 +41,7 @@ class CustomNoDigitsTextField: UIView {
         setupTextField()
     }
     
-    // SetupTitleLabel
+    // Method to set up the title label properties and constraints
     private func setupTitleLabel() {
         titleLabel.text = "NO digits field"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
@@ -53,7 +53,7 @@ class CustomNoDigitsTextField: UIView {
         }
     }
     
-    // SetupBackgroundView
+    // Method to set up the background view properties and constraints
     private func setupBackgroundView() {
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
@@ -67,7 +67,7 @@ class CustomNoDigitsTextField: UIView {
         }
     }
     
-    // SetupTextField
+    // Method to set up the text field properties and constraints
     private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
             string: "Type here",
@@ -81,35 +81,32 @@ class CustomNoDigitsTextField: UIView {
             make.top.bottom.equalToSuperview().inset(7)
         }
     }
-    
-    // MARK: - SetBorderColor
-    
-    func setBorderColor(_ color: UIColor) {
-        backgroundView.layer.borderColor = color.cgColor
-    }
 }
 
 // MARK: - UITextFieldDelegate
 
 extension CustomNoDigitsTextField: UITextFieldDelegate {
     
+    // Filters out numeric characters from the input and updates the text field manually.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text as NSString? else { return false }
         textField.text = text.replacingCharacters(in: range, with: string).filter { !$0.isNumber }
         return false
     }
     
+    // Dismisses the keyboard when the return key is pressed.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
         return true
     }
     
+    // Change border color when editing begins.
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        setBorderColor(.systemBlue)
+        backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
     }
-    
+        
+    // Reset border color when editing ends.
     func textFieldDidEndEditing(_ textField: UITextField) {
-        setBorderColor(UIColor(.fieldGray.opacity(0.12)))
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }

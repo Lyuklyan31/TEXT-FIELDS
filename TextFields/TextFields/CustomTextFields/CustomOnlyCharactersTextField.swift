@@ -28,9 +28,9 @@ class CustomOnlyCharactersTextField: UIView {
         setupView()
     }
     
-    // MARK: - Setup Methods
+    // MARK: - Setup UI and Constraints
     
-    // SetupView
+    // Sets up all UI elements and their constraints
     private func setupView() {
         addSubview(titleLabel)
         addSubview(backgroundView)
@@ -41,7 +41,7 @@ class CustomOnlyCharactersTextField: UIView {
         setupTextField()
     }
     
-    // SetupTitleLabel
+    // Configures the title label properties and constraints
     private func setupTitleLabel() {
         titleLabel.text = "Only characters"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
@@ -53,7 +53,7 @@ class CustomOnlyCharactersTextField: UIView {
         }
     }
     
-    // SetupBackgroundView
+    // Configures the background view properties and constraints
     private func setupBackgroundView() {
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
@@ -68,7 +68,7 @@ class CustomOnlyCharactersTextField: UIView {
         }
     }
     
-    // SetupTextField
+    // Configures the text field properties and constraints
     private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
             string: "wwwww-ddddd",
@@ -86,7 +86,8 @@ class CustomOnlyCharactersTextField: UIView {
 // MARK: - UITextFieldDelegate
 
 extension CustomOnlyCharactersTextField: UITextFieldDelegate {
-    
+   
+    // Checks if the input matches the regular expression
     private func isValidInput(_ text: String) -> Bool {
         let pattern = "^[a-zA-Zа-яА-ЯіІєЄ]{1,5}(-[0-9]{0,5})?$"
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: text)
@@ -98,9 +99,9 @@ extension CustomOnlyCharactersTextField: UITextFieldDelegate {
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
         if string.isEmpty && range.length > 0 { return true }
-        
         if newText.count > 11 { return false }
         
+        // Validate input and handle formatting
         if isValidInput(newText) {
             if newText.count == 5 && !newText.contains("-") {
                 textField.text = newText + "-"

@@ -8,8 +8,6 @@
 import UIKit
 import SnapKit
 
-// MARK: - LimitTextField: Custom UIView with Character Limit
-
 class LimitTextField: UIView {
     
     // MARK: - UI Elements
@@ -35,9 +33,9 @@ class LimitTextField: UIView {
         setupView()
     }
     
-    // MARK: - Setup Methods
+    // MARK: - Setup UI and Constraints
     
-    // SetupView
+    // Method to set up the overall UI elements and layout
     private func setupView() {
         addSubview(titleLabel)
         addSubview(characterCountLabel)
@@ -50,7 +48,7 @@ class LimitTextField: UIView {
         setupTextField()
     }
     
-    // SetupTitleLabel
+    // Method to set up the title label properties and constraints
     private func setupTitleLabel() {
         titleLabel.text = "Input limit"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
@@ -62,7 +60,7 @@ class LimitTextField: UIView {
         }
     }
     
-    // SetupCharacterCountLabel
+    // Sets up the character count label to show the remaining characters.
     private func setupCharacterCountLabel() {
         characterCountLabel.text = String(characterLimit)
         characterCountLabel.font = UIFont.setFont(.rubikRegular, size: 13)
@@ -74,7 +72,7 @@ class LimitTextField: UIView {
         }
     }
     
-    // SetupBackgroundView
+    // Method to set up the background view properties and constraints
     private func setupBackgroundView() {
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
@@ -88,7 +86,7 @@ class LimitTextField: UIView {
         }
     }
     
-    // SetupTextField
+    // Method to set up the text field properties and constraints
     private func setupTextField() {
         textField.attributedPlaceholder = NSAttributedString(
             string: "Type here",
@@ -149,15 +147,18 @@ extension LimitTextField: UITextFieldDelegate {
         textField.attributedText = attributedText
     }
     
+    // Dismisses the keyboard when the return key is pressed.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    // Changes the border color when editing begins.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
+    // Resets the border color when editing ends based on text length.
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text, text.count > characterLimit {
             backgroundView.layer.borderColor = UIColor.red.cgColor
