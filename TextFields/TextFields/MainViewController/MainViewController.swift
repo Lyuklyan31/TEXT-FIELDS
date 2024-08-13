@@ -16,7 +16,6 @@ class MainViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let stackView = UIStackView()
-    private let button = UIButton()
     
     private let noDigitsView = NoDigitsView()
     private let limitView = LimitView(10)
@@ -50,10 +49,12 @@ class MainViewController: UIViewController {
         setupHeaderTitleLabel()
         setupStackView()
         setupGestures()
-        addTabBar()
+        setupTabBar()
     }
     
-    private func addTabBar() {
+    //MARK: - TapBar
+    
+    private func setupTabBar() {
         let tabBarVC = TabBarViewController()
         addChild(tabBarVC)
         view.addSubview(tabBarVC.view)
