@@ -20,7 +20,7 @@ class TabBarViewController: UIViewController {
     
     private let stackView = UIStackView()
     private let tabBarContainer = UIView()
-    private let tabBarLine = UIView()
+    private let tabBarDividerLine = UIView()
     
     // MARK: - Lifecycle
     
@@ -35,20 +35,7 @@ class TabBarViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupTabBarContainer()
-        setupTabBarLine()
         setupButtons()
-    }
-    
-    // SetupTabBarLine
-    private func setupTabBarLine() {
-        view.addSubview(tabBarLine)
-        tabBarLine.backgroundColor = .label
-        
-        tabBarLine.snp.makeConstraints { make in
-            make.bottom.equalTo(tabBarContainer.snp.top)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
-        }
     }
     
     // SetupTabBarContainer
@@ -59,6 +46,15 @@ class TabBarViewController: UIViewController {
         tabBarContainer.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.snp.bottom).offset(-15)
+        }
+        
+        view.addSubview(tabBarDividerLine)
+        tabBarDividerLine.backgroundColor = .label
+        
+        tabBarDividerLine.snp.makeConstraints { make in
+            make.bottom.equalTo(tabBarContainer.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
         }
         
         stackView.axis = .horizontal
@@ -76,6 +72,7 @@ class TabBarViewController: UIViewController {
         stackView.addArrangedSubview(linkButton)
         stackView.addArrangedSubview(passwordButton)
     }
+
     
     // SetupButtons
     private func setupButtons() {
