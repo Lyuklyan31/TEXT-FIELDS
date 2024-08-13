@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LimitTextField: UIView {
+class LimitView: UIView {
     
     // MARK: - UI Elements
     
@@ -35,7 +35,7 @@ class LimitTextField: UIView {
     
     // MARK: - Setup UI and Constraints
     
-    // Method to set up the overall UI elements and layout
+    // Configures the UI elements and their layout.
     private func setupUI() {
         // Setup background view
         backgroundView.backgroundColor = UIColor.fieldGray
@@ -90,9 +90,9 @@ class LimitTextField: UIView {
 
 // MARK: - UITextFieldDelegate
 
-extension LimitTextField: UITextFieldDelegate {
+extension LimitView: UITextFieldDelegate {
     
-    // Handles character input and updates character count and text field appearance
+    // Handles character input and updates character count and text field appearance.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text as NSString? else { return true }
         let newText = currentText.replacingCharacters(in: range, with: string)
@@ -106,7 +106,7 @@ extension LimitTextField: UITextFieldDelegate {
         return false
     }
 
-    // Updates the label showing remaining characters
+    // Updates the label showing remaining characters.
     private func updateCharacterCountLabel(remainingCharacters: Int) {
         if remainingCharacters >= 0 {
             characterCountLabel.text = "\(remainingCharacters)"
@@ -117,7 +117,7 @@ extension LimitTextField: UITextFieldDelegate {
         }
     }
 
-    // Changes text field appearance based on character count
+    // Changes text field appearance based on character count.
     private func updateTextFieldAppearance(newText: String, newLength: Int) {
         let attributedText = NSMutableAttributedString(string: newText)
         

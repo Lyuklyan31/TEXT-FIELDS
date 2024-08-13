@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NoDigitsTextField: UIView {
+class NoDigitsView: UIView {
     
     // MARK: - UI Elements
     
@@ -72,7 +72,7 @@ class NoDigitsTextField: UIView {
 
 // MARK: - UITextFieldDelegate
 
-extension NoDigitsTextField: UITextFieldDelegate {
+extension NoDigitsView: UITextFieldDelegate {
     
     // Filters out numeric characters from the input and updates the text field manually.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -91,7 +91,7 @@ extension NoDigitsTextField: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
     }
-        
+    
     // Reset border color when editing ends.
     func textFieldDidEndEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor

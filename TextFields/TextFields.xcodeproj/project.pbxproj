@@ -7,27 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84059C122C6A7A91002A3AEE /* TextFieldsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84059C112C6A7A91002A3AEE /* TextFieldsTabBarController.swift */; };
 		842F41B22C60F22A0042FCF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41B12C60F22A0042FCF7 /* AppDelegate.swift */; };
 		842F41B42C60F22A0042FCF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */; };
 		842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41B52C60F22A0042FCF7 /* MainViewController.swift */; };
 		842F41BB2C60F22C0042FCF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BA2C60F22C0042FCF7 /* Assets.xcassets */; };
 		842F41BE2C60F22C0042FCF7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 842F41BD2C60F22C0042FCF7 /* Base */; };
 		842F41CA2C610CC60042FCF7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 842F41C92C610CC60042FCF7 /* SnapKit */; };
-		842F41D82C6176D80042FCF7 /* NoDigitsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D72C6176D80042FCF7 /* NoDigitsTextField.swift */; };
-		842F41DA2C621B1A0042FCF7 /* LimitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D92C621B1A0042FCF7 /* LimitTextField.swift */; };
-		842F41DC2C622BE00042FCF7 /* OnlyCharactersTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DB2C622BE00042FCF7 /* OnlyCharactersTextField.swift */; };
-		842F41DE2C6240360042FCF7 /* LinkTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* LinkTextFeild.swift */; };
-		842F41E02C625D0D0042FCF7 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* PasswordTextField.swift */; };
+		842F41D82C6176D80042FCF7 /* NoDigitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D72C6176D80042FCF7 /* NoDigitsView.swift */; };
+		842F41DA2C621B1A0042FCF7 /* LimitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41D92C621B1A0042FCF7 /* LimitView.swift */; };
+		842F41DC2C622BE00042FCF7 /* OnlyCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DB2C622BE00042FCF7 /* OnlyCharactersView.swift */; };
+		842F41DE2C6240360042FCF7 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DD2C6240360042FCF7 /* LinkView.swift */; };
+		842F41E02C625D0D0042FCF7 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F41DF2C625D0D0042FCF7 /* PasswordView.swift */; };
 		8441B0712C639512000CDBD0 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B0702C639512000CDBD0 /* KeyboardManager.swift */; };
 		848DBCDC2C64C272006E2B5A /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848DBCDB2C64C272006E2B5A /* Rubik-Medium.ttf */; };
 		848DBCDF2C64C2C1006E2B5A /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */; };
 		848DBCE22C64C317006E2B5A /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848DBCE02C64C317006E2B5A /* Rubik-Light.ttf */; };
 		848DBCE32C64C317006E2B5A /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848DBCE12C64C317006E2B5A /* Rubik-Regular.ttf */; };
+		84AA88E22C6B9C6000589ECC /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88E12C6B9C6000589ECC /* TabBarViewController.swift */; };
+		84AA88E42C6BFF6600589ECC /* NoDigitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88E32C6BFF6600589ECC /* NoDigitsViewController.swift */; };
+		84AA88E72C6BFF9500589ECC /* LimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88E62C6BFF9500589ECC /* LimitViewController.swift */; };
+		84AA88E92C6BFFB800589ECC /* OnlyCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88E82C6BFFB800589ECC /* OnlyCharactersViewController.swift */; };
+		84AA88EB2C6BFFF000589ECC /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88EA2C6BFFF000589ECC /* LinkViewController.swift */; };
+		84AA88ED2C6BFFFA00589ECC /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88EC2C6BFFFA00589ECC /* PasswordViewController.swift */; };
+		84AA88F02C6C0E4E00589ECC /* ViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88EF2C6C0E4E00589ECC /* ViewControllerType.swift */; };
+		84AA88F22C6C136B00589ECC /* TapToDismissExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88F12C6C136B00589ECC /* TapToDismissExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84059C112C6A7A91002A3AEE /* TextFieldsTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsTabBarController.swift; sourceTree = "<group>"; };
 		842F41AE2C60F22A0042FCF7 /* TextFields.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextFields.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		842F41B12C60F22A0042FCF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,16 +41,24 @@
 		842F41BA2C60F22C0042FCF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		842F41BD2C60F22C0042FCF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842F41BF2C60F22C0042FCF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		842F41D72C6176D80042FCF7 /* NoDigitsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDigitsTextField.swift; sourceTree = "<group>"; };
-		842F41D92C621B1A0042FCF7 /* LimitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitTextField.swift; sourceTree = "<group>"; };
-		842F41DB2C622BE00042FCF7 /* OnlyCharactersTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyCharactersTextField.swift; sourceTree = "<group>"; };
-		842F41DD2C6240360042FCF7 /* LinkTextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextFeild.swift; sourceTree = "<group>"; };
-		842F41DF2C625D0D0042FCF7 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		842F41D72C6176D80042FCF7 /* NoDigitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDigitsView.swift; sourceTree = "<group>"; };
+		842F41D92C621B1A0042FCF7 /* LimitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitView.swift; sourceTree = "<group>"; };
+		842F41DB2C622BE00042FCF7 /* OnlyCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyCharactersView.swift; sourceTree = "<group>"; };
+		842F41DD2C6240360042FCF7 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
+		842F41DF2C625D0D0042FCF7 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		8441B0702C639512000CDBD0 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		848DBCDB2C64C272006E2B5A /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		848DBCE02C64C317006E2B5A /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
 		848DBCE12C64C317006E2B5A /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
+		84AA88E12C6B9C6000589ECC /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		84AA88E32C6BFF6600589ECC /* NoDigitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDigitsViewController.swift; sourceTree = "<group>"; };
+		84AA88E62C6BFF9500589ECC /* LimitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitViewController.swift; sourceTree = "<group>"; };
+		84AA88E82C6BFFB800589ECC /* OnlyCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyCharactersViewController.swift; sourceTree = "<group>"; };
+		84AA88EA2C6BFFF000589ECC /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
+		84AA88EC2C6BFFFA00589ECC /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		84AA88EF2C6C0E4E00589ECC /* ViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerType.swift; sourceTree = "<group>"; };
+		84AA88F12C6C136B00589ECC /* TapToDismissExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapToDismissExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +95,9 @@
 				842F41B12C60F22A0042FCF7 /* AppDelegate.swift */,
 				842F41B32C60F22A0042FCF7 /* SceneDelegate.swift */,
 				8441B0722C63C321000CDBD0 /* MainViewController */,
-				8441B0732C63C32F000CDBD0 /* CustomTextFields */,
+				84AA88EE2C6C000500589ECC /* TabBarViewController */,
+				84AA88E52C6BFF6E00589ECC /* ViewConrollers */,
+				8441B0732C63C32F000CDBD0 /* CustomTextFieldsView */,
 				848DBCDD2C64C2AA006E2B5A /* Extensions */,
 				848581EB2C68F577006D9A48 /* KeyboardManager */,
 				842F41C52C61091B0042FCF7 /* Fonts */,
@@ -106,21 +122,20 @@
 			isa = PBXGroup;
 			children = (
 				842F41B52C60F22A0042FCF7 /* MainViewController.swift */,
-				84059C112C6A7A91002A3AEE /* TextFieldsTabBarController.swift */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
 		};
-		8441B0732C63C32F000CDBD0 /* CustomTextFields */ = {
+		8441B0732C63C32F000CDBD0 /* CustomTextFieldsView */ = {
 			isa = PBXGroup;
 			children = (
-				842F41D72C6176D80042FCF7 /* NoDigitsTextField.swift */,
-				842F41D92C621B1A0042FCF7 /* LimitTextField.swift */,
-				842F41DB2C622BE00042FCF7 /* OnlyCharactersTextField.swift */,
-				842F41DD2C6240360042FCF7 /* LinkTextFeild.swift */,
-				842F41DF2C625D0D0042FCF7 /* PasswordTextField.swift */,
+				842F41D72C6176D80042FCF7 /* NoDigitsView.swift */,
+				842F41D92C621B1A0042FCF7 /* LimitView.swift */,
+				842F41DB2C622BE00042FCF7 /* OnlyCharactersView.swift */,
+				842F41DD2C6240360042FCF7 /* LinkView.swift */,
+				842F41DF2C625D0D0042FCF7 /* PasswordView.swift */,
 			);
-			path = CustomTextFields;
+			path = CustomTextFieldsView;
 			sourceTree = "<group>";
 		};
 		848581EB2C68F577006D9A48 /* KeyboardManager */ = {
@@ -135,8 +150,30 @@
 			isa = PBXGroup;
 			children = (
 				848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */,
+				84AA88F12C6C136B00589ECC /* TapToDismissExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		84AA88E52C6BFF6E00589ECC /* ViewConrollers */ = {
+			isa = PBXGroup;
+			children = (
+				84AA88E32C6BFF6600589ECC /* NoDigitsViewController.swift */,
+				84AA88E62C6BFF9500589ECC /* LimitViewController.swift */,
+				84AA88E82C6BFFB800589ECC /* OnlyCharactersViewController.swift */,
+				84AA88EA2C6BFFF000589ECC /* LinkViewController.swift */,
+				84AA88EC2C6BFFFA00589ECC /* PasswordViewController.swift */,
+			);
+			path = ViewConrollers;
+			sourceTree = "<group>";
+		};
+		84AA88EE2C6C000500589ECC /* TabBarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84AA88EF2C6C0E4E00589ECC /* ViewControllerType.swift */,
+				84AA88E12C6B9C6000589ECC /* TabBarViewController.swift */,
+			);
+			path = TabBarViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,17 +255,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				842F41DA2C621B1A0042FCF7 /* LimitTextField.swift in Sources */,
-				842F41D82C6176D80042FCF7 /* NoDigitsTextField.swift in Sources */,
+				842F41DA2C621B1A0042FCF7 /* LimitView.swift in Sources */,
+				842F41D82C6176D80042FCF7 /* NoDigitsView.swift in Sources */,
+				84AA88EB2C6BFFF000589ECC /* LinkViewController.swift in Sources */,
+				84AA88F02C6C0E4E00589ECC /* ViewControllerType.swift in Sources */,
+				84AA88E92C6BFFB800589ECC /* OnlyCharactersViewController.swift in Sources */,
 				8441B0712C639512000CDBD0 /* KeyboardManager.swift in Sources */,
-				842F41DE2C6240360042FCF7 /* LinkTextFeild.swift in Sources */,
-				842F41DC2C622BE00042FCF7 /* OnlyCharactersTextField.swift in Sources */,
+				842F41DE2C6240360042FCF7 /* LinkView.swift in Sources */,
+				84AA88E22C6B9C6000589ECC /* TabBarViewController.swift in Sources */,
+				84AA88E42C6BFF6600589ECC /* NoDigitsViewController.swift in Sources */,
+				842F41DC2C622BE00042FCF7 /* OnlyCharactersView.swift in Sources */,
+				84AA88ED2C6BFFFA00589ECC /* PasswordViewController.swift in Sources */,
 				842F41B62C60F22A0042FCF7 /* MainViewController.swift in Sources */,
 				848DBCDF2C64C2C1006E2B5A /* UIFontExtension.swift in Sources */,
-				842F41E02C625D0D0042FCF7 /* PasswordTextField.swift in Sources */,
+				84AA88E72C6BFF9500589ECC /* LimitViewController.swift in Sources */,
+				842F41E02C625D0D0042FCF7 /* PasswordView.swift in Sources */,
+				84AA88F22C6C136B00589ECC /* TapToDismissExtension.swift in Sources */,
 				842F41B22C60F22A0042FCF7 /* AppDelegate.swift in Sources */,
 				842F41B42C60F22A0042FCF7 /* SceneDelegate.swift in Sources */,
-				84059C122C6A7A91002A3AEE /* TextFieldsTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

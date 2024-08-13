@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SafariServices
 
-class LinkTextField: UIView {
+class LinkView: UIView {
     
     // MARK: - UI Elements
     
@@ -33,11 +33,9 @@ class LinkTextField: UIView {
     }
     
     // MARK: - Setup UI and Constraints
-
-    // Sets up the UI elements and their constraints
+    
     private func setupUI() {
-        
-        // Configures the background view properties and constraints
+        // Configure background view
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
@@ -49,7 +47,7 @@ class LinkTextField: UIView {
             make.height.equalTo(36)
         }
         
-        // Configures the title label properties and constraints
+        // Configure title label
         titleLabel.text = "Link"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         titleLabel.textColor = UIColor.nightRider
@@ -60,7 +58,7 @@ class LinkTextField: UIView {
             make.bottom.equalTo(backgroundView.snp.top).offset(-4)
         }
         
-        // Configures the text field properties and constraints
+        // Configure text field
         textField.attributedPlaceholder = NSAttributedString(
             string: "www.example.com",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
@@ -78,17 +76,16 @@ class LinkTextField: UIView {
 
     // MARK: - Text Field Actions
     
-    // Called when text in the text field changes; starts a timer to check the link validity
     @objc private func textFieldDidChange(_ textField: UITextField) {
+        // Invalidate the previous timer and start a new one
         typingTimer?.invalidate()
         typingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(checkForValidLink), userInfo: nil, repeats: false)
     }
 
-    // Checks if the current text is a valid URL and opens it if valid
     @objc private func checkForValidLink() {
         guard let urlString = textField.text, !urlString.isEmpty else { return }
         var formattedString = urlString
-
+        
         if !formattedString.lowercased().hasPrefix(prefix) {
             formattedString = prefix + formattedString
         }
@@ -98,7 +95,6 @@ class LinkTextField: UIView {
         }
     }
 
-    // Presents a Safari View Controller with the given URL
     private func openURLInSafariViewController(url: URL) {
         let safariViewController = SFSafariViewController(url: url)
         
@@ -111,21 +107,18 @@ class LinkTextField: UIView {
 
 // MARK: - UITextFieldDelegate
 
-extension LinkTextField: UITextFieldDelegate {
+extension LinkView: UITextFieldDelegate {
     
-    // Dismiss the keyboard when the return key is pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         checkForValidLink()
         return true
     }
     
-    // Change border color when editing begins
     func textFieldDidBeginEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
-    // Reset border color when editing ends
     func textFieldDidEndEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
