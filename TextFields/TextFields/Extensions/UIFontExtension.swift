@@ -8,15 +8,22 @@
 import UIKit
 
 extension UIFont {
-    
-    public enum fontType: String {
+
+    // MARK: - Font Types
+
+    public enum FontType: String {
         case regular = ""
         case rubikMedium = "Rubik-Medium"
         case rubikLight = "Rubik-Light"
         case rubikRegular = "Rubik-Regular"
     }
-    
-    static func setFont(_ type: fontType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
-        return UIFont(name: type.rawValue, size: size)!
+
+    // MARK: - Font Creation
+
+    static func setFont(_ type: FontType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
+        guard let font = UIFont(name: type.rawValue, size: size) else {
+            return UIFont.systemFont(ofSize: size)
+        }
+        return font
     }
 }
