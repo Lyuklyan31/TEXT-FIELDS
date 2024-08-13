@@ -13,7 +13,7 @@ class TextFieldsTabBarController: UITabBarController {
     // MARK: - Text Field Properties
     // Initialization of text fields that will be used in different tabs.
     private let noDigitsTextField = NoDigitsTextField()
-    private let limitTextField = LimitTextField(characterLimit: 10)
+    private let limitTextField = LimitTextField(10)
     private let onlyCharactersTextField = OnlyCharactersTextField()
     private let linkTextField = LinkTextField()
     private let passwordTextField = PasswordTextField()

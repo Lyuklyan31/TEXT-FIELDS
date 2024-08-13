@@ -30,45 +30,31 @@ class NoDigitsTextField: UIView {
     
     // MARK: - Setup UI and Constraints
     
-    // Method to set up the overall UI elements and layout
     private func setupUI() {
-        addSubview(titleLabel)
-        addSubview(backgroundView)
-        backgroundView.addSubview(textField)
-        
-        setupTitleLabel()
-        setupBackgroundView()
-        setupTextField()
-    }
-    
-    // Method to set up the title label properties and constraints
-    private func setupTitleLabel() {
+        // Setup title label
         titleLabel.text = "NO digits field"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         titleLabel.textColor = UIColor.nightRider
         
+        addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview()
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
         }
-    }
-    
-    // Method to set up the background view properties and constraints
-    private func setupBackgroundView() {
+        
+        // Setup background view
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
+        addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(36)
         }
-    }
-    
-    // Method to set up the text field properties and constraints
-    private func setupTextField() {
+        
+        // Setup text field
         textField.attributedPlaceholder = NSAttributedString(
             string: "Type here",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
@@ -76,6 +62,7 @@ class NoDigitsTextField: UIView {
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
         
+        backgroundView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(8)
             make.top.bottom.equalToSuperview().inset(7)

@@ -44,49 +44,32 @@ class PasswordTextField: UIView {
     
     // MARK: - Setup UI and Constraints
     
-    // Adding subviews
-    private func setupUI() {
-        addSubview(titleLabel)
-        addSubview(backgroundView)
-        backgroundView.addSubview(textField)
-        addSubview(progressLine)
-        addSubview(stackView)
-        
-        setupTitleLabel()
-        setupBackgroundView()
-        setupTextField()
-        setupProgressLine()
-        setupStackView()
-    }
-    
     // Title Label Configuration
-    private func setupTitleLabel() {
+    private func setupUI() {
         titleLabel.text = "Validation rules"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         titleLabel.textColor = UIColor.nightRider
         
+        addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(4)
             make.leading.equalToSuperview()
         }
-    }
-    
-    // Background View Configuration
-    private func setupBackgroundView() {
+        
+        // Background View Configuration
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
+        addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(36)
         }
-    }
-    
-    // Text Field Configuration
-    private func setupTextField() {
+        
+        // Text Field Configuration
         textField.attributedPlaceholder = NSAttributedString(
             string: "Password",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
@@ -94,6 +77,7 @@ class PasswordTextField: UIView {
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.isSecureTextEntry = true
         
+        backgroundView.addSubview(textField)
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.returnKeyType = .done
@@ -101,23 +85,20 @@ class PasswordTextField: UIView {
         textField.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
         }
-    }
-    
-    // Progress Line Configuration
-    private func setupProgressLine() {
-        progressLine.backgroundColor = .clear
-        progressLine.layer.cornerRadius = 3
         
+        // Progress Line Configuration
+        progressLine.backgroundColor = .clear
+        progressLine.layer.cornerRadius = 1
+        
+        addSubview(progressLine)
         progressLine.snp.makeConstraints { make in
-            make.top.equalTo(backgroundView.snp.bottom).offset(-9)
+            make.top.equalTo(backgroundView.snp.bottom).offset(3)
             make.leading.equalToSuperview().inset(-0.45)
-            make.height.equalTo(9)
+            make.height.equalTo(8)
             self.lineWidthConstraint = make.width.equalTo(0).constraint
         }
-    }
-    
-    // Stack View Configuration
-    private func setupStackView() {
+        
+        // Stack View Configuration
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.distribution = .fill
@@ -135,6 +116,8 @@ class PasswordTextField: UIView {
             label.font = UIFont.setFont(.rubikRegular, size: 13)
             stackView.addArrangedSubview(label)
         }
+        
+        addSubview(stackView)
         
         stackView.snp.makeConstraints {
             $0.top.equalTo(progressLine.snp.bottom).offset(8)

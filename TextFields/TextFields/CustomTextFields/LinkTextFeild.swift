@@ -33,50 +33,39 @@ class LinkTextField: UIView {
     }
     
     // MARK: - Setup UI and Constraints
-    
+
     // Sets up the UI elements and their constraints
     private func setupUI() {
-        addSubview(titleLabel)
-        addSubview(backgroundView)
-        backgroundView.addSubview(textField)
         
-        setupTitleLabel()
-        setupBackgroundView()
-        setupTextField()
-    }
-    
-    // Configures the title label properties and constraints
-    private func setupTitleLabel() {
-        titleLabel.text = "Link"
-        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
-        }
-    }
-    
-    // Configures the background view properties and constraints
-    private func setupBackgroundView() {
+        // Configures the background view properties and constraints
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
+        addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(36)
         }
-    }
-    
-    // Configures the text field properties and constraints
-    private func setupTextField() {
+        
+        // Configures the title label properties and constraints
+        titleLabel.text = "Link"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview()
+            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+        }
+        
+        // Configures the text field properties and constraints
         textField.attributedPlaceholder = NSAttributedString(
             string: "www.example.com",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
+        backgroundView.addSubview(textField)
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -86,7 +75,7 @@ class LinkTextField: UIView {
             make.top.bottom.equalToSuperview().inset(7)
         }
     }
-    
+
     // MARK: - Text Field Actions
     
     // Called when text in the text field changes; starts a timer to check the link validity

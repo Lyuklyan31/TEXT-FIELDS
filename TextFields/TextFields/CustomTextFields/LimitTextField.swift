@@ -24,78 +24,63 @@ class LimitTextField: UIView {
     init(_ characterLimit: Int) {
         self.characterLimit = characterLimit
         super.init(frame: .zero)
-        setupView()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         self.characterLimit = 0
         super.init(coder: coder)
-        setupView()
+        setupUI()
     }
     
     // MARK: - Setup UI and Constraints
     
     // Method to set up the overall UI elements and layout
-    private func setupView() {
-        addSubview(titleLabel)
-        addSubview(characterCountLabel)
-        addSubview(backgroundView)
-        backgroundView.addSubview(textField)
-        
-        setupTitleLabel()
-        setupCharacterCountLabel()
-        setupBackgroundView()
-        setupTextField()
-    }
-    
-    // Method to set up the title label properties and constraints
-    private func setupTitleLabel() {
-        titleLabel.text = "Input limit"
-        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        
-        titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
-            make.leading.equalToSuperview()
-        }
-    }
-    
-    // Sets up the character count label to show the remaining characters.
-    private func setupCharacterCountLabel() {
-        characterCountLabel.text = "\(characterLimit)"
-        characterCountLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        characterCountLabel.textColor = UIColor.nightRider
-        
-        characterCountLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-7)
-            make.trailing.equalToSuperview()
-        }
-    }
-    
-    // Method to set up the background view properties and constraints
-    private func setupBackgroundView() {
+    private func setupUI() {
+        // Setup background view
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
+        addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
         }
-    }
-    
-    // Method to set up the text field properties and constraints
-    private func setupTextField() {
+
+        // Setup title label
+        titleLabel.text = "Input limit"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+            make.leading.equalToSuperview()
+        }
+        
+        // Setup character count label
+        characterCountLabel.text = "\(characterLimit)"
+        characterCountLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        characterCountLabel.textColor = UIColor.nightRider
+        
+        addSubview(characterCountLabel)
+        characterCountLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundView.snp.top).offset(-7)
+            make.trailing.equalToSuperview()
+        }
+
+        // Setup text field
         textField.attributedPlaceholder = NSAttributedString(
             string: "Type here",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
-        
         textField.delegate = self
         
+        backgroundView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(8)
             make.top.bottom.equalToSuperview().inset(7)

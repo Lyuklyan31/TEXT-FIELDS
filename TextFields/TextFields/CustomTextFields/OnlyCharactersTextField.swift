@@ -20,60 +20,47 @@ class OnlyCharactersTextField: UIView {
     
     init() {
         super.init(frame: .zero)
-        setupView()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupView()
+        setupUI()
     }
     
     // MARK: - Setup UI and Constraints
     
-    // Sets up all UI elements and their constraints
-    private func setupView() {
-        addSubview(titleLabel)
-        addSubview(backgroundView)
-        backgroundView.addSubview(textField)
-        
-        setupTitleLabel()
-        setupBackgroundView()
-        setupTextField()
-    }
-    
-    // Configures the title label properties and constraints
-    private func setupTitleLabel() {
-        titleLabel.text = "Only characters"
-        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        
-        titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
-            make.leading.equalToSuperview()
-        }
-    }
-    
-    // Configures the background view properties and constraints
-    private func setupBackgroundView() {
+    private func setupUI() {
+        // Configure backgroundView
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
+        addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.height.equalTo(36)
             make.leading.trailing.equalToSuperview()
         }
-    }
-    
-    // Configures the text field properties and constraints
-    private func setupTextField() {
+        
+        // Configure titleLabel
+        titleLabel.text = "Only characters"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+            make.leading.equalToSuperview()
+        }
+        
+        // Configure textField
         textField.attributedPlaceholder = NSAttributedString(
             string: "wwwww-ddddd",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
+        backgroundView.addSubview(textField)
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
         
