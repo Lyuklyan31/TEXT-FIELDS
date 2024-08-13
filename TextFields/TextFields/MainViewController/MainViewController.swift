@@ -16,13 +16,15 @@ class MainViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let stackView = UIStackView()
-    private let showTabBarButton = UIButton()
+    private let button = UIButton()
     
-    private let noDigitsTextField = NoDigitsTextField()
-    private let limitTextField = LimitTextField(10)
-    private let onlyCharactersTextField = OnlyCharactersTextField()
-    private let linkTextField = LinkTextField()
-    private let passwordTextField = PasswordTextField()
+    private let noDigitsView = NoDigitsView()
+    private let limitView = LimitView(10)
+    private let onlyCharactersView = OnlyCharactersView()
+    private let linkView = LinkView()
+    private let passwordView = PasswordView()
+    
+    private let tabBarViewController = TabBarViewController()
     
     private var keyboardManager: KeyboardManager?
 
@@ -102,7 +104,7 @@ class MainViewController: UIViewController {
         stackView.spacing = 30
         stackView.distribution = .fill
         
-        [noDigitsTextField, limitTextField, onlyCharactersTextField, linkTextField, passwordTextField].forEach {
+        [noDigitsView, limitView, onlyCharactersView, linkView, passwordView].forEach {
             stackView.addArrangedSubview($0)
             $0.snp.makeConstraints { $0.height.equalTo(66) }
         }
