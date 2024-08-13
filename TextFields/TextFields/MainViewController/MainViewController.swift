@@ -48,7 +48,19 @@ class MainViewController: UIViewController {
         setupHeaderTitleLabel()
         setupStackView()
         setupGestures()
-        setupShowTabBarButton()
+        addTabBar()
+    }
+    
+    private func addTabBar() {
+        let tabBarVC = TabBarViewController()
+        addChild(tabBarVC)
+        view.addSubview(tabBarVC.view)
+        tabBarVC.didMove(toParent: self)
+        
+        tabBarVC.view.snp.makeConstraints { make in
+            make.bottom.leading.trailing.equalTo(view)
+            make.height.equalTo(80)
+        }
     }
     
     // MARK: - Scroll View Setup
@@ -101,37 +113,11 @@ class MainViewController: UIViewController {
             $0.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
-    
-    func setupShowTabBarButton() {
-        view.addSubview(showTabBarButton)
-        showTabBarButton.setTitle("Show Tab Bar", for: .normal)
-        showTabBarButton.layer.cornerRadius = 11
-        showTabBarButton.backgroundColor = .systemBlue
-
-        showTabBarButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(stackView.snp.bottom).offset(100)
-            make.width.equalTo(300)
-            make.height.equalTo(50)
-        }
-        
-        showTabBarButton.addTarget(self, action: #selector(showTabBar), for: .touchUpInside)
-    }
 
     // MARK: - Setup Gestures
-    
-    private func setupGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
+ 
     @objc private func showTabBar() {
-        let tabBarVC = TextFieldsTabBarController()
-        tabBarVC.modalPresentationStyle = .fullScreen
-        present(tabBarVC, animated: true, completion: nil)
+        let tabBarVC = TabBarViewController()
+        navigationController?.pushViewController(tabBarVC, animated: true)
     }
 }
