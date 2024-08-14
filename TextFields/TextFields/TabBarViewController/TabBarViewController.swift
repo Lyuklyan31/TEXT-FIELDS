@@ -12,30 +12,29 @@ class TabBarViewController: UIViewController {
     
     // MARK: - UI Elements
     
-    private let noDigitsButton = UIButton()
-    private let limitButton = UIButton()
-    private let onlyCharactersButton = UIButton()
-    private let linkButton = UIButton()
-    private let passwordButton = UIButton()
-    
     private let noDigitsViewController = NoDigitsViewController()
     private let limitViewController = LimitViewController()
     private let onlyCharactersViewController = OnlyCharactersViewController()
     private let linkViewController = LinkViewController()
     private let passwordViewController = PasswordViewController()
     
-    private let stackView = UIStackView()
+    private let noDigitsButton = UIButton()
+    private let limitButton = UIButton()
+    private let onlyCharactersButton = UIButton()
+    private let linkButton = UIButton()
+    private let passwordButton = UIButton()
+    
     private let tabBarContainer = UIView()
     private let tabBarDividerLine = UIView()
+    private lazy var containerView = UIView()
     
+    private let stackView = UIStackView()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupViewControllers()
-        showViewController(noDigitsViewController)
+        setupUI()  // Initialize UI components
     }
     
     // MARK: - UI Setup
@@ -44,34 +43,27 @@ class TabBarViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupTabBarContainer()
         setupButtons()
-    }
-    
-    func showViewController(_ viewController: UIViewController) {
-        for child in children {
-            child.view.isHidden = true
-        }
-        updateTabBarButtons(for: viewController)
-        
-        viewController.view.isHidden = false
-        view.bringSubviewToFront(viewController.view)
+        showViewController(noDigitsViewController)
+        setupViewControllers()
+        setupGestures()      
     }
     
     private func setupViewControllers() {
-        let containerView = UIView()
+        // Add container view for child view controllers
         view.addSubview(containerView)
-        
         containerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(tabBarContainer.snp.top)
         }
         
-        let viewControllers: [UIViewController] = [
-                noDigitsViewController,
-                limitViewController,
-                onlyCharactersViewController,
-                linkViewController,
-                passwordViewController
-            ]
+        // Configure and add child view controllers
+        let viewControllers = [
+            noDigitsViewController,
+            limitViewController,
+            onlyCharactersViewController,
+            linkViewController,
+            passwordViewController
+        ]
         
         for viewController in viewControllers {
             addChild(viewController)
@@ -81,10 +73,11 @@ class TabBarViewController: UIViewController {
             }
             viewController.didMove(toParent: self)
         }
+        showViewController(noDigitsViewController)  // Show default view controller
     }
     
-    
     private func setupTabBarContainer() {
+        // Add tab bar container
         view.addSubview(tabBarContainer)
         tabBarContainer.backgroundColor = .systemBackground
         
@@ -93,6 +86,7 @@ class TabBarViewController: UIViewController {
             make.bottom.equalTo(view.snp.bottom).inset(15)
         }
         
+        // Add tab bar divider line
         view.addSubview(tabBarDividerLine)
         tabBarDividerLine.backgroundColor = .black
         
@@ -102,10 +96,12 @@ class TabBarViewController: UIViewController {
             make.height.equalTo(1)
         }
       
+        // Configure stack view
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         
+        // Add stack view to tab bar container
         tabBarContainer.addSubview(stackView)
        
         stackView.snp.makeConstraints { make in
@@ -114,21 +110,24 @@ class TabBarViewController: UIViewController {
             make.bottom.equalTo(tabBarContainer.snp.bottom).inset(10)
         }
         
-        stackView.addArrangedSubview(noDigitsButton)
-        stackView.addArrangedSubview(limitButton)
-        stackView.addArrangedSubview(onlyCharactersButton)
-        stackView.addArrangedSubview(linkButton)
-        stackView.addArrangedSubview(passwordButton)
+        // Add buttons to stack view
+        let buttons = [noDigitsButton, limitButton, onlyCharactersButton, linkButton, passwordButton]
+        buttons.forEach { stackView.addArrangedSubview($0) }
     }
-
     
     private func setupButtons() {
-        setupButton(noDigitsButton, title: "No Digits", imageName: "1.circle")
-        setupButton(limitButton, title: "Limit", imageName: "2.circle")
-        setupButton(onlyCharactersButton, title: "Characters", imageName: "3.circle")
-        setupButton(linkButton, title: "Link", imageName: "4.circle")
-        setupButton(passwordButton, title: "Password", imageName: "5.circle")
+        // Configure buttons with titles and images
+        let buttonConfigurations = [
+            (noDigitsButton, "No Digits", "1.circle"),
+            (limitButton, "Limit", "2.circle"),
+            (onlyCharactersButton, "Characters", "3.circle"),
+            (linkButton, "Link", "4.circle"),
+            (passwordButton, "Password", "5.circle")
+        ]
         
+        buttonConfigurations.forEach { setupButton($0.0, title: $0.1, imageName: $0.2) }
+        
+        // Add target actions for buttons
         noDigitsButton.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
         limitButton.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
         onlyCharactersButton.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
@@ -156,6 +155,8 @@ class TabBarViewController: UIViewController {
         button.tintColor = .label
     }
     
+    // MARK: - Button Handling
+    
     @objc private func handleButtonTap(_ sender: UIButton) {
         switch sender {
         case noDigitsButton:
@@ -173,16 +174,21 @@ class TabBarViewController: UIViewController {
         }
     }
     
+    private func showViewController(_ viewController: UIViewController) {
+        for child in children {
+            child.view.isHidden = true
+        }
+        updateTabBarButtons(for: viewController)
+        viewController.view.isHidden = false
+        view.bringSubviewToFront(viewController.view)
+    }
+    
     private func updateTabBarButtons(for selectedController: UIViewController) {
         let buttons = [noDigitsButton, limitButton, onlyCharactersButton, linkButton, passwordButton]
         let viewControllers = [noDigitsViewController, limitViewController, onlyCharactersViewController, linkViewController, passwordViewController]
         
         for (index, button) in buttons.enumerated() {
-            if viewControllers[index] == selectedController {
-                button.tintColor = .systemBlue
-            } else {
-                button.tintColor = .label
-            }
+            button.tintColor = (viewControllers[index] == selectedController) ? .systemBlue : .label
         }
     }
 }
