@@ -29,8 +29,7 @@
 		84AA88E92C6BFFB800589ECC /* OnlyCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88E82C6BFFB800589ECC /* OnlyCharactersViewController.swift */; };
 		84AA88EB2C6BFFF000589ECC /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88EA2C6BFFF000589ECC /* LinkViewController.swift */; };
 		84AA88ED2C6BFFFA00589ECC /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88EC2C6BFFFA00589ECC /* PasswordViewController.swift */; };
-		84AA88F02C6C0E4E00589ECC /* ViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88EF2C6C0E4E00589ECC /* ViewControllerType.swift */; };
-		84AA88F22C6C136B00589ECC /* TapToDismissExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88F12C6C136B00589ECC /* TapToDismissExtension.swift */; };
+		84AA88F22C6C136B00589ECC /* TapToDismissKeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA88F12C6C136B00589ECC /* TapToDismissKeyboardExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,8 +56,7 @@
 		84AA88E82C6BFFB800589ECC /* OnlyCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyCharactersViewController.swift; sourceTree = "<group>"; };
 		84AA88EA2C6BFFF000589ECC /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
 		84AA88EC2C6BFFFA00589ECC /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
-		84AA88EF2C6C0E4E00589ECC /* ViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerType.swift; sourceTree = "<group>"; };
-		84AA88F12C6C136B00589ECC /* TapToDismissExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapToDismissExtension.swift; sourceTree = "<group>"; };
+		84AA88F12C6C136B00589ECC /* TapToDismissKeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapToDismissKeyboardExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				848DBCDE2C64C2C1006E2B5A /* UIFontExtension.swift */,
-				84AA88F12C6C136B00589ECC /* TapToDismissExtension.swift */,
+				84AA88F12C6C136B00589ECC /* TapToDismissKeyboardExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -170,7 +168,6 @@
 		84AA88EE2C6C000500589ECC /* TabBarViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84AA88EF2C6C0E4E00589ECC /* ViewControllerType.swift */,
 				84AA88E12C6B9C6000589ECC /* TabBarViewController.swift */,
 			);
 			path = TabBarViewController;
@@ -258,7 +255,6 @@
 				842F41DA2C621B1A0042FCF7 /* LimitView.swift in Sources */,
 				842F41D82C6176D80042FCF7 /* NoDigitsView.swift in Sources */,
 				84AA88EB2C6BFFF000589ECC /* LinkViewController.swift in Sources */,
-				84AA88F02C6C0E4E00589ECC /* ViewControllerType.swift in Sources */,
 				84AA88E92C6BFFB800589ECC /* OnlyCharactersViewController.swift in Sources */,
 				8441B0712C639512000CDBD0 /* KeyboardManager.swift in Sources */,
 				842F41DE2C6240360042FCF7 /* LinkView.swift in Sources */,
@@ -270,7 +266,7 @@
 				848DBCDF2C64C2C1006E2B5A /* UIFontExtension.swift in Sources */,
 				84AA88E72C6BFF9500589ECC /* LimitViewController.swift in Sources */,
 				842F41E02C625D0D0042FCF7 /* PasswordView.swift in Sources */,
-				84AA88F22C6C136B00589ECC /* TapToDismissExtension.swift in Sources */,
+				84AA88F22C6C136B00589ECC /* TapToDismissKeyboardExtension.swift in Sources */,
 				842F41B22C60F22A0042FCF7 /* AppDelegate.swift in Sources */,
 				842F41B42C60F22A0042FCF7 /* SceneDelegate.swift in Sources */,
 			);
