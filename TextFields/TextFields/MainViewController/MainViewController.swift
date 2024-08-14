@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
     
     private func configureDefaults() {
         keyboardManager = KeyboardManager(viewController: self, scrollView: scrollView)
+        setupGestures()
     }
     
     // MARK: - Setup UI
@@ -47,7 +48,6 @@ class MainViewController: UIViewController {
         setupScrollView()
         setupHeaderTitleLabel()
         setupStackView()
-        setupGestures()
         setupButton()
     }
     
