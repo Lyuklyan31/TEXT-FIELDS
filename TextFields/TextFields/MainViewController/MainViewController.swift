@@ -16,14 +16,13 @@ class MainViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let stackView = UIStackView()
+    private let button = UIButton()
     
     private let noDigitsView = NoDigitsView()
     private let limitView = LimitView(10)
     private let onlyCharactersView = OnlyCharactersView()
     private let linkView = LinkView()
     private let passwordView = PasswordView()
-    
-    private let tabBarViewController = TabBarViewController()
     
     private var keyboardManager: KeyboardManager?
 
@@ -49,21 +48,7 @@ class MainViewController: UIViewController {
         setupHeaderTitleLabel()
         setupStackView()
         setupGestures()
-        setupTabBar()
-    }
-    
-    //MARK: - TapBar
-    
-    private func setupTabBar() {
-        let tabBarVC = TabBarViewController()
-        addChild(tabBarVC)
-        view.addSubview(tabBarVC.view)
-        tabBarVC.didMove(toParent: self)
-        
-        tabBarVC.view.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalTo(view)
-            make.height.equalTo(80)
-        }
+        setupButton()
     }
     
     // MARK: - Scroll View Setup
@@ -116,9 +101,25 @@ class MainViewController: UIViewController {
             $0.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
+    
+    func setupButton() {
+        view.addSubview(button)
+        button.setTitle("Show Tab Bar", for: .normal)
+        button.layer.cornerRadius = 11
+        button.backgroundColor = .systemBlue
+
+        button.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(stackView.snp.bottom).offset(100)
+            make.width.equalTo(300)
+            make.height.equalTo(50)
+        }
+        
+        button.addTarget(self, action: #selector(showTabBar), for: .touchUpInside)
+    }
 
     // MARK: - Setup Gestures
- 
+    
     @objc private func showTabBar() {
         let tabBarVC = TabBarViewController()
         navigationController?.pushViewController(tabBarVC, animated: true)
