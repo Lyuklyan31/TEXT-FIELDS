@@ -35,6 +35,8 @@ class LimitViewController: UIViewController {
             make.centerY.equalToSuperview().offset(-50)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(66)
+            make.top.greaterThanOrEqualToSuperview().offset(16)
+            make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
     }
 }

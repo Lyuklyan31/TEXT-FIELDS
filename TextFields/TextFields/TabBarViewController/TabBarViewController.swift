@@ -45,7 +45,7 @@ class TabBarViewController: UIViewController {
         setupButtons()
         showViewController(noDigitsViewController)
         setupViewControllers()
-        setupGestures()      
+        setupGestures()
     }
     
     private func setupViewControllers() {
@@ -73,7 +73,7 @@ class TabBarViewController: UIViewController {
             }
             viewController.didMove(toParent: self)
         }
-        showViewController(noDigitsViewController)  // Show default view controller
+        showViewController(noDigitsViewController)
     }
     
     private func setupTabBarContainer() {
