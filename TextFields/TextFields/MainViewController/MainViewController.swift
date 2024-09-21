@@ -18,16 +18,12 @@ class MainViewController: UIViewController {
     private let stackView = UIStackView()
     private let button = UIButton()
     
-    private let noDigitsView = NoDigitsView()             /// Всі ці TextFields я виніс в окремі класи задля інкапсуляції, якби цього не зробив MainViewController мав би дуже багато логіки і це б ускладнило код.
-    private let limitView = LimitView(10)                 /// А з інкапсуляцією кожен клас віповідає за свою власну логіку.
-    private let onlyCharactersView = OnlyCharactersView() /// MainViewController просто додає ці вʼюшки на екран, не знаючи як працює всередині кожна з них.
+    private let noDigitsView = NoDigitsView()
+    private let limitView = LimitView(10)
+    private let onlyCharactersView = OnlyCharactersView()
     private let linkView = LinkView()
     private let passwordView = PasswordView()
-    // Чому я зробив так?
-       /// Виносячи кожен рядок в окрему вʼю це дозволяє мені легко перевикористовувати код.
-       /// MainViewController стає простішим і немає надмірної кількості коду і відповідно стає меншим і легшим для читання, а також легшим для підтримки.
-       /// Простота розширення якшо треба буде змінити інсуючий текстфілд, це буде легше зробити тому що, оскільки всі зміни будуть локалізовані в одній вʼюшці
-       ///
+    
     private var keyboardManager: KeyboardManager?
 
     // MARK: - Lifecycle Methods

@@ -65,8 +65,7 @@ class OnlyCharactersView: UIView {
         textField.delegate = self
         
         textField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(8)
-            make.top.bottom.equalToSuperview().inset(7)
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
         }
     }
 }
