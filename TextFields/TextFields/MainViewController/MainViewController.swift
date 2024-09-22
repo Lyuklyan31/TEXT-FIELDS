@@ -109,13 +109,15 @@ class MainViewController: UIViewController {
     
     private func setupStackView() {
         contentView.addSubview(stackView) /// У моєму випадку чудово підходить stackView, оскільки елементи мають однакові відсутупи та однакові розміри
-        stackView.axis = .vertical /// Вісь стек вʼю вертикальна.
-        stackView.spacing = 30 /// Відсутп між елементами 30 пікселів.
+        stackView.axis = .vertical /// Вісь стек вʼю вертикальна, тому елементи будуть розташовані один під одним.
+        stackView.spacing = 30 /// Відступ між елементами stackView становить 30 пікселів.
         
         [noDigitsView, limitView, onlyCharactersView, linkView, passwordView].forEach {
             stackView.addArrangedSubview($0) /// Додаю до стеквʼю вʼюшки з масива за допомогою цикла і одразу задаю однакову висоту для всіх
-            /// addArrangedSubview бере властивості які указані вище, якби використовував addSubView прийшлось би до кожної вʼюшки задавати констрейнт
-            $0.snp.makeConstraints { $0.height.equalTo(66) } /// висота кожної вʼю
+            /// Додаю кожну в'юшку до stackView за допомогою методу addArrangedSubview.
+            /// StackView автоматично застосовує властивості spacing і axis до елементів.
+            /// Якби використовував addSubview, довелося б вручну налаштовувати констрейнти для кожної в'юшки, що потребувало б більше коду і зробило б код менш читабельним.
+            $0.snp.makeConstraints { $0.height.equalTo(66) } /// Встановлюю фіксовану висоту для кожної вʼюшки  66 пікселів.
         }
 
         stackView.snp.makeConstraints {
@@ -123,6 +125,8 @@ class MainViewController: UIViewController {
             $0.leading.trailing.equalTo(contentView).inset(16) /// відступ з обох сторін 16px
             $0.bottom.equalTo(contentView.snp.bottom).offset(-20) /// нижня частина стеквʼю має відступ 20px від нижньої частини контент вʼю
         }
+        // Чому я зробив так?
+           /// Я використав стек вʼю тому, що вʼюшки(у моєму випадку кастомні текстфілди) мають однакові відступи і висоту і розташовані вертикально один під одним, що робить використання stackView тут доцільним. StackView спрощує управління їхнім розташуванням і відстанями між ними.
     }
     
     func setupButton() {
@@ -139,12 +143,26 @@ class MainViewController: UIViewController {
         }
         
         button.addTarget(self, action: #selector(showTabBar), for: .touchUpInside)
+        /// Це метод, який додає target та action до кнопки. Він налаштовує кнопку для виконання певної дії коли відбувається зазначена подія.
+        /// Це об'єкт, який виступає target для виклику методу. У цьому випадку, self означає, що дію слід виконати в межах поточного екземпляра класу, тобто у тому ж класі, де знаходиться кнопка і метод showTabBar.
+        /// action вказує на метод, який потрібно виконати, коли подія спрацює.
+        /// selector(showTabBar) — це спосіб сказати Swift/Objective-C runtime, який саме метод треба викликати. У цьому випадку селектор посилається на метод showTabBar. Метод повинени бути позначений @objc так як нижче.
+        /// for визначає, для якої події ця дія має бути виконана.
+        /// .touchUpInside — це подія, яка спрацьовує, коли користувач натискає на кнопку і відпускає палець всередині її меж.
+        /// Коли користувач натисне кнопку і не вийде за її межі під час натискання через подію .touchUpInside, метод showTabBar буде викликаний.
     }
 
     // MARK: - Setup Gestures
     
-    @objc private func showTabBar() {
+    @objc private func showTabBar() { /// функція позначена @objc тому, що #selector приймає тільки такі функції
         let tabBarVC = TabBarViewController()
         navigationController?.pushViewController(tabBarVC, animated: true)
+        /// Метод створює екземпляр TabBarViewController і виконує перехід до нього за допомогою навігаційного контролера.
+        // Чому використовується navigationController?
+           ///У цьому випадку використовується навігаційний контролер, щоб забезпечити перехід від одного екрану до іншогo.
+        // Чому використовується pushViewController?
+           ///pushViewController використовується для переміщення вперед по навігаційній ієрархії, тобто для переходу до нового екрану.
+        
+        ///Використання navigationController?.pushViewController дозволяє створювати навігаційні шляхи всередині додатка щоб переходити від одного екрану до іншого, з можливістю повернення.
     }
 }
