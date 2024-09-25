@@ -51,9 +51,8 @@ class PasswordView: UIView {
         titleLabel.textColor = UIColor.nightRider
         
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(4)
-            make.leading.equalToSuperview()
+        titleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
         }
         
         // Configure backgroundView
@@ -63,10 +62,9 @@ class PasswordView: UIView {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
         addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(36)
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview()
         }
         
         // Configure textField
@@ -82,8 +80,9 @@ class PasswordView: UIView {
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.returnKeyType = .done
         
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
+        textField.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.verticalEdges.equalToSuperview().inset(7)
         }
         
         // Configure progressLine
@@ -91,11 +90,11 @@ class PasswordView: UIView {
         progressLine.layer.cornerRadius = 1
         
         addSubview(progressLine)
-        progressLine.snp.makeConstraints { make in
-            make.top.equalTo(backgroundView.snp.bottom).offset(3)
-            make.leading.equalToSuperview().inset(-0.45)
-            make.height.equalTo(8)
-            self.lineWidthConstraint = make.width.equalTo(0).constraint
+        progressLine.snp.makeConstraints {
+            $0.top.equalTo(backgroundView.snp.bottom).offset(3)
+            $0.leading.equalToSuperview().inset(-0.45)
+            $0.height.equalTo(8)
+            self.lineWidthConstraint = $0.width.equalTo(0).constraint
         }
         
         // Configure stackView
@@ -121,7 +120,8 @@ class PasswordView: UIView {
         
         stackView.snp.makeConstraints {
             $0.top.equalTo(progressLine.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview().inset(8)
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.bottom.greaterThanOrEqualToSuperview()
         }
     }
 

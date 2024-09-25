@@ -35,6 +35,16 @@ class LinkView: UIView {
     // MARK: - Setup UI and Constraints
     
     private func setupUI() {
+        // Configure title label
+        titleLabel.text = "Link"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        
         // Configure background view
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
@@ -42,20 +52,10 @@ class LinkView: UIView {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
         addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        // Configure title label
-        titleLabel.text = "Link"
-        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.lessThanOrEqualToSuperview()
         }
         
         // Configure text field
@@ -68,9 +68,9 @@ class LinkView: UIView {
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        textField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(8)
-            make.top.bottom.equalToSuperview().inset(7)
+        textField.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.verticalEdges.equalToSuperview().inset(7)
         }
     }
 
@@ -123,3 +123,4 @@ extension LinkView: UITextFieldDelegate {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
     }
 }
+

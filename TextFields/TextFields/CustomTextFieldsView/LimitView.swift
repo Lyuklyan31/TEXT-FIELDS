@@ -13,8 +13,8 @@ class LimitView: UIView {
     // MARK: - UI Elements
     
     private let titleLabel = UILabel()
-    private let characterCountLabel = UILabel()
-    private let backgroundView = UIView()
+    let characterCountLabel = UILabel()
+    let backgroundView = UIView()
     private let textField = UITextField()
     
     private var characterLimit: Int
@@ -37,6 +37,16 @@ class LimitView: UIView {
     
     // Configures the UI elements and their layout.
     private func setupUI() {
+        // Setup title label
+        titleLabel.text = "Input limit"
+        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
+        titleLabel.textColor = UIColor.nightRider
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        
         // Setup background view
         backgroundView.backgroundColor = UIColor.fieldGray
         backgroundView.layer.cornerRadius = 11
@@ -44,21 +54,10 @@ class LimitView: UIView {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
         
         addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.height.equalTo(36)
-            make.leading.trailing.equalToSuperview()
-        }
-
-        // Setup title label
-        titleLabel.text = "Input limit"
-        titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
-        titleLabel.textColor = UIColor.nightRider
-        
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
-            make.leading.equalToSuperview()
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.lessThanOrEqualToSuperview()
         }
         
         // Setup character count label
@@ -67,9 +66,9 @@ class LimitView: UIView {
         characterCountLabel.textColor = UIColor.nightRider
         
         addSubview(characterCountLabel)
-        characterCountLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-7)
-            make.trailing.equalToSuperview()
+        characterCountLabel.snp.makeConstraints {
+            $0.bottom.equalTo(backgroundView.snp.top).offset(-7)
+            $0.trailing.equalToSuperview()
         }
 
         // Setup text field
@@ -81,11 +80,17 @@ class LimitView: UIView {
         textField.delegate = self
         
         backgroundView.addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(8)
-            make.top.bottom.equalToSuperview().inset(7)
+        textField.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.verticalEdges.equalToSuperview().inset(7)
         }
     }
+    // MARK: - Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate

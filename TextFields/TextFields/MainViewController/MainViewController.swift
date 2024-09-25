@@ -123,14 +123,13 @@ class MainViewController: UIViewController {
         stackView.snp.makeConstraints {
             $0.top.equalTo(headerTitleLabel.snp.bottom).offset(30) /// відсутп від заголовка на 30px
             $0.leading.trailing.equalTo(contentView).inset(16) /// відступ з обох сторін 16px
-            $0.bottom.equalTo(contentView.snp.bottom).offset(-20) /// нижня частина стеквʼю має відступ 20px від нижньої частини контент вʼю
         }
         // Чому я зробив так?
            /// Я використав стек вʼю тому, що вʼюшки(у моєму випадку кастомні текстфілди) мають однакові відступи і висоту і розташовані вертикально один під одним, що робить використання stackView тут доцільним. StackView спрощує управління їхнім розташуванням і відстанями між ними.
     }
     
     func setupButton() {
-        view.addSubview(button)
+        contentView.addSubview(button)
         button.setTitle("Show Tab Bar", for: .normal)
         button.layer.cornerRadius = 11
         button.backgroundColor = .systemBlue
@@ -140,6 +139,7 @@ class MainViewController: UIViewController {
             make.top.equalTo(stackView.snp.bottom).offset(100)
             make.width.equalTo(300)
             make.height.equalTo(50)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-20)  /// нижня частина кнопки має відступ 20px від нижньої частини контент вʼю
         }
         
         button.addTarget(self, action: #selector(showTabBar), for: .touchUpInside)
@@ -165,4 +165,8 @@ class MainViewController: UIViewController {
         
         ///Використання navigationController?.pushViewController дозволяє створювати навігаційні шляхи всередині додатка щоб переходити від одного екрану до іншого, з можливістю повернення.
     }
+}
+
+#Preview {
+    MainViewController()
 }
