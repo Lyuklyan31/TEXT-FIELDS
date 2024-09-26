@@ -20,11 +20,14 @@ class LinkView: UIView {
     private let prefix = "https://"
     private var typingTimer: Timer?
     
+    var openURLAction: ((URL) -> Void)?
+    
     // MARK: - Initializers
     
     init() {
         super.init(frame: .zero)
         setupUI()
+        openURLAction = openURLInSafariViewController
     }
     
     required init?(coder: NSCoder) {
@@ -76,7 +79,7 @@ class LinkView: UIView {
 
     // MARK: - Text Field Actions
     
-    @objc private func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         // Invalidate the previous timer and start a new one
         typingTimer?.invalidate()
         typingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(checkForValidLink), userInfo: nil, repeats: false)
@@ -91,6 +94,7 @@ class LinkView: UIView {
         }
         
         if let url = URL(string: formattedString), UIApplication.shared.canOpenURL(url) {
+            openURLAction?(url)
             openURLInSafariViewController(url: url)
         }
     }
@@ -103,6 +107,12 @@ class LinkView: UIView {
             navigationController.present(safariViewController, animated: true, completion: nil)
         }
     }
+    // Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate

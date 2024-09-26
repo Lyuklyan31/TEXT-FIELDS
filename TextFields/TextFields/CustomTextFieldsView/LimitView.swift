@@ -13,9 +13,9 @@ class LimitView: UIView {
     // MARK: - UI Elements
     
     private let titleLabel = UILabel()
-    let characterCountLabel = UILabel()
+    var characterCountLabel = UILabel()
     let backgroundView = UIView()
-    private let textField = UITextField()
+    let textField = UITextField()
     
     private var characterLimit: Int
     
@@ -78,6 +78,7 @@ class LimitView: UIView {
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
+        textField.accessibilityIdentifier = "limitTextField"
         
         backgroundView.addSubview(textField)
         textField.snp.makeConstraints {

@@ -61,6 +61,7 @@ class NoDigitsView: UIView {
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
+        textField.accessibilityIdentifier = "noDigitsTextField"
         
         backgroundView.addSubview(textField)
         textField.snp.makeConstraints {

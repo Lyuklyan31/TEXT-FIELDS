@@ -12,18 +12,18 @@ class PasswordView: UIView {
 
     // MARK: - UI Elements
 
-    private let textField = UITextField()
+    let textField = UITextField()
     private let backgroundView = UIView()
     private let titleLabel = UILabel()
-    private let progressLine = UIView()
+    let progressLine = UIView()
     private let stackView = UIStackView()
 
-    private let lengthRequirementLabel = UILabel()
-    private let digitRequirementLabel = UILabel()
-    private let lowercaseRequirementLabel = UILabel()
-    private let uppercaseRequirementLabel = UILabel()
+    let lengthRequirementLabel = UILabel()
+    let digitRequirementLabel = UILabel()
+    let lowercaseRequirementLabel = UILabel()
+    let uppercaseRequirementLabel = UILabel()
 
-    private var lineWidthConstraint: Constraint?
+    var lineWidthConstraint: Constraint?
 
     // MARK: - Properties
 
@@ -127,12 +127,12 @@ class PasswordView: UIView {
 
     // MARK: - Text Field Handlers
 
-    @objc private func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         hasTextChanged = true
         updateLineProgress()
     }
 
-    private func updateLineProgress() {
+    func updateLineProgress() {
         let text = textField.text ?? ""
 
         // Define validation conditions
@@ -166,12 +166,12 @@ class PasswordView: UIView {
         lineWidthConstraint?.update(offset: self.frame.width * progress)
     }
 
-    private func updateCondition(label: UILabel, isMet: Bool) {
+     func updateCondition(label: UILabel, isMet: Bool) {
         let checkmark = "✔︎"
         let hyphen = "-"
         
         let (symbol, color) = isMet ? (checkmark, UIColor.darkGreen) : (hyphen, UIColor.matterhorn)
-        
+         
         if let text = label.text, text.contains(checkmark) != isMet {
             let newText = text.replacingOccurrences(of: isMet ? hyphen : checkmark, with: symbol)
             let attributedString = NSMutableAttributedString(string: newText)
@@ -179,11 +179,21 @@ class PasswordView: UIView {
             label.attributedText = attributedString
         }
     }
+    // Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate
 
 extension PasswordView: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

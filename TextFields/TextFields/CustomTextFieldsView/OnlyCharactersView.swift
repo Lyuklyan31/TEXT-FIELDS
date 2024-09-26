@@ -68,6 +68,12 @@ class OnlyCharactersView: UIView {
             $0.verticalEdges.equalToSuperview().inset(7)
         }
     }
+    // Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate
