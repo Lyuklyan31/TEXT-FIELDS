@@ -81,12 +81,19 @@ class NoDigitsView: UIView {
 
 extension NoDigitsView: UITextFieldDelegate {
     
-    // Filters out numeric characters from the input and updates the text field manually.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text as NSString? else { return false }
-        textField.text = text.replacingCharacters(in: range, with: string).filter { !$0.isNumber }
+        
+        let newString = text.replacingCharacters(in: range, with: string)
+        
+        if newString.rangeOfCharacter(from: .decimalDigits) != nil {
+            return false
+        }
+        
+        textField.text = newString
         return false
     }
+
     
     // Dismisses the keyboard when the return key is pressed.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
