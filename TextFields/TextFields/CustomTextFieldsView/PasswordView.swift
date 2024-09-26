@@ -60,6 +60,7 @@ class PasswordView: UIView {
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityIdentifier = "passwordBackgroundView"
         
         addSubview(backgroundView)
         backgroundView.snp.makeConstraints {
@@ -73,7 +74,9 @@ class PasswordView: UIView {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
-        textField.isSecureTextEntry = true
+        
+        textField.accessibilityIdentifier = "passwordTextField"
+        //        textField.isSecureTextEntry = true
         
         backgroundView.addSubview(textField)
         textField.delegate = self
@@ -102,16 +105,16 @@ class PasswordView: UIView {
         stackView.spacing = 4
         stackView.distribution = .fill
         
-        let labels = [
-            ("- minimum of 8 characters.", lengthRequirementLabel),
-            ("- minimum 1 digit", digitRequirementLabel),
-            ("- minimum 1 lowercase", lowercaseRequirementLabel),
-            ("- minimum 1 capital letter.", uppercaseRequirementLabel)
+        let labels: [(String, UILabel, String)] = [
+            ("- minimum of 8 characters.", lengthRequirementLabel, "minimumLengthLabel"),
+            ("- minimum 1 digit", digitRequirementLabel, "minimumDigitLabel"),
+            ("- minimum 1 lowercase", lowercaseRequirementLabel, "minimumLowercaseLabel"),
+            ("- minimum 1 capital letter.", uppercaseRequirementLabel, "minimumUppercaseLabel")
         ]
         
-        labels.forEach { text, label in
+        labels.forEach { text, label, identifier in
+            label.accessibilityIdentifier = identifier
             label.text = text
-            label.textColor = .matterhorn
             label.font = UIFont.setFont(.rubikRegular, size: 13)
             stackView.addArrangedSubview(label)
         }
@@ -166,12 +169,17 @@ class PasswordView: UIView {
         lineWidthConstraint?.update(offset: self.frame.width * progress)
     }
 
-     func updateCondition(label: UILabel, isMet: Bool) {
+    func updateCondition(label: UILabel, isMet: Bool) {
         let checkmark = "✔︎"
         let hyphen = "-"
-        
         let (symbol, color) = isMet ? (checkmark, UIColor.darkGreen) : (hyphen, UIColor.matterhorn)
-         
+        
+        lengthRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-darkGreen" : "passwordCharacterCountLabel-color-matterhorn"
+        digitRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-matterhorn" : "passwordCharacterCountLabel-color-darkGreen"
+        lowercaseRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-matterhorn" : "passwordCharacterCountLabel-color-darkGreen" 
+        uppercaseRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-darkGreen" : "passwordCharacterCountLabel-color-matterhorn"
+        
+        
         if let text = label.text, text.contains(checkmark) != isMet {
             let newText = text.replacingOccurrences(of: isMet ? hyphen : checkmark, with: symbol)
             let attributedString = NSMutableAttributedString(string: newText)
@@ -179,6 +187,8 @@ class PasswordView: UIView {
             label.attributedText = attributedString
         }
     }
+
+
     // Testable Access for Unit Tests
     #if DEBUG
     var testableTextField: UITextField {
@@ -205,6 +215,7 @@ extension PasswordView: UITextFieldDelegate {
             textField.text = initialText
         }
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+        backgroundView.accessibilityValue = "passwordBorder-color-systemBlue"
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -212,5 +223,6 @@ extension PasswordView: UITextFieldDelegate {
             textField.text = ""
         }
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityValue = "passwordBorder-color-fieldGrey"
     }
 }

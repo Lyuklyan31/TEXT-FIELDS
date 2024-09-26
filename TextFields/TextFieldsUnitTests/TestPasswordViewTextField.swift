@@ -60,4 +60,24 @@ class TestPasswordViewTextField: XCTestCase {
         XCTAssertEqual(passwordView.lengthRequirementLabel.textColor, UIColor.darkGreen, "Length color should be green")
         XCTAssertEqual(passwordView.lengthRequirementLabel.text, "✔︎ minimum of 8 characters.", "Incorrect length requirement text")
     }
+
+    // Test that the progress line color and width are correct based on input
+    func testProgressLineAppearance() {
+        let testCases: [(input: String, expectedProgressLineColor: UIColor, widthProgressLine: CGFloat)] = [
+            ("", UIColor.clear, 0.0),
+            ("1", UIColor.darkRed, 0.25),
+            ("1P", UIColor.darkOrange, 0.5),
+            ("1Pa", UIColor.darkOrange, 0.75),
+            ("1Password", UIColor.darkGreen, 1.0)
+        ]
+
+        for (input, expectedProgressLineColor, widthProgressLine) in testCases {
+            simulateInput(input)
+            
+            XCTAssertEqual(passwordView.progressLine.backgroundColor, expectedProgressLineColor, "Wrong progress line color for input: \(input)")
+            
+            let expectedWidth = passwordView.frame.width * widthProgressLine
+            XCTAssertEqual(passwordView.lineWidthConstraint?.layoutConstraints.first?.constant, expectedWidth, "Wrong progress line width for input: \(input)")
+        }
+    }
 }
