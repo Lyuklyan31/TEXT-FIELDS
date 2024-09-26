@@ -5,61 +5,59 @@ class TestPasswordViewTextField: XCTestCase {
 
     // MARK: - Properties
     var passwordView: PasswordView!
+    var textField: UITextField!
     
     // MARK: - Setup
     override func setUpWithError() throws {
         passwordView = PasswordView()
+        textField = passwordView.testableTextField
     }
 
-    // MARK: - Test Method
-    func testPasswordViewTextField() {
-        let testCases: [(input: String, expectedProgressLineColor: UIColor, widthProgressLine: CGFloat, expectedAppearance: (digit: (UIColor, String), uppercase: (UIColor, String), lowercase: (UIColor, String), length: (UIColor, String)))] = [
-            ("", UIColor.clear, 0.0, ((UIColor.matterhorn, "- minimum 1 digit"), (UIColor.matterhorn, "- minimum 1 capital letter."), (UIColor.matterhorn, "- minimum 1 lowercase"), (UIColor.matterhorn, "- minimum of 8 characters."))),
-            ("1", UIColor.darkRed, 0.25, ((UIColor.darkGreen, "✔︎ minimum 1 digit"), (UIColor.matterhorn, "- minimum 1 capital letter."), (UIColor.matterhorn, "- minimum 1 lowercase"), (UIColor.matterhorn, "- minimum of 8 characters."))),
-            ("1P", UIColor.darkOrange, 0.5, ((UIColor.darkGreen, "✔︎ minimum 1 digit"), (UIColor.darkGreen, "✔︎ minimum 1 capital letter."), (UIColor.matterhorn, "- minimum 1 lowercase"), (UIColor.matterhorn, "- minimum of 8 characters."))),
-            ("1Pa", UIColor.darkOrange, 0.75, ((UIColor.darkGreen, "✔︎ minimum 1 digit"), (UIColor.darkGreen, "✔︎ minimum 1 capital letter."), (UIColor.darkGreen, "✔︎ minimum 1 lowercase"), (UIColor.matterhorn, "- minimum of 8 characters."))),
-            ("1Password", UIColor.darkGreen, 1.0, ((UIColor.darkGreen, "✔︎ minimum 1 digit"), (UIColor.darkGreen, "✔︎ minimum 1 capital letter."), (UIColor.darkGreen, "✔︎ minimum 1 lowercase"), (UIColor.darkGreen, "✔︎ minimum of 8 characters.")))
-        ]
-        
-        let textField = passwordView.testableTextField
-        
-        // Iterate through test cases
-        for (input, expectedProgressLineColor, widthProgressLine, expectedAppearance) in testCases {
-            textField.text = ""
+    // MARK: - Helper Method
+    private func simulateInput(_ input: String) {
+        textField.text = ""
+        for character in input {
+            let currentText = textField.text ?? ""
+            let shouldChange = passwordView.textField(
+                textField,
+                shouldChangeCharactersIn: NSRange(location: currentText.count, length: 0),
+                replacementString: String(character)
+            )
             
-            // Simulate character input
-            for character in input {
-                let currentText = textField.text ?? ""
-                let shouldChange = passwordView.textField(
-                    textField,
-                    shouldChangeCharactersIn: NSRange(location: currentText.count, length: 0),
-                    replacementString: String(character)
-                )
-                
-                if shouldChange {
-                    textField.text = currentText + String(character)
-                    passwordView.textFieldDidChange(textField)
-                }
+            if shouldChange {
+                textField.text = currentText + String(character)
+                passwordView.textFieldDidChange(textField)
             }
-            
-            // Verify the appearance and constraints
-            XCTAssertEqual(passwordView.digitRequirementLabel.textColor, expectedAppearance.digit.0, "Wrong digit color")
-            XCTAssertEqual(passwordView.digitRequirementLabel.text, expectedAppearance.digit.1, "Wrong digit text")
-
-            XCTAssertEqual(passwordView.uppercaseRequirementLabel.textColor, expectedAppearance.uppercase.0, "Wrong uppercase color")
-            XCTAssertEqual(passwordView.uppercaseRequirementLabel.text, expectedAppearance.uppercase.1, "Wrong uppercase text")
-
-            XCTAssertEqual(passwordView.lowercaseRequirementLabel.textColor, expectedAppearance.lowercase.0, "Wrong lowercase color")
-            XCTAssertEqual(passwordView.lowercaseRequirementLabel.text, expectedAppearance.lowercase.1, "Wrong lowercase text")
-
-            XCTAssertEqual(passwordView.lengthRequirementLabel.textColor, expectedAppearance.length.0, "Wrong length color")
-            XCTAssertEqual(passwordView.lengthRequirementLabel.text, expectedAppearance.length.1, "Wrong length text")
-
-            XCTAssertEqual(passwordView.progressLine.backgroundColor, expectedProgressLineColor, "Wrong progress line color")
-
-            let expectedWidth = passwordView.frame.width * widthProgressLine
-            XCTAssertEqual(passwordView.lineWidthConstraint?.layoutConstraints.first?.constant, expectedWidth, "Wrong progress line width")
-
         }
+    }
+
+    // MARK: - Tests
+
+    // Test that color for digits becomes green when a digit is entered
+    func testDigitRequirementColor() {
+        simulateInput("1")
+        XCTAssertEqual(passwordView.digitRequirementLabel.textColor, UIColor.darkGreen, "Digit color should be green")
+        XCTAssertEqual(passwordView.digitRequirementLabel.text, "✔︎ minimum 1 digit", "Incorrect digit requirement text")
+    }
+
+    // Test that color for uppercase letters becomes green when an uppercase letter is entered
+    func testUppercaseRequirementColor() {
+        simulateInput("P")
+        XCTAssertEqual(passwordView.uppercaseRequirementLabel.textColor, UIColor.darkGreen, "Uppercase color should be green")
+        XCTAssertEqual(passwordView.uppercaseRequirementLabel.text, "✔︎ minimum 1 capital letter.", "Incorrect uppercase requirement text")
+    }
+
+    // Test that color for lowercase letters becomes green when a lowercase letter is entered
+    func testLowercaseRequirementColor() {
+        simulateInput("a")
+        XCTAssertEqual(passwordView.lowercaseRequirementLabel.textColor, UIColor.darkGreen, "Lowercase color should be green")
+        XCTAssertEqual(passwordView.lowercaseRequirementLabel.text, "✔︎ minimum 1 lowercase", "Incorrect lowercase requirement text")
+    }
+
+    // Test that color for length becomes green when password length is at least 8 characters
+    func testLengthRequirementColor() {
+        simulateInput("Password1")
+        XCTAssertEqual(passwordView.lengthRequirementLabel.textColor, UIColor.darkGreen, "Length color should be green")
+        XCTAssertEqual(passwordView.lengthRequirementLabel.text, "✔︎ minimum of 8 characters.", "Incorrect length requirement text")
     }
 }

@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class TextFieldsUITestsLaunchTests: XCTestCase {
+final class UITextFieldsUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
