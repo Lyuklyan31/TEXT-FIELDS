@@ -52,6 +52,7 @@ class LimitView: UIView {
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityIdentifier = "limitBackgroundView"
         
         addSubview(backgroundView)
         backgroundView.snp.makeConstraints {
@@ -64,6 +65,7 @@ class LimitView: UIView {
         characterCountLabel.text = "\(characterLimit)"
         characterCountLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         characterCountLabel.textColor = UIColor.nightRider
+        characterCountLabel.accessibilityIdentifier = "limitCharacterCountLabel"
         
         addSubview(characterCountLabel)
         characterCountLabel.snp.makeConstraints {
@@ -79,7 +81,7 @@ class LimitView: UIView {
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
         textField.accessibilityIdentifier = "limitTextField"
-        
+
         backgroundView.addSubview(textField)
         textField.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(8)
@@ -117,9 +119,11 @@ extension LimitView: UITextFieldDelegate {
         if remainingCharacters >= 0 {
             characterCountLabel.text = "\(remainingCharacters)"
             characterCountLabel.textColor = UIColor.nightRider
+            characterCountLabel.accessibilityValue = "limitCharacterCountLabel-color-nightRider"
         } else {
             characterCountLabel.text = "-\(-remainingCharacters)"
             characterCountLabel.textColor = .red
+            characterCountLabel.accessibilityValue = "limitCharacterCountLabel-color-red"
         }
     }
 
@@ -130,10 +134,14 @@ extension LimitView: UITextFieldDelegate {
         if newLength <= characterLimit {
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
             backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+            backgroundView.accessibilityValue = "limitBorder-color-systemBlue"
+            textField.accessibilityLabel = "limitTextFieldText-color-nightRider"
         } else {
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: characterLimit))
             attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: characterLimit, length: newLength - characterLimit))
             backgroundView.layer.borderColor = UIColor.red.cgColor
+            backgroundView.accessibilityValue = "limitBorder-color-red"
+            textField.accessibilityLabel = "limitTextFieldText-color-red"
         }
         
         textField.attributedText = attributedText
@@ -156,6 +164,7 @@ extension LimitView: UITextFieldDelegate {
             backgroundView.layer.borderColor = UIColor.red.cgColor
         } else {
             backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+            backgroundView.accessibilityValue = "limitBorder-color-fieldGray"
         }
     }
 }

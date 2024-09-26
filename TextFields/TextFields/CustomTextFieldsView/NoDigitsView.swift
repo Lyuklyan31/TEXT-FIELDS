@@ -46,6 +46,7 @@ class NoDigitsView: UIView {
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityIdentifier = "noDigitsBackgroundView"
         
         addSubview(backgroundView)
         backgroundView.snp.makeConstraints {
@@ -104,11 +105,13 @@ extension NoDigitsView: UITextFieldDelegate {
     // Change border color when editing begins.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+        backgroundView.accessibilityValue = "noDigitsBorder-color-systemBlue"
     }
     
     // Reset border color when editing ends.
     func textFieldDidEndEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityValue = "noDigitsBorder-color-fieldGray"
     }
 }
 
