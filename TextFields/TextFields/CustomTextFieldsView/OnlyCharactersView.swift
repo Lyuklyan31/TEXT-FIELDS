@@ -31,28 +31,28 @@ class OnlyCharactersView: UIView {
     // MARK: - Setup UI and Constraints
     
     private func setupUI() {
-        // Configure backgroundView
-        backgroundView.backgroundColor = UIColor.fieldGray
-        backgroundView.layer.cornerRadius = 11
-        backgroundView.layer.borderWidth = 1.0
-        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-        
-        addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.height.equalTo(36)
-            make.leading.trailing.equalToSuperview()
-        }
-        
         // Configure titleLabel
         titleLabel.text = "Only characters"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         titleLabel.textColor = UIColor.nightRider
         
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
-            make.leading.equalToSuperview()
+        titleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        
+        // Configure backgroundView
+        backgroundView.backgroundColor = UIColor.fieldGray
+        backgroundView.layer.cornerRadius = 11
+        backgroundView.layer.borderWidth = 1.0
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityIdentifier = "onlyCharactersBackgroundView"
+        
+        addSubview(backgroundView)
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.lessThanOrEqualToSuperview()
         }
         
         // Configure textField
@@ -63,11 +63,19 @@ class OnlyCharactersView: UIView {
         backgroundView.addSubview(textField)
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
+        textField.accessibilityIdentifier = "onlyCharactersTextField"
         
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
+        textField.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.verticalEdges.equalToSuperview().inset(7)
         }
     }
+    // Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate
@@ -111,10 +119,12 @@ extension OnlyCharactersView: UITextFieldDelegate {
     // Changes the border color when editing begins
     func textFieldDidBeginEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+        backgroundView.accessibilityValue = "onlyCharactersBorder-color-systemBlue"
     }
     
     // Resets the border color when editing ends
     func textFieldDidEndEditing(_ textField: UITextField) {
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityValue = "onlyCharactersBorder-color-fieldGray"
     }
 }

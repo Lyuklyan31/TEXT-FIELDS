@@ -12,18 +12,18 @@ class PasswordView: UIView {
 
     // MARK: - UI Elements
 
-    private let textField = UITextField()
+    let textField = UITextField()
     private let backgroundView = UIView()
     private let titleLabel = UILabel()
-    private let progressLine = UIView()
+    let progressLine = UIView()
     private let stackView = UIStackView()
 
-    private let lengthRequirementLabel = UILabel()
-    private let digitRequirementLabel = UILabel()
-    private let lowercaseRequirementLabel = UILabel()
-    private let uppercaseRequirementLabel = UILabel()
+    let lengthRequirementLabel = UILabel()
+    let digitRequirementLabel = UILabel()
+    let lowercaseRequirementLabel = UILabel()
+    let uppercaseRequirementLabel = UILabel()
 
-    private var lineWidthConstraint: Constraint?
+    var lineWidthConstraint: Constraint?
 
     // MARK: - Properties
 
@@ -51,9 +51,8 @@ class PasswordView: UIView {
         titleLabel.textColor = UIColor.nightRider
         
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(4)
-            make.leading.equalToSuperview()
+        titleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
         }
         
         // Configure backgroundView
@@ -61,12 +60,12 @@ class PasswordView: UIView {
         backgroundView.layer.cornerRadius = 11
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityIdentifier = "passwordBackgroundView"
         
         addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(36)
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview()
         }
         
         // Configure textField
@@ -75,15 +74,18 @@ class PasswordView: UIView {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.ownPlaceholder]
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
-        textField.isSecureTextEntry = true
+        
+        textField.accessibilityIdentifier = "passwordTextField"
+        //        textField.isSecureTextEntry = true
         
         backgroundView.addSubview(textField)
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.returnKeyType = .done
         
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 7, left: 8, bottom: 7, right: 8))
+        textField.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.verticalEdges.equalToSuperview().inset(7)
         }
         
         // Configure progressLine
@@ -91,11 +93,11 @@ class PasswordView: UIView {
         progressLine.layer.cornerRadius = 1
         
         addSubview(progressLine)
-        progressLine.snp.makeConstraints { make in
-            make.top.equalTo(backgroundView.snp.bottom).offset(3)
-            make.leading.equalToSuperview().inset(-0.45)
-            make.height.equalTo(8)
-            self.lineWidthConstraint = make.width.equalTo(0).constraint
+        progressLine.snp.makeConstraints {
+            $0.top.equalTo(backgroundView.snp.bottom).offset(3)
+            $0.leading.equalToSuperview().inset(-0.45)
+            $0.height.equalTo(8)
+            self.lineWidthConstraint = $0.width.equalTo(0).constraint
         }
         
         // Configure stackView
@@ -103,16 +105,16 @@ class PasswordView: UIView {
         stackView.spacing = 4
         stackView.distribution = .fill
         
-        let labels = [
-            ("- minimum of 8 characters.", lengthRequirementLabel),
-            ("- minimum 1 digit", digitRequirementLabel),
-            ("- minimum 1 lowercase", lowercaseRequirementLabel),
-            ("- minimum 1 capital letter.", uppercaseRequirementLabel)
+        let labels: [(String, UILabel, String)] = [
+            ("- minimum of 8 characters.", lengthRequirementLabel, "minimumLengthLabel"),
+            ("- minimum 1 digit", digitRequirementLabel, "minimumDigitLabel"),
+            ("- minimum 1 lowercase", lowercaseRequirementLabel, "minimumLowercaseLabel"),
+            ("- minimum 1 capital letter.", uppercaseRequirementLabel, "minimumUppercaseLabel")
         ]
         
-        labels.forEach { text, label in
+        labels.forEach { text, label, identifier in
+            label.accessibilityIdentifier = identifier
             label.text = text
-            label.textColor = .matterhorn
             label.font = UIFont.setFont(.rubikRegular, size: 13)
             stackView.addArrangedSubview(label)
         }
@@ -121,18 +123,19 @@ class PasswordView: UIView {
         
         stackView.snp.makeConstraints {
             $0.top.equalTo(progressLine.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview().inset(8)
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.bottom.greaterThanOrEqualToSuperview()
         }
     }
 
     // MARK: - Text Field Handlers
 
-    @objc private func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         hasTextChanged = true
         updateLineProgress()
     }
 
-    private func updateLineProgress() {
+    func updateLineProgress() {
         let text = textField.text ?? ""
 
         // Define validation conditions
@@ -166,11 +169,16 @@ class PasswordView: UIView {
         lineWidthConstraint?.update(offset: self.frame.width * progress)
     }
 
-    private func updateCondition(label: UILabel, isMet: Bool) {
+    func updateCondition(label: UILabel, isMet: Bool) {
         let checkmark = "✔︎"
         let hyphen = "-"
-        
         let (symbol, color) = isMet ? (checkmark, UIColor.darkGreen) : (hyphen, UIColor.matterhorn)
+        
+        lengthRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-darkGreen" : "passwordCharacterCountLabel-color-matterhorn"
+        digitRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-matterhorn" : "passwordCharacterCountLabel-color-darkGreen"
+        lowercaseRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-matterhorn" : "passwordCharacterCountLabel-color-darkGreen" 
+        uppercaseRequirementLabel.accessibilityValue = isMet ? "passwordCharacterCountLabel-color-darkGreen" : "passwordCharacterCountLabel-color-matterhorn"
+        
         
         if let text = label.text, text.contains(checkmark) != isMet {
             let newText = text.replacingOccurrences(of: isMet ? hyphen : checkmark, with: symbol)
@@ -179,11 +187,23 @@ class PasswordView: UIView {
             label.attributedText = attributedString
         }
     }
+
+
+    // Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate
 
 extension PasswordView: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -195,6 +215,7 @@ extension PasswordView: UITextFieldDelegate {
             textField.text = initialText
         }
         backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+        backgroundView.accessibilityValue = "passwordBorder-color-systemBlue"
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -202,5 +223,6 @@ extension PasswordView: UITextFieldDelegate {
             textField.text = ""
         }
         backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityValue = "passwordBorder-color-fieldGrey"
     }
 }

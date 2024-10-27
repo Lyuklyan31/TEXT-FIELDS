@@ -13,9 +13,9 @@ class LimitView: UIView {
     // MARK: - UI Elements
     
     private let titleLabel = UILabel()
-    private let characterCountLabel = UILabel()
-    private let backgroundView = UIView()
-    private let textField = UITextField()
+    var characterCountLabel = UILabel()
+    let backgroundView = UIView()
+    let textField = UITextField()
     
     private var characterLimit: Int
     
@@ -37,39 +37,40 @@ class LimitView: UIView {
     
     // Configures the UI elements and their layout.
     private func setupUI() {
-        // Setup background view
-        backgroundView.backgroundColor = UIColor.fieldGray
-        backgroundView.layer.cornerRadius = 11
-        backgroundView.layer.borderWidth = 1.0
-        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
-        
-        addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.height.equalTo(36)
-            make.leading.trailing.equalToSuperview()
-        }
-
         // Setup title label
         titleLabel.text = "Input limit"
         titleLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         titleLabel.textColor = UIColor.nightRider
         
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-4)
-            make.leading.equalToSuperview()
+        titleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        
+        // Setup background view
+        backgroundView.backgroundColor = UIColor.fieldGray
+        backgroundView.layer.cornerRadius = 11
+        backgroundView.layer.borderWidth = 1.0
+        backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+        backgroundView.accessibilityIdentifier = "limitBackgroundView"
+        
+        addSubview(backgroundView)
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.lessThanOrEqualToSuperview()
         }
         
         // Setup character count label
         characterCountLabel.text = "\(characterLimit)"
         characterCountLabel.font = UIFont.setFont(.rubikRegular, size: 13)
         characterCountLabel.textColor = UIColor.nightRider
+        characterCountLabel.accessibilityIdentifier = "limitCharacterCountLabel"
         
         addSubview(characterCountLabel)
-        characterCountLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundView.snp.top).offset(-7)
-            make.trailing.equalToSuperview()
+        characterCountLabel.snp.makeConstraints {
+            $0.bottom.equalTo(backgroundView.snp.top).offset(-7)
+            $0.trailing.equalToSuperview()
         }
 
         // Setup text field
@@ -79,13 +80,20 @@ class LimitView: UIView {
         )
         textField.font = UIFont.setFont(.rubikRegular, size: 17)
         textField.delegate = self
-        
+        textField.accessibilityIdentifier = "limitTextField"
+
         backgroundView.addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(8)
-            make.top.bottom.equalToSuperview().inset(7)
+        textField.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(8)
+            $0.verticalEdges.equalToSuperview().inset(7)
         }
     }
+    // MARK: - Testable Access for Unit Tests
+    #if DEBUG
+    var testableTextField: UITextField {
+        return textField
+    }
+    #endif
 }
 
 // MARK: - UITextFieldDelegate
@@ -111,9 +119,11 @@ extension LimitView: UITextFieldDelegate {
         if remainingCharacters >= 0 {
             characterCountLabel.text = "\(remainingCharacters)"
             characterCountLabel.textColor = UIColor.nightRider
+            characterCountLabel.accessibilityValue = "limitCharacterCountLabel-color-nightRider"
         } else {
             characterCountLabel.text = "-\(-remainingCharacters)"
             characterCountLabel.textColor = .red
+            characterCountLabel.accessibilityValue = "limitCharacterCountLabel-color-red"
         }
     }
 
@@ -124,10 +134,14 @@ extension LimitView: UITextFieldDelegate {
         if newLength <= characterLimit {
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: newLength))
             backgroundView.layer.borderColor = UIColor.systemBlue.cgColor
+            backgroundView.accessibilityValue = "limitBorder-color-systemBlue"
+            textField.accessibilityLabel = "limitTextFieldText-color-nightRider"
         } else {
             attributedText.addAttribute(.foregroundColor, value: UIColor.nightRider, range: NSRange(location: 0, length: characterLimit))
             attributedText.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: characterLimit, length: newLength - characterLimit))
             backgroundView.layer.borderColor = UIColor.red.cgColor
+            backgroundView.accessibilityValue = "limitBorder-color-red"
+            textField.accessibilityLabel = "limitTextFieldText-color-red"
         }
         
         textField.attributedText = attributedText
@@ -150,6 +164,7 @@ extension LimitView: UITextFieldDelegate {
             backgroundView.layer.borderColor = UIColor.red.cgColor
         } else {
             backgroundView.layer.borderColor = UIColor(.fieldGray.opacity(0.12)).cgColor
+            backgroundView.accessibilityValue = "limitBorder-color-fieldGray"
         }
     }
 }
